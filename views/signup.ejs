@@ -1,0 +1,57 @@
+<%- include('includes/uppersection', {title: "Sign Up Page"}); %>
+
+    <main class="container mx-auto
+     reg-section signup-section">
+     <% if(signupInputs.hasError) {%>
+        <p class="text-center bg-warning"><%= signupInputs.message %></p> 
+    <% }%>
+        <form action="http://localhost:3000/signup" method="post"
+         class="mt-5">
+            <div class="form-floating mb-3">
+                <input type="text" 
+                class="form-control" 
+                id="completeName" 
+                placeholder="Your Complete Name"
+                name="complete-name"
+                value="<%= signupInputs.completeName %>">
+                <label for="completeName">Complete Name</label>
+              </div>
+
+            <div class="form-floating mb-3">
+                <input type="email" 
+                class="form-control" 
+                id="email" 
+                placeholder="name@example.com"
+                name="email"
+                value="<%= signupInputs.email %>">
+                <label for="email">Email address</label>
+              </div>
+            <div class="form-floating mb-3">
+                <input type="password" 
+                class="form-control"
+                 id="password" 
+                 placeholder="Password"
+                 name="password"
+                 value="<%= signupInputs.password %>">
+                <label for="password">Password</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" 
+                class="form-control" 
+                id="confirm-password"
+                 placeholder="Confirm Password">
+                <label for="confirm-password">Confirm Password</label>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-success">
+                    Create Account
+                </button>
+            </div>
+
+        </form>
+
+    </main>
+
+<%- include('includes/lowersection'); %>

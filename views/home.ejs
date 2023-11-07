@@ -1,0 +1,47 @@
+<%- include('includes/uppersection', {title: "Home Page"}); %>
+    
+   <main class="mx-auto reg-section d-flex
+    align-items-center justify-content-center">
+
+        <div class="main-content text-center">
+            <div class="mb-3">
+                <h1 class="display-3">
+                    FormsLinks
+                </h1>
+    
+                <p>
+                    Mga porma sa gobyerno ug uban pa
+                </p>
+            </div>
+
+            <form action="get">
+                <div class="mb-3">
+                    <label for="search" class="form-label">Unsa na porma(form)
+                         imong gipangita?
+                    </label>
+                    <input type="text" class="form-control" id="search" placeholder="SSS e-1">
+                  </div>
+            </form>
+        </div>
+
+    </main>
+
+    <section class="container mx-auto reg-section">
+        <div class="row justify-content-around">
+            <div class="col-lg-5">
+                <h1 class="display-3">Unsa man na mga serbisyo na naa?</h1>
+            </div>
+
+            <div class="col-lg-7">
+                <ul>
+                    <li>Mag download ug mga form</li>
+                    <li>Mag fill up sa form ayha mag download</li>
+                    <li>Mag store sa imong mga gipang gifill up na mga form</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    
+
+<%- include('includes/lowersection'); %>

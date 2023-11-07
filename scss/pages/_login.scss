@@ -1,0 +1,9 @@
+@use '../abstracts/' as *;
+
+.login-section {
+    margin-top: 5.5rem;
+
+    form {
+        max-width: 65%;
+    }
+}
