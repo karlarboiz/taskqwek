@@ -4,9 +4,10 @@
      reg-section signup-section">
      <% if(signupInputs.hasError) {%>
         <p class="text-center bg-warning"><%= signupInputs.message %></p> 
-    <% }%>
+     <% }%>
         <form action="http://localhost:3000/signup" method="post"
          class="mt-5">
+            <input type="hidden" value="<%= csrf %>" name="_csrf">
             <div class="form-floating mb-3">
                 <input type="text" 
                 class="form-control" 
@@ -14,7 +15,7 @@
                 placeholder="Your Complete Name"
                 name="complete-name"
                 value="<%= signupInputs.completeName %>">
-                <label for="completeName">Complete Name</label>
+                <label for="complete-name">Complete Name</label>
               </div>
 
             <div class="form-floating mb-3">
@@ -40,7 +41,8 @@
                 <input type="password" 
                 class="form-control" 
                 id="confirm-password"
-                 placeholder="Confirm Password">
+                 placeholder="Confirm Password"
+                 name="confirm-password">
                 <label for="confirm-password">Confirm Password</label>
             </div>
 

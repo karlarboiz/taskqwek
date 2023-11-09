@@ -10,7 +10,7 @@ function loginSessionPage(req){
         }
     }
 
-    req.session.user = null;
+    req.session.loginInputs = null;
 
     return loginInputs;
 }
@@ -21,6 +21,7 @@ function loginErrorSessionPage(req,data,action){
         ...data
     }
     req.session.cookie.originalMaxAge = 5000;
+
     req.session.save(action);
 }
 

@@ -28,10 +28,9 @@
           <% } else {%>
             <span class="d-flex align-items-center justify-content-start">
               <form action="http://localhost:3000/logout" method="post">
+                <input type="hidden" value="<%= csrf %>" name="_csrf">
                 <button type="submit" class="btn btn-warning">Logout</button>
-              </form>
-              
-      
+              </form>              
             </span>
           <% } %>
 

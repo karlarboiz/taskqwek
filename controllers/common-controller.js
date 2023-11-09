@@ -34,7 +34,7 @@ const createUserFunc = async(req,res)=>{
 const loginPage = async( req,res)=>{
 
     const loginInputs = loginSession.loginSessionPage(req);
-    
+
     const csrf = req.csrfToken(); 
     
     if(req.session?.user === null ||
@@ -48,6 +48,7 @@ const loginPage = async( req,res)=>{
 }
 
 const loginFunc = async (req,res)=>{
+    
     if(req.body.email.trim() === "" ||
     req.body.password.trim() === "" ||
     !req.body.email.includes('@')){
@@ -108,12 +109,16 @@ const loginFunc = async (req,res)=>{
     }
 }
 
-const signupPage = async(req,res)=>{
+const signupPage = async (req,res)=>{
     const signupSessionInputs = signupSession.signupSessionPage(req);
+    
+    const csrf = req.csrfToken(); 
+
     if(req.session?.user === null ||
         req.session?.user === undefined) {
           res.render('signup',{
-            signupInputs: signupSessionInputs
+            signupInputs: signupSessionInputs,
+            csrf:csrf
           });
         }
     else {
@@ -121,19 +126,22 @@ const signupPage = async(req,res)=>{
     }
 }
 
-const signupFunc = async(req,res)=>{
-    if(req.body['çomplete-name']=== ''
+const signupFunc = async (req,res)=>{
+
+    if(req.body['çomplete-name'] === '' 
     || req.body.email.trim() === '' ||
     req.body.password.trim() === '' ||
-    !req.body.email.includes('@')) {
+    !req.body.email.includes('@') ||
+    req.body['confirm-password'] === "" ||
+    req.body?.password !== req.body['confirm-password']) {
         
         signupSession.signupErrorSessionPage(req,{
-            message: "Error! Please check for field/fields that is/are empty or valid",
-            completeName: req.body['çomplete-name'],
+            message: "Error! Please check for field/fields that is/are empty or valid. Sign up Error",
+            completeName: req.body['complete-name'],
             email: req.body.email,
             password: req.body.password
         },()=>{
-            res.redirect('/signup')
+            res.redirect('/signup');
         })
 
         return;

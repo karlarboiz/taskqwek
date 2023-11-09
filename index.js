@@ -8,12 +8,9 @@ const csrf = require('@dr.pogodin/csurf');
 var cookieParser = require('cookie-parser')
 
 const port = 3000;
-
+const mainRoutes = require('./routes/main-routes');
+const adminRoutes = require('./routes/admin-routes');
 app.use(express.urlencoded({extended: false}));
-
-app.use(cookieParser());
-
-app.use(csrf({cookie:true}));
 
 require('dotenv').config();
 
@@ -36,15 +33,15 @@ app.use(session({
     }
 }))
 
-
-const mainRoutes = require('./routes/main-routes');
-const adminRoutes = require('./routes/admin-routes');
-
 app.set('views', path.join(__dirname, 'views'));
 
 app.set('view engine','ejs');
 
 app.use(express.json());
+
+app.use(cookieParser());
+
+app.use(csrf({cookie:true}));
 
 app.use((req,res,next)=>{
     const user = req.session?.user;

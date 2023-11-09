@@ -1,7 +1,9 @@
 function signupSessionPage(req){
-    let signupInputs = req.session.signupInputs;
-
+    
+    let signupInputs = req.session?.signupInputs;
+    
     if(!signupInputs){
+
         signupInputs = {
             hasError: false,
             message: '',
@@ -10,9 +12,9 @@ function signupSessionPage(req){
             password: ''
         }
     }
-
+    
     req.session.signupInputs = null;
-
+  
     return signupInputs;
 }
 
@@ -21,6 +23,7 @@ function signupErrorSessionPage(req,data,action){
         hasError: true,
         ...data
     }
+
     req.session.cookie.originalMaxAge = 5000;
 
     req.session.save(action);
