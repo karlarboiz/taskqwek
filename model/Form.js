@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Task Rosales
 const form_schema = new mongoose.Schema({
     name : {
         type : String,

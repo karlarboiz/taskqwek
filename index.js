@@ -22,13 +22,13 @@ app.use(session({
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl:`mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@b303-arboiz.p20uafb.mongodb.net/formslinks?retryWrites=true&w=majority`,
-        ttl: 7 * 24 * 60 * 60,
+        ttl: 7 * 24 * 60 * 60 * 1000,
         autoRemove: 'native',
         dbName: 'formslinks',
         collectionName: 'sessions'
     }),
     cookie:{
-        maxAge: 24 * 60 *60,
+        maxAge: 24 * 60 *60 *1000,
         sameSite:'lax'
     }
 }))

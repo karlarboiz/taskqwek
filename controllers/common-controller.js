@@ -13,13 +13,17 @@ const loginSession = require('../util/login-session');
 //initiating functions from util for signup page
 const signupSession = require('../util/signup-session');
 
+const homePage = async(req,res)=>{
+
+    res.render('/');
+}
+
 const createUserFunc = async(req,res)=>{
     let user = new User({
         name: req.body["complete-name"],
         emailAddress: req.body.email,
         password: await bcrypt.hash(req.body.password, saltRounds)
     })
-
 
     await user.save().then(
         (result,err)=>{
@@ -179,5 +183,6 @@ module.exports = {
     loginFunc: loginFunc,
     loginPage:loginPage,
     signupPage: signupPage,
-    signupFunc: signupFunc
+    signupFunc: signupFunc,
+    homePage: homePage
 }   

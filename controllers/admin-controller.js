@@ -1,16 +1,22 @@
 const uploadformPage = async(req,res,next)=>{
-
-    if(req.session.user?.isAdmin === null 
-        || !req.session.user?.isAdmin) {
-            res.redirect('/');
+    const csrf = req.csrfToken(); 
+    
+    if(req.session?.user !== null &&
+        req.session?.user !== undefined &&
+        req.session?.user?.isAdmin) {
+            res.render('uploadform',{
+        csrf: csrf});
         }
+    else {
+        res.redirect('/');
+    }
 } 
 
 
 const uploadformFunc = async(req,res,next)=>{
     const data = req.body;
     console.log(data);
-    res.redirect('/about');
+    res.redirect('/uploadform');
 }
 
 module.exports = {

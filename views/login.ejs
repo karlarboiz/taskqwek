@@ -1,9 +1,11 @@
 <%- include('includes/uppersection', {title: "Login Page"}); %>
-
+<% if(loginInputs.hasError) {%>
+    <div class="text-center bg-warning py-2">
+        <p ><%= loginInputs.message %></p> 
+    </div> 
+<% }%>
 <section class="container mx-auto login-section">
-    <% if(loginInputs.hasError) {%>
-     <p class="text-center bg-warning"><%= loginInputs.message %></p> 
-     <% }%>
+   
     <form action="http://localhost:3000/login" 
     method="post" class="mx-auto">
         <input type="hidden" value="<%= csrf %>" name="_csrf">
