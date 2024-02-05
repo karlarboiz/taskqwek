@@ -36,23 +36,20 @@ const createUserFunc = async(req,res)=>{
 }
 
 const loginPage = async( req,res)=>{
-
     const loginInputs = loginSession.loginSessionPage(req);
-
-    const csrf = req.csrfToken(); 
     
     if(req.session?.user === null ||
         req.session?.user === undefined) {
-          res.render('login',{loginInputs: loginInputs,
-        csrf: csrf});
+          res.render('login',{loginInputs: loginInputs});
         }
     else {
+       
         res.redirect('/');
     }
 }
 
 const loginFunc = async (req,res)=>{
-    
+   
     if(req.body.email.trim() === "" ||
     req.body.password.trim() === "" ||
     !req.body.email.includes('@')){
@@ -62,6 +59,7 @@ const loginFunc = async (req,res)=>{
             email: req.body.email,
             password: req.body.password
         },()=>{
+            
             res.redirect('/login');
          })
 
@@ -78,7 +76,9 @@ const loginFunc = async (req,res)=>{
                     isAdmin: hasEmailExisted.isAdmin};
                 
                 req.session.isAuthenticated = true;
+                req.flash('info', 'Flash is back!')
                 req.session.save(()=>{
+                    
                     return res.redirect('/');
                 });
                 
@@ -114,15 +114,12 @@ const loginFunc = async (req,res)=>{
 }
 
 const signupPage = async (req,res)=>{
-    const signupSessionInputs = signupSession.signupSessionPage(req);
     
-    const csrf = req.csrfToken(); 
-
+    const signupSessionInputs = signupSession.signupSessionPage(req);
     if(req.session?.user === null ||
         req.session?.user === undefined) {
           res.render('signup',{
-            signupInputs: signupSessionInputs,
-            csrf:csrf
+            signupInputs: signupSessionInputs
           });
         }
     else {
@@ -175,7 +172,7 @@ const signupFunc = async (req,res)=>{
 const logoutFunc = async (req,res)=>{
     req.session.user = null;
     req.session.isAuthenticated = false;
-    res.redirect('/');
+    res.redirect('/login');
 }
 
 module.exports = {

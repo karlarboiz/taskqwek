@@ -4,11 +4,11 @@
         <p ><%= loginInputs.message %></p> 
     </div> 
 <% }%>
-<section class="container mx-auto login-section">
-   
+<section class="container mx-auto login-section">   
     <form action="http://localhost:3000/login" 
-    method="post" class="mx-auto">
-        <input type="hidden" value="<%= csrf %>" name="_csrf">
+    method="post"
+    class="mx-auto">
+    <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
         <div class="form-floating mb-3">
             <input type="email" class="form-control"
              id="email" name="email" 

@@ -1,0 +1,63 @@
+ADMIN functions:
+
+- GROUP CONFIGURATION
+* Can Create Group
+* Can Rename Group
+* Can Remove Group
+
+- LEADER CONFIGURATION
+* Can Invite Leader
+* Can Assign Leader
+* Can Remove Leader
+* Generate CODE for invite
+* Send Email Link with Code for Invite
+
+
+
+LEADER functions:
+-GROUP CONFIGURATION
+* Create Request
+	1. Request for renaming Group Name
+
+
+- MEMBER CONFIGURATION
+* Assign task
+* Evaluate Task
+* Send Feedback
+
+
+SIGN UP SETTING:
+
+-ADMIN
+
+* Organization / Department Name
+* Short Description
+* First Name
+* Last Name
+* Username
+* Email
+* Password
+* Confirm Password
+
+
+-LEADER
+* First Name
+* Last Name
+* Username
+* Email Address
+* Password
+* Confirm Password
+* Code
+
+
+-MEMBER
+* First Name
+* Last Name
+* Username
+* Email Address
+* Password
+* Confirm Password
+* Code
+
+
+

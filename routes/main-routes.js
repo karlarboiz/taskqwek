@@ -5,10 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('',(req,res,next)=>{
-    const csrf = req.csrfToken();
-    res.render('home',{
-        csrf:csrf
-    });
+    res.render('home',{messages: req.flash("info")});
 })
 
 router.get('/login',commonController.loginPage)

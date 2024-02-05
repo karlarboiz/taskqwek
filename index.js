@@ -1,20 +1,32 @@
 const express = require('express'); 
 const path = require('path');
 const app = express();
-const mongoose = require('mongoose');
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const csrf = require('@dr.pogodin/csurf');
-var cookieParser = require('cookie-parser')
-
+const cookieProtection = csrf({cookie:true});
+const addCsrfToken = require('./middlewares/csrf-token');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const methodOverride = require('method-override');
+const {initializeConnection} = require('./data/database');
+const flash = require("connect-flash");
 const port = 3000;
-const mainRoutes = require('./routes/main-routes');
-const adminRoutes = require('./routes/admin-routes');
-app.use(express.urlencoded({extended: false}));
+
 
 require('dotenv').config();
 
 app.use(express.static('public'));
+
+app.set('views', path.join(__dirname, 'views'));
+
+app.set('view engine','ejs');
+
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(express.json());
+
+app.use(methodOverride('_method'));
 
 app.use(session({
     secret: 'guessyoudidnotseethatcoming',
@@ -32,16 +44,9 @@ app.use(session({
         sameSite:'lax'
     }
 }))
-
-app.set('views', path.join(__dirname, 'views'));
-
-app.set('view engine','ejs');
-
-app.use(express.json());
-
+app.use(flash());
 app.use(cookieParser());
-
-app.use(csrf({cookie:true}));
+app.use(cookieProtection);
 
 app.use((req,res,next)=>{
     const user = req.session?.user;
@@ -56,6 +61,11 @@ app.use((req,res,next)=>{
     next();
 })
 
+
+app.use(addCsrfToken);
+const mainRoutes = require('./routes/main-routes');
+const adminRoutes = require('./routes/admin-routes');
+
 app.use(mainRoutes);
 app.use(adminRoutes);
 
@@ -64,18 +74,14 @@ app.use((req,res)=>{
 });
 
 app.use((error,req,res,next)=>{
+    console.log(error)
     res.status(500).render('500');
 })
 
 
-mongoose.connect(`mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@b303-arboiz.p20uafb.mongodb.net/formslinks?retryWrites=true&w=majority`);
-
-let database = mongoose.connection;
-
-database.on('error',()=>console.log('Connection error:('));
-database.once('open',()=>console.log('Connected to MongoDB!'));
+initializeConnection();
 
 app.listen(process.env.PORT || port,()=>{
-    console.log(`The backend system for FormsLinks is now running at localhost:${process.env.PORT || port}`);
+    console.log(`The backend system for TaskQwek is now running at localhost:${process.env.PORT || port}`);
 })
 
