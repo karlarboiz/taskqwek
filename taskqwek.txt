@@ -26,38 +26,8 @@ LEADER functions:
 * Send Feedback
 
 
-SIGN UP SETTING:
-
--ADMIN
-
-* Organization / Department Name
-* Short Description
-* First Name
-* Last Name
-* Username
-* Email
-* Password
-* Confirm Password
 
 
--LEADER
-* First Name
-* Last Name
-* Username
-* Email Address
-* Password
-* Confirm Password
-* Code
-
-
--MEMBER
-* First Name
-* Last Name
-* Username
-* Email Address
-* Password
-* Confirm Password
-* Code
 
 
 
