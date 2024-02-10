@@ -20,15 +20,18 @@ const homePage = async(req,res)=>{
 
 const createUserFunc = async(req,res)=>{
     let user = new User({
-        name: req.body["complete-name"],
+        firstName: req.body["first-name"],
+        lastName: req.body['last-name'],
+        username: req.body['username'],
         emailAddress: req.body.email,
-        password: await bcrypt.hash(req.body.password, saltRounds)
+        password: await bcrypt.hash(req.body.password, saltRounds),
+        role: req.body.role
     })
 
     await user.save().then(
         (result,err)=>{
             if(err){
-                return res.status(500).render('500');
+                return res.redirect('/signup');
             }
             return res.redirect('/login');    
         });
@@ -118,27 +121,66 @@ const signupPage = async (req,res)=>{
     const signupSessionInputs = signupSession.signupSessionPage(req);
     if(req.session?.user === null ||
         req.session?.user === undefined) {
-          res.render('signup',{
+          res.render('initialsignup',{
             signupInputs: signupSessionInputs
           });
-        }
-    else {
+
+    } else {
         res.redirect('/');
     }
 }
 
 const signupFunc = async (req,res)=>{
+    let errorMessage= {};
 
-    if(req.body['çomplete-name'] === '' 
-    || req.body.email.trim() === '' ||
-    req.body.password.trim() === '' ||
-    !req.body.email.includes('@') ||
-    req.body['confirm-password'] === "" ||
-    req.body?.password !== req.body['confirm-password']) {
+    const usernameValidation = /^[a-z0-9_.]+$/g;
+    const emailValidation = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const passwordValidation = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,20}$/;
+    const isUsernameValid = req.body.username.match(usernameValidation);
+    const isEmailValid = req.body.email.match(emailValidation);
+    const isPasswordValid = req.body.password.match(passwordValidation);
+    if(req.body['first-name'].trim().length < 2 ||
+    req.body['first-name'].trim().length > 100) {
+        errorMessage.firstName= "First Name is Required (Minimum of 2 characters, Maximum of 100 characters)"
+    }
+    if(req.body['last-name'].trim().length <2 ||
+    req.body['last-name'].trim().length > 100) {
+        errorMessage.lastName= "Last Name is Required (Minimum of 2 characters, Maximum of 100 characters)"
+    }
+    if(req.body.username.trim().length < 10 || req.body.username.trim().length > 20) {
+        errorMessage.username = "Username must have 10 - 30 characters";
+    }
+
+    if(!isUsernameValid) {
+        errorMessage.username = "Username must be a combination of letters and numbers and special characters";
+    }
+
+    if(req.body.email.trim().length < 10 || req.body.email.trim().length > 60) {
+        errorMessage.email = "Email Address must have 10 - 60 characters";
+    }
+
+    if(!isEmailValid) {
+        errorMessage.email = "Email Address is Invalid!";
+    }
+
+    if(req.body.password.trim().length < 10 || 
+        req.body.password.trim().length > 30) {
+            errorMessage.password = "Password must be 10 - 30 characters";
+        }
+
+    if(!isPasswordValid) {
+        errorMessage.password = "Password must have at least one numeric digit, one uppercase and one lowercase."
+    }
+
+
+
+    if(errorMessage) {
         
         signupSession.signupErrorSessionPage(req,{
-            message: "Error! Please check for field/fields that is/are empty or valid. Sign up Error",
-            completeName: req.body['complete-name'],
+            errorMessage:errorMessage, 
+            firstName: req.body['first-name'],
+            lastName:req.body['last-name'],
+            username: req.body.username,  
             email: req.body.email,
             password: req.body.password
         },()=>{
@@ -181,5 +223,6 @@ module.exports = {
     loginPage:loginPage,
     signupPage: signupPage,
     signupFunc: signupFunc,
-    homePage: homePage
+    homePage: homePage,
+    createUserFunc:createUserFunc
 }   

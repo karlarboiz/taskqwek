@@ -6,7 +6,7 @@ function signupSessionPage(req){
 
         signupInputs = {
             hasError: false,
-            message: '',
+            errorMessage:{},
             completeName: '',
             email: '',
             password: ''

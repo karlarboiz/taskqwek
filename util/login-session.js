@@ -1,12 +1,12 @@
 function loginSessionPage(req){
     let loginInputs = req.session.loginInputs;
-
+ 
     if(!loginInputs){
         loginInputs = {
             hasError: false,
             message: '',
             email: '',
-            password: ''
+            password: '' 
         }
     }
 

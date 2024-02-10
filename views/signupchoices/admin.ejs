@@ -1,10 +1,7 @@
-<%- include('includes/uppersection', {title: "Sign Up Page"}); %>
 
-    <!-- <main class="container mx-auto
+    <main class="container mx-auto
      reg-section signup-section">
-     <% if(signupInputs.hasError) {%>
-        <p class="text-center bg-warning"><%= signupInputs.message %></p> 
-     <% }%>
+  
         <form action="http://localhost:3000/signup" method="post"
          class="mt-5">
          <input type="hidden" value="<%= locals.csrf %>" name="_csrf">
@@ -26,7 +23,7 @@
                 name="email"
                 value="<%= signupInputs.email %>">
                 <label for="email">Email address</label>
-              </div>
+            </div>
             <div class="form-floating mb-3">
                 <input type="password" 
                 class="form-control"
@@ -58,21 +55,7 @@
 
         </form>
 
-    </main> -->
-
-
-    <main class="container">
-        <ul class="row">
-            <li>
-                <a href="/admin">Admin</a>
-            </li>
-            <li>
-                <a href="/leader">Leader</a>
-            </li>
-            <li>
-                <a href="/user">User</a>
-            </li>
-        </ul>
     </main>
 
-<%- include('includes/lowersection'); %>
+
+
