@@ -10,6 +10,14 @@ const entity_schema = new mongoose.Schema({
         type : String,
         default: "default",
         required: false
+    },
+    adminId: {
+        type: String,
+        required: [true,"Admin ID is Required"]
+    },
+    regDate: {
+        type: Date,
+        default: Date.now()
     }
 })
 

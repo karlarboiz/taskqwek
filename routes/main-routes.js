@@ -8,6 +8,11 @@ const router = express.Router();
 router.get('',(req,res,next)=>{
     res.render('home',{messages: req.flash("info")});
 })
+
+router.get('/about',(req,res)=>{
+    res.render('about');
+})
+router.post('/logout',commonController.logoutFunc);
  
 router.get('/login',loginController.loginPage)
 
@@ -17,10 +22,9 @@ router.get('/signup',signupController.signupPage);
 
 router.post('/signup',signupController.signupFunc);
 
-router.get('/about',(req,res)=>{
-    res.render('about');
-})
-router.post('/logout',commonController.logoutFunc);
+router.get('/admin/setup',signupController.adminSetUpPage);
+
+router.post('/admin/setup',signupController.adminSetupFunc);
 
 
 module.exports = router;

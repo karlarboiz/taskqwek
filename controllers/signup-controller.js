@@ -1,5 +1,6 @@
 //declaring the model saving user information
 const User = require('../model/User');
+const Entity = require('../model/Entity');
 
 //using bcrypt
 const bcrypt = require('bcrypt');
@@ -10,8 +11,9 @@ const saltRounds = 10;
 //initiating functions from util for signup page
 const signupSession = require('../util/signup-session');
 
+const adminSetupSession = require("../util/adminsetup-session");
+
 const signupPage = async (req,res)=>{
-    
     const signupSessionInputs = signupSession.signupSessionPage(req);
     if(req.session?.user === null ||
         req.session?.user === undefined) {
@@ -97,9 +99,10 @@ const signupFunc = async (req,res)=>{
         return;
     }
 
-    let role = req.body.role ===1 ? 'admin': 'nonadmin';
+   
+    let role = parseInt(req.body.role) ===1 ? 'admin': 'nonadmin';
 
-    signupSession.signupErrorSessionPage(req,{
+    signupSession.signupSuccessSessionPage(req,{
         errorMessage:errorMessage, 
         firstName: req.body['first-name'],
         lastName:req.body['last-name'],
@@ -108,33 +111,121 @@ const signupFunc = async (req,res)=>{
         password: req.body.password,
         role: req.body.role
     },()=>{
-        res.redirect('/signup');
+        res.redirect(`/${role}/setup`);
     })
 
-
-    // let user = new User({
-    //     firstName: req.body["first-name"],
-    //     lastName: req.body['last-name'],
-    //     username: req.body.username,
-    //     email: req.body.email,
-    //     password: await bcrypt.hash(req.body.password, saltRounds),
-    //     role: req.body.role
-    // })
-
-    // let role = req.body.role ===1 ? 'admin': 'nonadmin';
-
-    // return await user.save().then(
-    //     (result,err)=>{
-           
-    //         if(err){
-    //          res.status(500).render('500');
-    //         }
-    //         res.redirect('/login');    
-    // });
-
+   
 }
+
+const adminSetUpPage = (req,res)=>{
+    const adminSetupInputs = req?.session?.adminSetupInputs;
+    if(req.session?.user === null ||
+        req.session?.user === undefined) {
+          res.render('adminsetup',
+          {adminSetupInputs: adminSetupInputs});
+
+    } else {
+        res.redirect('/');
+    }
+}
+
+const adminSetupFunc = async(req,res)=>{
+    const {entity,description,action} = req.body;
+
+    const {firstName,
+        lastName,username,email,password, role} = req.session.signupInputs;
+
+    if(action.toLowerCase() === 'skip'){
+        let user = new User({
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            email: email,
+            password: await bcrypt.hash(password, saltRounds),
+            role: role
+        })
+
+        await user.save().then(
+            (result,err)=>{
+    
+                if(err){
+                res.status(500).render('500');
+                }
+                
+                res.redirect('/login');    
+        });
+    }
+
+
+    else {
+        let errorMessage = {};
+        let adminId;
+
+        let newEntity =new Entity({
+            name: entity,
+            description: description,
+            adminId:adminId
+        })
+
+        let user = new User({
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            email: email,
+            password: await bcrypt.hash(password, saltRounds),
+            role: role
+        })
+      
+    
+        if(entity.trim().length < 5 || entity.trim().length > 20) {
+            errorMessage.name = "Name must be between 5 - 20 characters";
+        }
+
+        if(description.trim().length  < 10 ||
+        description.trim().length > 255) {
+            errorMessage.description = "Description must be between 10 - 255 characters";
+        }
+
+        if(Object.keys(errorMessage).length > 0) {
+            adminSetupSession.adminSetupErrorSessionPage(req,{
+                errorMessage:errorMessage,
+                name:entity,
+                description: description
+            },()=>{
+                res.redirect('/admin/setup')
+            })
+
+            return;
+        }
+
+        await user.save().then(
+            (result,err)=>{
+    
+                if(err){
+                res.status(500).render('500');
+                }
+                adminId = result._id;
+                
+                res.redirect('/login');    
+        });
+
+        await newEntity.save().then((result,err)=>{
+            if(err){
+                res.status(500).render(500);
+            }
+            res.redirect('/login');
+        })
+    }
+
+    req.session.signupInputs = null;
+}
+
+
 
 module.exports = {
     signupFunc,
-    signupPage
+    signupPage,
+    adminSetUpPage,
+    adminSetupFunc
+
 }

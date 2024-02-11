@@ -5,13 +5,14 @@ function signupSessionPage(req){
     if(!signupInputs){
 
         signupInputs = {
-            hasError: false,
+
             errorMessage:{},
             firstName: '',
             lastName:'',
             username:'',
             email: '',
-            password: ''
+            password: '',
+            role: 1
         }
     }
     
@@ -22,7 +23,7 @@ function signupSessionPage(req){
 
 function signupErrorSessionPage(req,data,action){
     req.session.signupInputs = {
-        hasError: true,
+     
         ...data
     }
 
@@ -33,16 +34,16 @@ function signupErrorSessionPage(req,data,action){
 
 function signupSuccessSessionPage(req,data,action) {
     req.session.signupInputs = {
-        hasError: false,
         ...data
     }
 
-    req.session.cookie.originalMaxAge = 360000;
+    req.session.cookie.originalMaxAge = 720000;
 
     req.session.save(action);
 }
 
 module.exports = {
     signupErrorSessionPage:signupErrorSessionPage,
-    signupSessionPage:signupSessionPage
+    signupSessionPage:signupSessionPage,
+    signupSuccessSessionPage:signupSuccessSessionPage
 }

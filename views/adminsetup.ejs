@@ -3,22 +3,23 @@
 <main>
     <h1>Tell Us About your Organization or Department</h1>
     <form action="http://localhost:3000/admin/setup?_csrf=<%= locals.csrf %>" method="post">
-
+        
         <div class="form-group">
             <label for="entity">Name:</label>
-            <input type="text" name="entity">
+            <input type="text" name="entity" value="<%= adminSetupInputs?.name %>">
+            <div><%= adminSetupInputs?.errorMessage?.name %></div>
         </div>
 
         <div class="form-group">
             <label for="description">Description:</label>
-            <textarea name="description">
-                
+            <textarea name="description" value="<%= adminSetupInputs?.description %>">
             </textarea>
+            <div><%= adminSetupInputs?.errorMessage?.description %></div>
         </div>
 
         <div class="form-group">
-            <input type="submit" class="btn" value="Skip">
-            <input type="submit" class="btn" value="Build">
+            <input type="submit" class="btn" value="Skip" name="action">
+            <input type="submit" class="btn" value="Build" name="action">
         </div>
     </form>
 </main>

@@ -1,3 +1,6 @@
+//declaring the model saving user information
+const User = require('../model/User');
+
 //getting data from util for session page
 const loginSession = require('../util/login-session');
 
@@ -31,7 +34,7 @@ const loginFunc = async (req,res)=>{
 
         return;
     }else {
-        let hasEmailExisted = await User.findOne({emailAddress: req.body.email}).
+        let hasEmailExisted = await User.findOne({emai: req.body.email}).
                                     then(result=>result);
 
         if(hasEmailExisted) {
