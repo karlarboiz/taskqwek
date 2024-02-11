@@ -28,6 +28,79 @@ LEADER functions:
 
 
 
+SIGN UP SETTING:
+
+--shared requirements
+-ADMIN
+-LEADER
+-MEMBER
+
+* First Name - Min: 2, Max: 255, No numbers
+* Last Name - Min: 2, Max: 255, No Numbers
+* Username - Min: 8, Max: 30, Alphanumeric
+* Email - Min: 10, Max: 100, Alphanumeric with required special character @
+* Password : Min: 10, Max: 100, Alphanumeric with both capitalized and non-capitalized letters
+* Confirm Password: must be the same as the password
+
+
+-ADMIN
+* Organization / Department Name : Min: 10, Max: 50
+* Short Description: Min: 15, Max: 255
+
+
+
+-LEADER
+* Code - as a validation and indication that user is indeed invited to be a leader
+
+
+-MEMBER
+* Code - as a validation and indication that user is indeed invited to be a member under a group by a leader
+
+
+SIGNUP FLOW:
+
+1. Pass all input fields
+	* First Name
+	* Last Name
+	* Username
+	* Email Address
+	* Password
+	* role
+
+2. If any of the fields is/are missing:
+	* Return to Initial SignUp Page with error Messages
+
+3. If User passes all the input fields
+	* all input values will be saved in the session
+	* go to final set up page
+		- if it's the ADMIN signing up. 
+			*optional to to put Organization or Department Name
+			*optional to put Description
+
+		- if it's a leader or member signing up, asked for the code
+			* optional for the code
+		
+	* if user clicked skip, all user information will be saved in the DB and routed to the login page
+	* if user clicked build	(FOR ADMIN)
+		* check inputs for entity name and description
+			-if entity name is empty, return to admin/setup route with error message
+			- if entity description is empty, return to admin/setup route with error message
+			- if both entity name and description are given
+				* save both information to db
+
+	* if use clicked join (FOR LEADER/MEMBER)
+		* check input for the code to join
+			-if no code is given, return to nonadmin/setup route with error message
+			- if a code is given,
+				* scan the code and if valid, push user id to the matching entity for registration and return login page to login
+				* scan the code and if invalid, return to nonadmin/setup with error message
+4. 
+
+
+
+
+
+
 
 
 
