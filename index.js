@@ -33,10 +33,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-        mongoUrl:`mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@b303-arboiz.p20uafb.mongodb.net/formslinks?retryWrites=true&w=majority`,
+        mongoUrl:`mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@b303-arboiz.p20uafb.mongodb.net/taskqwek?retryWrites=true&w=majority`,
         ttl: 7 * 24 * 60 * 60 * 1000,
         autoRemove: 'native',
-        dbName: 'formslinks',
+        dbName: 'taskqwek',
         collectionName: 'sessions'
     }),
     cookie:{

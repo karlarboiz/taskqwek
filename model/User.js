@@ -22,7 +22,7 @@ const user_schema = new mongoose.Schema({
         maxLength: [30, "Username must be a maximum of 30 characters"],
         require: [true,"Username is required!"]
     },
-    emailAddress: {
+    email: {
         type: String, 
         validate:{
             validator: function(v){

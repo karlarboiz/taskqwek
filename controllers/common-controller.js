@@ -23,17 +23,17 @@ const createUserFunc = async(req,res)=>{
         firstName: req.body["first-name"],
         lastName: req.body['last-name'],
         username: req.body['username'],
-        emailAddress: req.body.email,
+        email: req.body.email,
         password: await bcrypt.hash(req.body.password, saltRounds),
         role: req.body.role
     })
 
-    await user.save().then(
+    return await user.save().then(
         (result,err)=>{
             if(err){
-                return res.redirect('/signup');
+             res.status(500).render('500');
             }
-            return res.redirect('/login');    
+            res.redirect('/login');    
         });
 
 }
@@ -168,11 +168,10 @@ const signupFunc = async (req,res)=>{
             errorMessage.password = "Password must be 10 - 30 characters";
         }
 
-    if(!isPasswordValid) {
+    if(req.body.password.trim().length > 10 &&
+    req.body.password.trim().length < 30 && !isPasswordValid) {
         errorMessage.password = "Password must have at least one numeric digit, one uppercase and one lowercase."
     }
-
-
 
     if(errorMessage) {
         
@@ -190,7 +189,7 @@ const signupFunc = async (req,res)=>{
         return;
     }
  
-    let hasAccountExisted = await User.findOne({emailAddress: req.body?.email}).
+    let hasAccountExisted = await User.findOne({email: req.body?.email}).
                                     then(result=>result);
     if(hasAccountExisted) {
         
