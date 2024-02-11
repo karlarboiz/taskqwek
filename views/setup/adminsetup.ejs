@@ -2,7 +2,7 @@
 
 <main>
     <h1>Tell Us About your Organization or Department</h1>
-    <form action="" method="post">
+    <form action="http://localhost:3000/admin/setup?_csrf=<%= locals.csrf %>" method="post">
 
         <div class="form-group">
             <label for="entity">Name:</label>
@@ -17,7 +17,8 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn">Build</button>
+            <input type="submit" class="btn" value="Skip">
+            <input type="submit" class="btn" value="Build">
         </div>
     </form>
 </main>

@@ -1,8 +1,8 @@
 <%- include('includes/uppersection', {title: "Set Up"}); %>
 
 <main>
-    <h1>Tell Us About your Organization or Department</h1>
-    <form action="" method="post">
+    <h1>Join your Organization or Department</h1>
+    <form action="http://localhost:3000/nonadmin/setup?_csrf=<%= locals.csrf %>" method="post">
         <div class="form-group">
             <label for="entity">Code:</label>
             <input type="text" name="entity">

@@ -39,9 +39,9 @@
         <div class="form-group">
             <label for="role">Role</label>
             <select name="role">
-                <option value="1">ADMIN</option>
-                <option value="2">LEADER</option>
-                <option value="3">MEMBER</option>
+                <option value="1" selected="<%=signupInputs?.role === 1%>">ADMIN</option>
+                <option value="2" selected="<%=signupInputs?.role === 2%>">LEADER</option>
+                <option value="3" selected="<%=signupInputs?.role === 3%>">MEMBER </option>
             </select>
         </div>
     

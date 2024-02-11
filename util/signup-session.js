@@ -7,7 +7,9 @@ function signupSessionPage(req){
         signupInputs = {
             hasError: false,
             errorMessage:{},
-            completeName: '',
+            firstName: '',
+            lastName:'',
+            username:'',
             email: '',
             password: ''
         }
@@ -25,6 +27,17 @@ function signupErrorSessionPage(req,data,action){
     }
 
     req.session.cookie.originalMaxAge = 5000;
+
+    req.session.save(action);
+}
+
+function signupSuccessSessionPage(req,data,action) {
+    req.session.signupInputs = {
+        hasError: false,
+        ...data
+    }
+
+    req.session.cookie.originalMaxAge = 360000;
 
     req.session.save(action);
 }

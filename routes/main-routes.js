@@ -1,5 +1,6 @@
 const commonController = require('../controllers/common-controller');
-
+const loginController = require("../controllers/login-controller");
+const signupController = require("../controllers/signup-controller");
 const express = require('express');
 
 const router = express.Router();
@@ -8,22 +9,18 @@ router.get('',(req,res,next)=>{
     res.render('home',{messages: req.flash("info")});
 })
  
-router.get('/login',commonController.loginPage)
+router.get('/login',loginController.loginPage)
 
-router.post('/login',commonController.loginFunc);
+router.post('/login',loginController.loginFunc);
 
-router.get('/signup',commonController.signupPage);
+router.get('/signup',signupController.signupPage);
 
-router.post('/signup',commonController.signupFunc);
+router.post('/signup',signupController.signupFunc);
 
 router.get('/about',(req,res)=>{
     res.render('about');
 })
 router.post('/logout',commonController.logoutFunc);
 
-router.get('/signup/:role',(req,res)=>{
-    const signUpValue = req.params['role'];
-    res.render(`signup${signUpValue}`);
-})
 
 module.exports = router;
