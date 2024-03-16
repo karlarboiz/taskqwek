@@ -1,19 +1,17 @@
 const mongoose = require("mongoose");
 
-const entity_schema = new mongoose.Schema({
-    name : {
+const tasklogs_schema = new mongoose.Schema({
+    taskId : {
         type : String,
-        default: "default",
-        required: false
+        required: [true,"Task ID is Required"]
     },
     description : {
         type : String,
-        default: "default",
-        required: false
+        required: [true,"Description is Required"]
     },
-    adminId: {
+    userId: {
         type: String,
-        required: [true,"Admin ID is Required"]
+        required: [true,"User ID is Required"]
     },
     regId: {
         type: String,
@@ -33,5 +31,5 @@ const entity_schema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("Entity", entity_schema);
+module.exports = mongoose.model("TaskLogs",tasklogs_schema);
 

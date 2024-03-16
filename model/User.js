@@ -29,9 +29,21 @@ const user_schema = new mongoose.Schema({
     role: {
         type: Number,
     },
+    regId: {
+        type: String,
+        required: false
+    },
     regDate: {
         type: Date,
         default: Date.now()
+    },
+    updateDate: {
+        type: Date,
+        default: Date.now()
+    },
+    updateId: {
+        type: String,
+        required: false
     }
 })
 

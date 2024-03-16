@@ -1,6 +1,7 @@
 //declaring the model saving user information
 const User = require('../model/User');
-
+//using bcrypt
+const bcrypt = require('bcrypt');
 //getting data from util for session page
 const loginSession = require('../util/login-session');
 
@@ -34,11 +35,12 @@ const loginFunc = async (req,res)=>{
 
         return;
     }else {
-        let hasEmailExisted = await User.findOne({emai: req.body.email}).
+        let hasEmailExisted = await User.findOne({email: req.body.email}).
                                     then(result=>result);
 
         if(hasEmailExisted) {
             const isPasswordMatch = await bcrypt.compare(req.body.password, hasEmailExisted.password);
+           
             if(isPasswordMatch){
                 req.session.user = {id: hasEmailExisted._id, 
                     email: hasEmailExisted.emailAddress,

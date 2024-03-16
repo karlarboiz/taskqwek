@@ -114,7 +114,12 @@ const signupFunc = async (req,res)=>{
         res.redirect(`/${role}/setup`);
     })
 
-   
+}
+
+const nonAdminSetUpPageg = (req,res) =>{
+    const nonAdminSetUpInputs = req.session?.nonAdminSetUpInputs;
+
+    res.render("")
 }
 
 const adminSetUpPage = (req,res)=>{
@@ -145,6 +150,10 @@ const adminSetupFunc = async(req,res)=>{
             role: role
         })
 
+        user.regId = user._id;
+
+        user.updateId = user._id;
+
         await user.save().then(
             (result,err)=>{
     
@@ -159,24 +168,7 @@ const adminSetupFunc = async(req,res)=>{
 
     else {
         let errorMessage = {};
-        let adminId;
-
-        let newEntity =new Entity({
-            name: entity,
-            description: description,
-            adminId:adminId
-        })
-
-        let user = new User({
-            firstName: firstName,
-            lastName: lastName,
-            username: username,
-            email: email,
-            password: await bcrypt.hash(password, saltRounds),
-            role: role
-        })
-      
-    
+        
         if(entity.trim().length < 5 || entity.trim().length > 20) {
             errorMessage.name = "Name must be between 5 - 20 characters";
         }
@@ -198,23 +190,58 @@ const adminSetupFunc = async(req,res)=>{
             return;
         }
 
-        await user.save().then(
+        let user = new User({
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            email: email,
+            password: await bcrypt.hash(password, saltRounds),
+            role: role
+        })
+
+        user.regId = user._id;
+
+        user.updateId = user._id;
+
+        let userSaved = await user.save().then(
             (result,err)=>{
     
                 if(err){
                 res.status(500).render('500');
+
+                return false;
                 }
-                adminId = result._id;
-                
-                res.redirect('/login');    
+                return result
         });
 
-        await newEntity.save().then((result,err)=>{
-            if(err){
-                res.status(500).render(500);
-            }
-            res.redirect('/login');
+    
+        
+        if(!userSaved) {
+            return res.status(500).render(500);
+        }
+
+        let newEntity =new Entity({
+            name: entity,
+            description: description,
+            adminId:userSaved._id
         })
+
+        newEntity.regId = userSaved._id;
+        newEntity.updateId = userSaved._id;
+
+        let entitySaved = await newEntity.save().then((result,err)=>{
+            if(err){
+                
+                return false;
+            }
+            return result
+        })
+
+        if(!entitySaved) {
+            return res.status(500).render(500);
+        }
+
+        return res.redirect('/login');
     }
 
     req.session.signupInputs = null;
