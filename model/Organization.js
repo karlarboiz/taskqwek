@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const usertask_schema = new mongoose.Schema({
-    taskName : {
+const organization_schema = new mongoose.Schema({
+    name : {
         type : String,
         default: "default",
         required: false
@@ -11,17 +11,9 @@ const usertask_schema = new mongoose.Schema({
         default: "default",
         required: false
     },
-    assignedUserId: {
+    adminId: {
         type: String,
-        required: false
-    },
-    setHours: {
-        type: Number,
-        required: [true,"Number of Hours Required!"]
-    },
-    percentage: {
-        type: Number,
-        required: false
+        required: [true,"Admin ID is Required"]
     },
     regId: {
         type: String,
@@ -44,7 +36,7 @@ const usertask_schema = new mongoose.Schema({
         required: true,
         default: false
     }
-    
 })
 
-module.exports = mongoose.model("UserTask", usertask_schema);
+module.exports = mongoose.model("Organization", organization_schema);
+

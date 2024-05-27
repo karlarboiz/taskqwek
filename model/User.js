@@ -23,7 +23,6 @@ const user_schema = new mongoose.Schema({
     },
     password: {
         type: String,  
-       
         required: [true, "User's Password is required"]
     },
     role: {
@@ -44,6 +43,11 @@ const user_schema = new mongoose.Schema({
     updateId: {
         type: String,
         required: false
+    },
+    deleteFlg: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
 

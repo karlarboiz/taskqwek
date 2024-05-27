@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const entity_schema = new mongoose.Schema({
+const generaltask_schema = new mongoose.Schema({
     name : {
         type : String,
         default: "default",
@@ -10,6 +10,10 @@ const entity_schema = new mongoose.Schema({
         type : String,
         default: "default",
         required: false
+    },  
+    progressBar:{
+        type: Number,
+        required: [true, "Progress percentage required"]
     },
     adminId: {
         type: String,
@@ -30,8 +34,13 @@ const entity_schema = new mongoose.Schema({
     updateId: {
         type: String,
         required: false
+    },
+    deleteFlg: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
 
-module.exports = mongoose.model("Entity", entity_schema);
+module.exports = mongoose.model("General Task", generaltask_schema);
 

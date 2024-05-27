@@ -1,6 +1,6 @@
 //declaring the model saving user information
 const User = require('../model/User');
-const Entity = require('../model/Entity');
+const Entity = require('../model/Organization');
 
 //using bcrypt
 const bcrypt = require('bcrypt');
@@ -98,7 +98,7 @@ const signupFunc = async (req,res)=>{
 
         return;
     }
-
+ 
    
     let role = parseInt(req.body.role) ===1 ? 'admin': 'nonadmin';
 
@@ -116,11 +116,6 @@ const signupFunc = async (req,res)=>{
 
 }
 
-const nonAdminSetUpPageg = (req,res) =>{
-    const nonAdminSetUpInputs = req.session?.nonAdminSetUpInputs;
-
-    res.render("")
-}
 
 const adminSetUpPage = (req,res)=>{
     const adminSetupInputs = req?.session?.adminSetupInputs;
@@ -214,8 +209,7 @@ const adminSetupFunc = async(req,res)=>{
                 return result
         });
 
-    
-        
+
         if(!userSaved) {
             return res.status(500).render(500);
         }

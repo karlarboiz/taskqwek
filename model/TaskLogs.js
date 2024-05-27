@@ -28,6 +28,11 @@ const tasklogs_schema = new mongoose.Schema({
     updateId: {
         type: String,
         required: false
+    },
+    deleteFlg: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
 
