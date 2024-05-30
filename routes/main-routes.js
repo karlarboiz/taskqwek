@@ -6,8 +6,12 @@ const express = require('express');
 const router = express.Router();
 
 router.get('',(req,res,next)=>{
+    let isLoggedIn = req?.session?.user;
 
-    res.render('home',{messages: req.flash("info")});
+    let renderPage = isLoggedIn ? 'dashboard': 'home';
+
+
+    res.render(renderPage,{messages: req.flash("info")});
 })
 
 router.get('/about',(req,res)=>{

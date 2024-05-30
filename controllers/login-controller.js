@@ -43,13 +43,12 @@ const loginFunc = async (req,res)=>{
            
             if(isPasswordMatch){
                 req.session.user = {id: hasEmailExisted._id, 
-                    email: hasEmailExisted.emailAddress,
-                    isAdmin: hasEmailExisted.isAdmin};
+                    email: hasEmailExisted.email,
+                    isAdmin: hasEmailExisted.role};
                 
                 req.session.isAuthenticated = true;
                 req.flash('info', 'Flash is back!')
                 req.session.save(()=>{
-                    
                     return res.redirect('/');
                 });
                 
