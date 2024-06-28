@@ -5,79 +5,80 @@ const bcrypt = require('bcrypt');
 //getting data from util for session page
 const loginSession = require('../util/login-session');
 
-const loginPage = async( req,res)=>{
+const loginPage = async (req, res) => {
     const loginInputs = loginSession.loginSessionPage(req);
-    
-    if(req.session?.user === null ||
+
+    if (req.session?.user === null ||
         req.session?.user === undefined) {
-          res.render('login',{loginInputs: loginInputs});
-        }
+        res.render('login', { loginInputs: loginInputs });
+    }
     else {
-       
-        res.redirect('/');
+        res.redirect('/main/dashboard');
     }
 }
 
-const loginFunc = async (req,res)=>{
-   
-    if(req.body.email.trim() === "" ||
-    req.body.password.trim() === "" ||
-    !req.body.email.includes('@')){
-        
-        loginSession.loginErrorSessionPage(req,{
+const loginFunc = async (req, res) => {
+
+    if (req.body.email.trim() === "" ||
+        req.body.password.trim() === "" ||
+        !req.body.email.includes('@')) {
+
+        loginSession.loginErrorSessionPage(req, {
             message: "Some fields are missing or incomplete",
             email: req.body.email,
             password: req.body.password
-        },()=>{
-            
+        }, () => {
+
             res.redirect('/login');
-         })
+        })
 
         return;
-    }else {
-        let hasEmailExisted = await User.findOne({email: req.body.email}).
-                                    then(result=>result);
+    } else {
+        let hasEmailExisted = await User.findOne({ email: req.body.email }).
+            then(result => result);
 
-        if(hasEmailExisted) {
+        if (hasEmailExisted) {
             const isPasswordMatch = await bcrypt.compare(req.body.password, hasEmailExisted.password);
-           
-            if(isPasswordMatch){
-                req.session.user = {id: hasEmailExisted._id, 
+
+            if (isPasswordMatch) {
+                req.session.user = {
+                    id: hasEmailExisted._id,
                     email: hasEmailExisted.email,
-                    isAdmin: hasEmailExisted.role};
-                
+                    isAdmin: hasEmailExisted.role
+                };
+
                 req.session.isAuthenticated = true;
                 req.flash('info', 'Flash is back!')
-                req.session.save(()=>{
-                    return res.redirect('/');
+                req.session.save(() => {
+                    return res.redirect('/main/dashboard');
                 });
-                
+
             }
             else {
-                loginSession.loginErrorSessionPage(req,{
+                loginSession.loginErrorSessionPage(req, {
                     message: `
                     Credentials are invalid. Please try again. 
                     Or you can Sign up, if you have no account yet.`,
                     email: req.body.email,
                     password: req.body.password
-                },()=>{
+                }, () => {
                     res.redirect('/login');
-                 })
-        
+                })
+
                 return;
-                
+
             }
-        }else {
-            loginSession.loginErrorSessionPage(req,{
+        } else {
+            loginSession.loginErrorSessionPage(req, {
                 message: `
                 Credentials are invalid. Please try again. 
                 Or you can Sign up, if you have no account yet.`,
                 email: req.body.email,
                 password: req.body.password
-            },()=>{
+            }, () => {
                 res.redirect('/login');
-             })
-    
+            })
+
             return;
         }
     }

@@ -1,35 +1,34 @@
 const commonController = require('../controllers/common-controller');
 const loginController = require("../controllers/login-controller");
 const signupController = require("../controllers/signup-controller");
+const adminController = require("../controllers/admin-controller");
+
 const express = require('express');
 
 const router = express.Router();
 
-router.get('',(req,res,next)=>{
-    let isLoggedIn = req?.session?.user;
-
-    let renderPage = isLoggedIn ? 'dashboard': 'home';
-
-
-    res.render(renderPage,{messages: req.flash("info")});
+router.get("/", (req, res) => {
+    res.render("home", { messages: req.flash("info") });
 })
 
-router.get('/about',(req,res)=>{
+router.get('/main/dashboard', adminController.dashboardPage);
+
+router.get('/about', (req, res) => {
     res.render('about');
 })
-router.post('/logout',commonController.logoutFunc);
- 
-router.get('/login',loginController.loginPage)
+router.post('/logout', commonController.logoutFunc);
 
-router.post('/login',loginController.loginFunc);
+router.get('/login', loginController.loginPage)
 
-router.get('/signup',signupController.signupPage);
+router.post('/login', loginController.loginFunc);
 
-router.post('/signup',signupController.signupFunc);
+router.get('/signup', signupController.signupPage);
 
-router.get('/admin/setup',signupController.adminSetUpPage);
+router.post('/signup', signupController.signupFunc);
 
-router.post('/admin/setup',signupController.adminSetupFunc);
+router.get('/admin/setup', signupController.adminSetUpPage);
+
+router.post('/admin/setup', signupController.adminSetupFunc);
 
 
 module.exports = router;
