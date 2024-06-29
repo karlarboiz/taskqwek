@@ -2,7 +2,7 @@ const commonController = require('../controllers/common-controller');
 const loginController = require("../controllers/login-controller");
 const signupController = require("../controllers/signup-controller");
 const adminController = require("../controllers/admin-controller");
-
+const orgController = require("../controllers/organization-controller");
 const express = require('express');
 
 const router = express.Router();
@@ -12,6 +12,7 @@ router.get("/", (req, res) => {
 })
 
 router.get('/main/dashboard', adminController.dashboardPage);
+router.get('/main/dashboard/organization', orgController.orgPage);
 
 router.get('/about', (req, res) => {
     res.render('about');

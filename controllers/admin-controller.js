@@ -3,7 +3,7 @@ const org = require("../query/adminquery");
 const dashboardPage = async (req, res, next) => {
     let isLoggedIn = req?.session?.user;
 
-    const orgList = await org.orgList(req.session.user.id);
+    const orgList = await org.orgList(req?.session?.user?.id);
 
     if (isLoggedIn === null ||
         isLoggedIn === undefined) {
@@ -11,7 +11,7 @@ const dashboardPage = async (req, res, next) => {
     }
 
     else {
-        res.render('dashboard', { orgList: orgList });
+        res.render('dashboard', { orgList: orgList, content: 'dashboard', isAdmin: req?.session?.user?.isAdmin });
     }
 }
 
