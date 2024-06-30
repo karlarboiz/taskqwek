@@ -14,6 +14,9 @@ router.get("/", (req, res) => {
 router.get('/main/dashboard', adminController.dashboardPage);
 router.get('/main/dashboard/organization', orgController.orgPage);
 
+router.get('/main/dashboard/users');
+router.get('/main/dashboard/tasks');
+
 router.get('/about', (req, res) => {
     res.render('about');
 })

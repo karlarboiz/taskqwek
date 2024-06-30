@@ -1,55 +1,65 @@
-<%- include('includes/uppersection', {title: "Sign Up Page"}); %>
-<main>
-    <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
-        <div class="form-group">
-            <label for="first-name">First Name:</label>
-            <input type="text" value="<%=signupInputs.firstName%>" name="first-name">
+<%- include('includes/uppersection', {title: "Sign Up Page" ,navMenu: 'sign-up' }); %>
+    <main>
+        <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
+            <div class="form-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" value="<%=signupInputs.firstName%>" name="first-name">
 
-            <p><%=signupInputs?.errorMessage?.firstName %></p>
-        </div>
-    
-        <div class="form-group">
-            <label for="last-name">Last Name:</label>
-            <input type="text" name="last-name" value="<%=signupInputs.lastName%>" >
-            <p><%=signupInputs?.errorMessage?.lastName%></p>
-        </div>
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" name="username" value="<%=signupInputs.username%>" > 
-            <p><%=signupInputs?.errorMessage?.username%></p>
-        </div>
-    
-        <div class="form-group">
-            <label for="email">Email Address:</label>
-            <input type="email" name="email" value="<%=signupInputs.email%>">
-            <p><%=signupInputs?.errorMessage?.email%></p>
-        </div>
-    
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" value="<%=signupInputs.password%>">
-            <p><%=signupInputs?.errorMessage?.password%></p>
-        </div>
-    
-        <div class="form-group">
-            <label for="confirm-password">Confirm Password:</label>
-            <input type="password" name="confirm-password">
-        </div>
-    
-        <div class="form-group">
-            <label for="role">Role</label>
-            <select name="role">
-                <option value="1" selected="<%=signupInputs?.role === 1%>">ADMIN</option>
-                <option value="2" selected="<%=signupInputs?.role === 2%>">LEADER</option>
-                <option value="3" selected="<%=signupInputs?.role === 3%>">MEMBER </option>
-            </select>
-        </div>
-    
-        <div class="form-group mt-4 text-center">
-            <button type="submit" class="btn btn-primary">
-                Signup
-            </button>
-        </div>
-    </form>
-</main>
-<%- include('includes/lowersection'); %>
+                <p>
+                    <%=signupInputs?.errorMessage?.firstName %>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" name="last-name" value="<%=signupInputs.lastName%>">
+                <p>
+                    <%=signupInputs?.errorMessage?.lastName%>
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" value="<%=signupInputs.username%>">
+                <p>
+                    <%=signupInputs?.errorMessage?.username%>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" name="email" value="<%=signupInputs.email%>">
+                <p>
+                    <%=signupInputs?.errorMessage?.email%>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" value="<%=signupInputs.password%>">
+                <p>
+                    <%=signupInputs?.errorMessage?.password%>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" name="confirm-password">
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select name="role">
+                    <option value="1" selected="<%=signupInputs?.role === 1%>">ADMIN</option>
+                    <option value="2" selected="<%=signupInputs?.role === 2%>">LEADER</option>
+                    <option value="3" selected="<%=signupInputs?.role === 3%>">MEMBER </option>
+                </select>
+            </div>
+
+            <div class="form-group mt-4 text-center">
+                <button type="submit" class="btn btn-primary">
+                    Signup
+                </button>
+            </div>
+        </form>
+    </main>
+    <%- include('includes/lowersection'); %>

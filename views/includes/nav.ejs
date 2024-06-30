@@ -6,20 +6,22 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarText">
+  <div class="collapse navbar-collapse nav" id="navbarText">
     <% if(!locals.isAuthenticated) {%>
       <span>
-        <a class="nav-link" href="/login">Log in</a>
+        <a class="nav-link <%= navMenu === 'login' ? 'active' : 'text-dark'%>" href="/login">Log in</a>
       </span>
 
       <span>
-        <a href="/signup" class="btn btn-primary">Sign Up</a>
+        <a href="/signup" class="btn <%= navMenu === 'sign-up' ? 'btn-warning' : 'btn-primary'%>">Sign Up</a>
       </span>
       <% } else {%>
+        <span><a href="/main/dashboard"
+            class="nav-link <%= navMenu === 'dashboard' ? 'active' : ''%>">dashboard</a></span>
         <span class="d-flex align-items-center justify-content-start">
           <form action="/logout" method="post">
             <input type="hidden" value="<%= locals.csrf %>" name="_csrf">
-            <button type="submit" class="btn btn-warning">Logout</button>
+            <button type="submit" class="btn btn-primary">Logout</button>
           </form>
         </span>
         <% } %>

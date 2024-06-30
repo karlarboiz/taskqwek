@@ -1,39 +1,34 @@
-<%- include('includes/uppersection', {title: "Login Page"}); %>
-<% if(loginInputs.hasError) {%>
-    <div class="text-center bg-warning py-2">
-        <p ><%= loginInputs.message %></p> 
-    </div> 
-<% }%>
-<section class="container mx-auto login-section">   
-    <form action="/login" 
-    method="post"
-    class="mx-auto">
-    <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control"
-             id="email" name="email" 
-             placeholder="name@example.com"
-             value="<%= loginInputs.email %>">
-            <label for="email">Email address</label>
-          </div>
-        <div class="form-floating">
-            <input type="password" class="form-control"
-             id="password" 
-             name="password" 
-             placeholder="Password"
-             value="<%= loginInputs.password %>">
-            <label for="password">Password</label>
+<%- include('includes/uppersection', {title: "Login Page" ,navMenu: 'login' }); %>
+    <% if(loginInputs.hasError) {%>
+        <div class="text-center bg-warning py-2">
+            <p>
+                <%= loginInputs.message %>
+            </p>
         </div>
+        <% }%>
+            <section class="container mx-auto login-section">
+                <form action="/login" method="post" class="mx-auto">
+                    <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
+                            value="<%= loginInputs.email %>">
+                        <label for="email">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                            value="<%= loginInputs.password %>">
+                        <label for="password">Password</label>
+                    </div>
 
-        <div class="form-group mt-4 text-center">
-            <button type="submit" class="btn btn-primary">
-                Login
-            </button>
-        </div>
+                    <div class="form-group mt-4 text-center">
+                        <button type="submit" class="btn btn-primary">
+                            Login
+                        </button>
+                    </div>
 
-    </form>
+                </form>
 
-</section>
+            </section>
 
 
-  <%- include('includes/lowersection'); %>
+            <%- include('includes/lowersection'); %>
