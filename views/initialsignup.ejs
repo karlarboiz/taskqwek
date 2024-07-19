@@ -1,6 +1,6 @@
 <%- include('includes/uppersection', {title: "Sign Up Page"}); %>
 <main>
-    <form action="http://localhost:3000/signup?_csrf=<%= locals.csrf %>" method="post">
+    <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
         <div class="form-group">
             <label for="first-name">First Name:</label>
             <input type="text" value="<%=signupInputs.firstName%>" name="first-name">
