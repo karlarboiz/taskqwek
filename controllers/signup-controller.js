@@ -28,14 +28,16 @@ const createUserFunc = async(req,res)=>{
                 return res.redirect('/signup');
             }
 
-            req.session.data ={
-                id:  result._id,
-                username: result.username
-            }
-
+            req.session.user = {id: result._id, 
+                email: result.username,
+                role: result.role};
+            
+            req.session.isAuthenticated = true;
             req.session.save(
                 ()=> res.redirect('/login')
             )
+
+            return;
     
         });
 

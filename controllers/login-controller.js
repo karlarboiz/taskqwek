@@ -1,4 +1,4 @@
-
+const bcrypt = require('bcrypt');
 //
 const User = require('../model/User');
 //getting data from util for session page
@@ -40,14 +40,16 @@ const loginFunc = async (req,res)=>{
             if(isPasswordMatch){
                 req.session.user = {id: hasEmailExisted._id, 
                     email: hasEmailExisted.emailAddress,
-                    isAdmin: hasEmailExisted.isAdmin};
+                    role: hasEmailExisted.role};
                 
                 req.session.isAuthenticated = true;
                 req.flash('info', 'Flash is back!')
                 req.session.save(()=>{
                     
-                    return res.redirect('/');
+                    res.redirect('/dash');
                 });
+
+                return;
                 
             }
             else {
