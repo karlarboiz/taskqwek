@@ -31,6 +31,7 @@ const createUserFunc = async(req,res)=>{
     await user.save().then(
         (result,err)=>{
             if(err){
+                console.log(err)
                 return res.redirect('/signup');
             }
             return res.redirect('/login');    
@@ -68,9 +69,9 @@ const loginFunc = async (req,res)=>{
 
         return;
     }else {
-        let hasEmailExisted = await User.findOne({emailAddress: req.body.email}).
-                                    then(result=>result);
-
+        let hasEmailExisted = await User.findOne({emailAddress: req.body.email});
+        console.log(req.body.email);
+        console.log(hasEmailExisted);
         if(hasEmailExisted) {
             const isPasswordMatch = await bcrypt.compare(req.body.password, hasEmailExisted.password);
             if(isPasswordMatch){
@@ -136,9 +137,10 @@ const signupFunc = async (req,res)=>{
     const usernameValidation = /^[a-z0-9_.]+$/g;
     const emailValidation = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const passwordValidation = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,20}$/;
-    const isUsernameValid = req.body.username.match(usernameValidation);
-    const isEmailValid = req.body.email.match(emailValidation);
-    const isPasswordValid = req.body.password.match(passwordValidation);
+    const isUsernameValid = usernameValidation.test(req.body.username);
+    const isEmailValid = emailValidation.test(req.body.email);
+    const isPasswordValid = passwordValidation.test(req.body.password);
+
     if(req.body['first-name'].trim().length < 2 ||
     req.body['first-name'].trim().length > 100) {
         errorMessage.firstName= "First Name is Required (Minimum of 2 characters, Maximum of 100 characters)"
@@ -157,14 +159,18 @@ const signupFunc = async (req,res)=>{
 
     if(req.body.email.trim().length < 10 || req.body.email.trim().length > 60) {
         errorMessage.email = "Email Address must have 10 - 60 characters";
-    }
+    }   
 
     if(!isEmailValid) {
         errorMessage.email = "Email Address is Invalid!";
     }
 
+    if(Number(req.body.role) === 0) {
+        errorMessage.role = "Pick A Role";
+    } 
+
     if(req.body.password.trim().length < 10 || 
-        req.body.password.trim().length > 30) {
+        req.body.password.trim().length > 20) {
             errorMessage.password = "Password must be 10 - 30 characters";
         }
 
@@ -172,9 +178,7 @@ const signupFunc = async (req,res)=>{
         errorMessage.password = "Password must have at least one numeric digit, one uppercase and one lowercase."
     }
 
-
-
-    if(errorMessage) {
+    if(Object.entries(errorMessage).length != 0) {
         
         signupSession.signupErrorSessionPage(req,{
             errorMessage:errorMessage, 
