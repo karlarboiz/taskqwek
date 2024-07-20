@@ -44,9 +44,11 @@ const loginFunc = async (req,res)=>{
                 
                 req.session.isAuthenticated = true;
                 req.flash('info', 'Flash is back!')
+                
+                const designatedRoute = hasEmailExisted.role === 1 ? 'admin': (hasEmailExisted.role === 2 ? 'leader': 'user');
                 req.session.save(()=>{
                     
-                    res.redirect('/dash');
+                    res.redirect(`/dashboard/${designatedRoute}`);
                 });
 
                 return;

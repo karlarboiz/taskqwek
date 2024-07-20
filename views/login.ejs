@@ -1,4 +1,4 @@
-<%- include('includes/uppersection', {title: "Login Page"}); %>
+<%- include('includes/uppersection', {title: "Login Page",navItemsPresent: true}); %>
 <% if(loginInputs.hasError) {%>
     <div class="text-center bg-warning py-2">
         <p ><%= loginInputs.message %></p> 

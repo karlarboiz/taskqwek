@@ -1,6 +1,6 @@
-const adminDashboardPage = (req,res)=>{
+const adminDashboardPage = async (req,res)=>{
 
-    res.render("dashboard");
+    res.render('dashboard');
 }
 
 

@@ -68,12 +68,14 @@ const adminRoutes = require('./routes/admin-routes');
 const loginRoutes = require('./routes/login-routes');
 const signupRoutes = require('./routes/signup-routes');
 const userRoutes = require('./routes/user-routes');
+const leaderRoutes = require("./routes/leader-routes");
 
 app.use(commonRoutes);
 app.use(adminRoutes);
 app.use(loginRoutes);
 app.use(signupRoutes);
-// app.use(userRoutes);
+app.use(userRoutes);
+app.use(leaderRoutes);
 
 app.use((req,res)=>{
     res.status(404).render('404');

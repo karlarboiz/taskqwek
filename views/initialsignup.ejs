@@ -1,4 +1,4 @@
-<%- include('includes/uppersection', {title: "Sign Up Page"}); %>
+<%- include('includes/uppersection', {title: "Sign Up Page",navItemsPresent: true}); %>
 <div><%=signupInputs.hasError ? signupInputs?.message : ''%></div>
 <main class="container">
     <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
