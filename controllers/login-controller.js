@@ -12,7 +12,6 @@ const loginPage = async( req,res)=>{
           res.render('login',{loginInputs: loginInputs});
         }
     else {
-       
         res.redirect('/');
     }
 }

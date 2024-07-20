@@ -14,5 +14,5 @@ const logoutFunc = async (req,res)=>{
 module.exports = {
     logoutFunc:logoutFunc,
     homePage: homePage,
- 
+
 }   

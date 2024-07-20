@@ -21,20 +21,28 @@ const createUserFunc = async(req,res)=>{
         role: Number(req.body.role)
     })
 
-    return res.redirect('/login');
+    // return res.redirect('/login');
 
 
 
-    // await user.save().then(
-    //     (result,err)=>{
-    //         if(err){
+    await user.save().then(
+        (result,err)=>{
+            if(err){
                 
-    //             return res.redirect('/signup');
-    //         }
-    //         return res.redirect('/login');    
-    //     });
+                return res.redirect('/signup');
+            }
 
-}
+            req.session.id = result._id;
+            console.log(result);
+            req.session.username = result.username;
+
+            req.session.save(
+                ()=> res.redirect('/login')
+            )
+    
+        });
+
+} 
 
 
 
@@ -138,14 +146,9 @@ const signupFunc = async (req,res)=>{
     }
 }
 
-const logoutFunc = async (req,res)=>{
-    req.session.user = null;
-    req.session.isAuthenticated = false;
-    res.redirect('/login');
-}
 
 module.exports = {
-  
+
     signupPage: signupPage,
     signupFunc: signupFunc,
  
