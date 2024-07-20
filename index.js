@@ -33,10 +33,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-        mongoUrl:`mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@b303-arboiz.p20uafb.mongodb.net/formslinks?retryWrites=true&w=majority`,
+        mongoUrl:`mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@b303-arboiz.p20uafb.mongodb.net/taskqwek?retryWrites=true&w=majority`,
         ttl: 7 * 24 * 60 * 60 * 1000,
         autoRemove: 'native',
-        dbName: 'formslinks',
+        dbName: 'taskqwek',
         collectionName: 'sessions'
     }),
     cookie:{
@@ -63,11 +63,17 @@ app.use((req,res,next)=>{
 
 
 app.use(addCsrfToken);
-const mainRoutes = require('./routes/main-routes');
+const commonRoutes = require('./routes/common-routes');
 const adminRoutes = require('./routes/admin-routes');
+const loginRoutes = require('./routes/login-routes');
+const signupRoutes = require('./routes/login-routes');
+const userRoutes = require('./routes/user-routes');
 
-app.use(mainRoutes);
+app.use(commonRoutes);
 app.use(adminRoutes);
+app.use(loginRoutes);
+app.use(signupRoutes);
+// app.use(userRoutes);
 
 app.use((req,res)=>{
     res.status(404).render('404');
