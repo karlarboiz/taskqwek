@@ -21,10 +21,6 @@ const createUserFunc = async(req,res)=>{
         role: Number(req.body.role)
     })
 
-    // return res.redirect('/login');
-
-
-
     await user.save().then(
         (result,err)=>{
             if(err){
@@ -32,9 +28,10 @@ const createUserFunc = async(req,res)=>{
                 return res.redirect('/signup');
             }
 
-            req.session.id = result._id;
-            console.log(result);
-            req.session.username = result.username;
+            req.session.data ={
+                id:  result._id,
+                username: result.username
+            }
 
             req.session.save(
                 ()=> res.redirect('/login')
@@ -125,7 +122,7 @@ const signupFunc = async (req,res)=>{
  
     let hasAccountExisted = await User.findOne({emailAddress: req.body?.email}).
                                     then(result=>result);
-    console.log("has account" + hasAccountExisted);
+
     if(hasAccountExisted) {
         
         signupSession.signupErrorSessionPage(req,{

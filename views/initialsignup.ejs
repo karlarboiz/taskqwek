@@ -1,6 +1,6 @@
 <%- include('includes/uppersection', {title: "Sign Up Page"}); %>
 <div><%=signupInputs.hasError ? signupInputs?.message : ''%></div>
-<main>
+<main class="container">
     <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
         <div class="form-group">
             <label for="first-name">First Name:</label>
