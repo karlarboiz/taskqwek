@@ -33,6 +33,7 @@ const createUserFunc = async(req,res)=>{
                 role: result.role};
             
             req.session.isAuthenticated = true;
+            
             req.session.save(
                 ()=> res.redirect('/login')
             )
@@ -42,8 +43,6 @@ const createUserFunc = async(req,res)=>{
         });
 
 } 
-
-
 
 const signupPage = async (req,res)=>{
     
