@@ -1,5 +1,6 @@
 const userDashboardPage = (req,res)=>{
-    res.render('dashboard');
+    const role = "user";
+    res.render('dashboard',{role:role});
 }
 
 module.exports = {

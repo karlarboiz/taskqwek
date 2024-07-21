@@ -1,6 +1,6 @@
 const adminDashboardPage = async (req,res)=>{
-
-    res.render('dashboard');
+    const role = "admin";
+    res.render('dashboard',{role:role});
 }
 
 

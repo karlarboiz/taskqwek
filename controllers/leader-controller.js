@@ -1,7 +1,7 @@
 
 const leaderDashboardPage = (req,res)=>{
-    res.render('dashboard');
-
+    const role = "leader";
+    res.render('dashboard',{role:role});
 }
 
 module.exports = {
