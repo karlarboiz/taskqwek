@@ -1,6 +1,6 @@
-<%- include('includes/uppersection', {title: "Dashboard",navItemsPresent: false}); %>
-<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">Company name</a>
+<%- include('includes/header', {title: "Dashboard",navItemsPresent: false}); %>
+<header class="navbar sticky-top bg-dark flex-md-nowrap py-2 shadow" data-bs-theme="dark">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">TaskQwek</a>
 
   <ul class="navbar-nav flex-row d-md-none">
 
@@ -14,12 +14,14 @@
   </ul>
 
 </header>
-<div class="container-fluid">
-  <div class="row">
+
+
+<div class="container-fluid ">
+  <div class="row dashboard">
     <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
       <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>
+          <h5 class="offcanvas-title" id="sidebarMenuLabel">TaskQwek</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
@@ -29,6 +31,7 @@
                 Dashboard
               </a>
             </li>
+
             <!-- <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#file-earmark"></use></svg>
@@ -100,14 +103,43 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
               
+                Organizations
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              
+                Tasks
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              
+                Reminders
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              
+                Notifications
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              
                 Settings
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                
-                Sign out
-              </a>
+
+              <form action="/logout" method="post" class="nav-link d-flex align-items-center gap-2"> 
+                <input type="hidden" value="<%= locals.csrf %>" name="_csrf">
+                <button type="submit" class="btn btn-warning">Logout</button>
+              </form>       
             </li>
           </ul>
         </div>
@@ -116,7 +148,7 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
+       
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -136,7 +168,7 @@
   </div>
 </div>
     
-    <%- include('includes/lowersection'); %>
+    <%- include('includes/footer'); %>
 
 
 
