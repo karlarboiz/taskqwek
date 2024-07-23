@@ -53,7 +53,11 @@ const user_schema = new mongoose.Schema({
     },
     regDate: {
         type: Date,
-        default: Date.now
+        default: Date.now()
+    },
+    updateDate: {
+        type: Date,
+        default: Date.now()
     }
 })
 

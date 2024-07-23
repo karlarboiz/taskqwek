@@ -32,6 +32,10 @@ const adminCreateOrganizationFunc = async(req,res)=>{
         errorMessage.name = "Organization has already existed";
     }
 
+    if(Object.entries(errorMessage).length > 0) {
+        
+    }
+
 
 
    
