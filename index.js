@@ -71,7 +71,7 @@ const userRoutes = require('./routes/user-routes');
 const leaderRoutes = require("./routes/leader-routes");
 
 app.use(commonRoutes);
-app.use(adminRoutes);
+// app.use(adminRoutes);
 app.use(loginRoutes);
 app.use(signupRoutes);
 app.use(userRoutes);

@@ -58,7 +58,11 @@ const user_schema = new mongoose.Schema({
     updateDate: {
         type: Date,
         default: Date.now()
-    }
+    },
+    deleteFlg : {
+        type: Boolean,
+        default: false
+    }   
 })
 
 module.exports = mongoose.model("User", user_schema);

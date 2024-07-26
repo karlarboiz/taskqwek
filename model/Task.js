@@ -12,6 +12,13 @@ const task_schema = new mongoose.Schema({
     completionPercentage: {
         type: Number
     },
+    productivityLevel:{
+        type: String
+    },
+    assignees:{
+        type: Array,
+        default: new Array()
+    },
     createAuthorId: {
         type: String,
         required: [true, "Author ID is required"]
@@ -27,7 +34,11 @@ const task_schema = new mongoose.Schema({
     updateDate: {
         type: Date,
         default: Date.now()
-    }
+    },
+    deleteFlg : {
+        type: Boolean,
+        default: false
+    }   
 })
 
 module.exports = mongoose.model("Task", task_schema);

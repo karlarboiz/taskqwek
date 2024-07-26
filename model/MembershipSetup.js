@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const org_schema = new mongoose.Schema({
+const membership_setup_schema = new mongoose.Schema({
     name : {
         type : String,
         required : [true, "Organization Name is required"],
@@ -34,8 +34,8 @@ const org_schema = new mongoose.Schema({
     deleteFlg : {
         type: Boolean,
         default: false
-    }      
+    }   
 })
 
-module.exports = mongoose.model("Organization", org_schema);
+module.exports = mongoose.model("Organization", membership_setup_schema);
 
