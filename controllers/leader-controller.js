@@ -1,5 +1,5 @@
 const Org = require("../model/Org");
-
+const url = require('url');
 const orgCreationSession = require("../util/org-creation-session");
 
 const leaderCreateOrganizationFunc = async(req,res)=>{
@@ -33,11 +33,19 @@ const leaderCreateOrganizationFunc = async(req,res)=>{
 }
 
 const leaderDashboardPage = (req,res)=>{
+    const queryData = url.parse(req.url, true).query;
+    console.log(queryData);
+    const role = "leader";
+    res.render('dashboard',{role:role});
+}
+
+const leaderDashboardOrganizationPage = (req,res)=>{
     const role = "leader";
     res.render('dashboard',{role:role});
 }
 
 module.exports = {
     leaderDashboardPage,
-    leaderCreateOrganizationFunc
+    leaderCreateOrganizationFunc,
+    leaderDashboardOrganizationPage
 }
