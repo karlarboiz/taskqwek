@@ -22,5 +22,5 @@ const history_schema = new mongoose.Schema({
     }   
 })
 
-module.exports = mongoose.model("Notification", history_schema);
+module.exports = mongoose.model("History", history_schema);
 

@@ -1,33 +1,17 @@
 const mongoose = require("mongoose");
 
 const membership_setup_schema = new mongoose.Schema({
-    name : {
+    welcomeID : {
         type : String,
-        required : [true, "Organization Name is required"],
-        min: 5,
-        max: 15
+        required : [true, "Organization Name is required"]
     },
-    description : {
-        type : String,
-        required : [true, "Password is required"],
-        min: 40,
-        max: 255
+    expectedEmail: {
+        type: String
     },
-    population: {
-       leaders: {
-        type: Number,
-        default: 10,
-       },
-       members: {
-        type: Number,
-        default: 150
-       }
+    validity: {
+        type: Number
     },
     regDate: {
-        type: Date,
-        default: new Date()
-    },
-    updateDate: {
         type: Date,
         default: new Date()
     },
@@ -37,5 +21,5 @@ const membership_setup_schema = new mongoose.Schema({
     }   
 })
 
-module.exports = mongoose.model("Organization", membership_setup_schema);
+module.exports = mongoose.model("MembershipSetup", membership_setup_schema);
 

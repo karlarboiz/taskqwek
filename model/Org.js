@@ -15,7 +15,7 @@ const org_schema = new mongoose.Schema({
     },
     members: {
         type: Number,
-        default: 15
+        default: 10
        },
     regDate: {
         type: Date,
@@ -31,5 +31,5 @@ const org_schema = new mongoose.Schema({
     }      
 })
 
-module.exports = mongoose.model("Organization", org_schema);
+module.exports = mongoose.model("Org", org_schema);
 

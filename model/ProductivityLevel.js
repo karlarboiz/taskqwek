@@ -22,5 +22,5 @@ const productivity_level_schema = new mongoose.Schema({
     }      
 })
 
-module.exports = mongoose.model("ProductivityLevel", productivity_level_schema);
-
+module.exports = mongoose.model("Productivity Level", productivity_level_schema);
+ 
