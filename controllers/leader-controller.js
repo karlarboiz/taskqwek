@@ -2,10 +2,6 @@ const Org = require("../model/Org");
 
 const orgCreationSession = require("../util/org-creation-session");
 
-const adminCreateOrganizationPage = (req,res)=>{
-    res.render("org-creation");
-}
-
 const leaderCreateOrganizationFunc = async(req,res)=>{
     let errorMessage = {};
 
