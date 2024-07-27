@@ -4,16 +4,28 @@ const task_evaluation_schema = new mongoose.Schema({
     taskId : {
         type : String,
         required : [true, "Task ID is required"],
-     
     },
-    description : {
+    memberEvaluation: {
         type : String,
         required : [true, "Description is  is required"],
         min: 0,
         max: 255
     },
-    evaluationRating: {
-        type: Number
+    leaderEvaluation:{
+        type : String,
+        required : [true, "Description is  is required"],
+        min: 0,
+        max: 255
+    },
+    approve: {
+        type: Boolean,
+        default: false
+    },
+    regId: {
+        type: String
+    },
+    updateId: {
+        type: String
     },
     regDate: {
         type: Date,

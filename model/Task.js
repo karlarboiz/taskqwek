@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const task_schema = new mongoose.Schema({
+    projectId: {
+        type: String,
+        required: [true, "Project Id is required"]
+    },
     name : {
         type : String,
         required : [true, "Email is required"]

@@ -13,16 +13,10 @@ const org_schema = new mongoose.Schema({
         min: 40,
         max: 255
     },
-    population: {
-       leaders: {
+    members: {
         type: Number,
-        default: 10,
+        default: 15
        },
-       members: {
-        type: Number,
-        default: 150
-       }
-    },
     regDate: {
         type: Date,
         default: new Date()
