@@ -36,7 +36,15 @@ const leaderDashboardPage = (req,res)=>{
     const queryData = url.parse(req.url, true).query;
     console.log(queryData);
     const role = "leader";
-    res.render('dashboard',{role:role});
+
+    if(req.user.role !== 1) {
+        let realRole = req.user.role === 1 ? 'leader': 'user';
+
+        return res.redirect(`/dashboard/${realRole}`)
+    }else {
+        res.render('dashboard',{role:role});
+    }
+   
 }
 
 const leaderDashboardOrganizationPage = (req,res)=>{

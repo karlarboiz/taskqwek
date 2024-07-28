@@ -33,9 +33,11 @@ const createUserFunc = async(req,res)=>{
                 role: result.role};
             
             req.session.isAuthenticated = true;
+
+            const role = result.role == 1 ? 'leader' : 'member'
             
             req.session.save(
-                ()=> res.redirect('/login')
+                ()=> res.redirect(`/signup/setting-up?role=${role}`)
             )
 
             return;

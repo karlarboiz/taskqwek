@@ -43,9 +43,8 @@ const loginFunc = async (req,res)=>{
                     role: hasEmailExisted.role};
                 
                 req.session.isAuthenticated = true;
-                req.flash('info', 'Flash is back!')
-                
-                const designatedRoute = hasEmailExisted.role === 1 ? 'leader': 'user';
+            
+                const designatedRoute = hasEmailExisted.role === 1 ? 'leader': 'member';
                 req.session.save(()=>{
                     
                     res.redirect(`/dashboard/${designatedRoute}`);

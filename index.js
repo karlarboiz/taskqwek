@@ -66,13 +66,13 @@ app.use(addCsrfToken);
 const commonRoutes = require('./routes/common-routes');
 const loginRoutes = require('./routes/login-routes');
 const signupRoutes = require('./routes/signup-routes');
-const userRoutes = require('./routes/user-routes');
+const memberRoutes = require('./routes/member-routes');
 const leaderRoutes = require("./routes/leader-routes");
 
 app.use(commonRoutes);
 app.use(loginRoutes);
 app.use(signupRoutes);
-app.use(userRoutes);
+app.use(memberRoutes);
 app.use(leaderRoutes);
 
 app.use((req,res)=>{
