@@ -7,7 +7,7 @@ const memberController = require("../controllers/member-controller");
 const router = express.Router();
 
 
-router.get("/dashboard/user",memberController.memberDashboardPage);
+router.get("/dashboard/member",memberController.memberDashboardPage);
 
 
 module.exports = router;
