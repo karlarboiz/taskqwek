@@ -15,7 +15,7 @@
 
 </header>
 
-<div class="container-fluid ">
+<main class="container-fluid ">
   <div class="row">
     <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary ">
       <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
@@ -49,7 +49,6 @@
 
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="/dashboard/<%=role%>?visit=reminders">
-              
                 Reminders
               </a>
             </li>
@@ -62,13 +61,15 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" data-bs-toggle="collapse" href="#collapseExample" role="button" 
-              aria-expanded="false" aria-controls="collapseExample">
+              <a class="nav-link d-flex align-items-center gap-2" 
+              data-bs-toggle="collapse" href="#collapseSettings"
+               role="button" 
+              aria-expanded="false" aria-controls="collapseSettings">
                 Settings
               </a>
 
-              <div class="collapse" id="collapseExample">
-                <a class="d-flex align-items-center gap-2" href="/dashboard/<%=role%>/settings"></a>
+              <div class="collapse" id="collapseSettings">
+                <a class="d-flex align-items-center" href="/dashboard/<%=role%>/settings"></a>
                   Profile
                 </a>
               </div>
@@ -104,7 +105,7 @@
       </div>
     </main>
   </div>
-</div>
+</main>
     
     <%- include('includes/footer'); %>
 
