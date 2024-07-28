@@ -3,12 +3,12 @@ const url = require('url');
 const memberDashboardPage = (req,res)=>{
     const queryData = url.parse(req.url, true).query;
 
-    const role = "role";
+    let role= req.session.user.role === 1 ? 'leader': 'member';
 
-    if(req.user.role !== 2) {
-        let realRole = req.user.role === 1 ? 'leader': 'member';
+    let contentRender = queryData.visit;
 
-        return res.redirect(`/dashboard/${realRole}`)
+    if(req.session.user.role !== 2) {
+        return res.redirect(`/dashboard/${role}`)
     }else {
         res.render('dashboard',{role:role});
     }
