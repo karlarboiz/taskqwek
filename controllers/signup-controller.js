@@ -8,7 +8,7 @@ const saltRounds = 10;
 //
 //initiating functions from util for signup page
 const signupSession = require('../util/signup-session');
-
+const url = require('url');
 
 const createUserFunc = async(req,res)=>{
     
@@ -34,11 +34,11 @@ const createUserFunc = async(req,res)=>{
             
             req.session.isAuthenticated = true;
 
-            const role = result.role == 1 ? 'leader' : 'member'
+            const role = result.role === 1 ? 'leader' : 'member'
             
             req.session.save(
                 ()=> res.redirect(`/signup/setting-up?role=${role}`)
-            )
+            )   
 
             return;
     
@@ -146,10 +146,19 @@ const signupFunc = async (req,res)=>{
     }
 }
 
+const signupRoleFunctionalitySetup = (req,res)=>{
+    const queryData = url.parse(req.url, true).query;
+    const role = queryData.role;
+    const realRole = req.session.user.role === 1 ? 'leader' : 'member'
+    if(role !== realRole ){
+        return res.redirect(`/signup/setting-up?role=${realRole}`)
+    }
+    res.render('complete-setup')
+}
+
 
 module.exports = {
-
-    signupPage: signupPage,
-    signupFunc: signupFunc,
- 
+    signupPage,
+    signupFunc,
+    signupRoleFunctionalitySetup
 }   

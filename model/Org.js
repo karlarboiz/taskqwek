@@ -13,10 +13,15 @@ const org_schema = new mongoose.Schema({
         min: 40,
         max: 255
     },
-    members: {
+    population: {
         type: Number,
         default: 10
-       },
+    },
+    creatorAuthorId: {
+        type: String,
+        required: [true, "Creator Author Id is required"]
+    }
+    ,
     regDate: {
         type: Date,
         default: new Date()
