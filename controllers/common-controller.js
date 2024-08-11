@@ -1,8 +1,7 @@
 
-const homePage = async(req,res)=>{
-
+const homePage = async(req,res)=>{  
     res.render('/');
-}
+}   
 
 const logoutFunc = async (req,res)=>{
     req.session.user = null;

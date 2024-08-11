@@ -38,6 +38,10 @@ const loginFunc = async (req,res)=>{
         if(hasEmailExisted) {
             const isPasswordMatch = await bcrypt.compare(req.body.password, hasEmailExisted.password);
             if(isPasswordMatch){
+
+                if(Object.entries(req.session.user).length > 0) {
+                    req.session.user = null
+                }
                 req.session.user = {id: hasEmailExisted._id, 
                     email: hasEmailExisted.emailAddress,
                     role: hasEmailExisted.role};
