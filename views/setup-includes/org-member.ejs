@@ -1,0 +1,15 @@
+<form action="/org-leader" method="post">
+
+    <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
+    <div>Join Your Organization</div>
+
+    <div class="form-floating mb-3">
+        <textarea type="text" class="form-control"
+         id="org-code" name="description"> </textarea>
+        <label for="org-code">Organization Code</label>
+      </div>
+
+      <button class="btn btn-primary" type="submit" name="skip" value="skip"> Skip </button>
+      <button class="btn btn-primary" type="submit" name="create" value="create"> Create </button>
+
+</form>

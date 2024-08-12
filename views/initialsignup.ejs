@@ -6,30 +6,30 @@
             <label for="first-name">First Name:</label>
             <input type="text" value="<%=signupInputs.firstName%>" name="first-name">
 
-            <p><%=signupInputs.hasError ? signupInputs?.errorMessage?.firstName : ''%></p>
+            <span class="error-msg"><%=signupInputs.hasError ? signupInputs?.errorMessage?.firstName : ''%></span>
         </div>
     
         <div class="form-group">
             <label for="last-name">Last Name:</label>
             <input type="text" name="last-name" value="<%=signupInputs.lastName%>" >
-            <p><%=signupInputs?.errorMessage?.lastName%></p>
+            <span class="error-msg"><%=signupInputs?.errorMessage?.lastName%></span>
         </div>
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" name="username" value="<%=signupInputs.username%>" > 
-            <p><%=signupInputs?.errorMessage?.username%></p>
+            <span class="error-msg"><%=signupInputs?.errorMessage?.username%></span>
         </div>
     
         <div class="form-group">
             <label for="email">Email Address:</label>
             <input type="email" name="email" value="<%=signupInputs.email%>">
-            <p><%=signupInputs?.errorMessage?.email%></p>
+            <span class="error-msg"><%=signupInputs?.errorMessage?.email%></span>
         </div>
     
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" name="password" value="<%=signupInputs.password%>">
-            <p><%=signupInputs?.errorMessage?.password%></p>
+            <span class="error-msg"><%=signupInputs?.errorMessage?.password%></span>
         </div>
     
         <div class="form-group">
@@ -41,10 +41,10 @@
             <label for="role">Role</label>
             <select name="role">
                 <option value="0">Position</option>
-                <option value="2">LEADER</option>
-                <option value="3">MEMBER</option>
+                <option value="1">LEADER</option>
+                <option value="2">MEMBER</option>
             </select>
-            <p><%=signupInputs?.errorMessage?.role%></p>
+            <span class="error-msg"><%=signupInputs?.errorMessage?.role%></span>
         </div>
     
         <div class="form-group mt-4 text-center">

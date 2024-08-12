@@ -34,8 +34,9 @@ const createUserFunc = async(req,res)=>{
             
             req.session.isAuthenticated = true;
 
-            const role = result.role === 1 ? 'leader' : 'member'
-            
+            const role = Number(req.body.role) === 1 ? 'leader' : 'member'
+                
+            console.log(role);
             req.session.save(
                 ()=> res.redirect(`/signup/setting-up?role=${role}`)
             )   
@@ -149,11 +150,14 @@ const signupFunc = async (req,res)=>{
 const signupRoleFunctionalitySetup = (req,res)=>{
     const queryData = url.parse(req.url, true).query;
     const role = queryData.role;
-    const realRole = req.session.user.role === 1 ? 'leader' : 'member'
-    if(role !== realRole ){
-        return res.redirect(`/signup/setting-up?role=${realRole}`)
-    }
-    res.render('complete-setup')
+
+    const realRole = Number(req.session.user.role) === 1 ? 'leader' : 'member';
+ console.log(role)
+ console.log(realRole);
+    // if(role !== req.session.user.role ){
+    //     return res.redirect(`/signup/setting-up?role=${realRole}`)
+    // }
+    res.render('complete-setup', {role:role})
 }
 
 
