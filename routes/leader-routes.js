@@ -7,7 +7,7 @@ const leaderController = require("../controllers/leader-controller");
 const router = express.Router();
 
 
-router.get("/dashboard/leader",leaderController.leaderDashboardPage);
+// router.get("/dashboard/leader",leaderController.leaderDashboardPage);
 
 
 module.exports = router;
