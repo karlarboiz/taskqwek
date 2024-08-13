@@ -152,11 +152,10 @@ const signupRoleFunctionalitySetup = (req,res)=>{
     const role = queryData.role;
 
     const realRole = Number(req.session.user.role) === 1 ? 'leader' : 'member';
- console.log(role)
- console.log(realRole);
-    // if(role !== req.session.user.role ){
-    //     return res.redirect(`/signup/setting-up?role=${realRole}`)
-    // }
+
+    if(role !== req.session.user.role ){
+        return res.redirect(`/signup/setting-up?role=${realRole}`)
+    }
     res.render('complete-setup', {role:role})
 }
 

@@ -6,7 +6,6 @@ const orgController = require("../controllers/org-controller");
 
 const router = express.Router();
 
-
 router.post("/org-creation",orgController.orgCreationFunc);
 
 
