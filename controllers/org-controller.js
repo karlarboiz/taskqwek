@@ -1,5 +1,6 @@
 
 const Org = require("../model/Org");
+const url = require('url');
 const orgCreationFunc = async (req,res,next) =>{
     const creatorAuthorId = req.session.user.id;
 
@@ -31,10 +32,17 @@ const orgCreationFunc = async (req,res,next) =>{
     //         throw new Error("Something went wrong");
     //     }   
     // }
+}
 
-    
+const orgDashboardOrgPage = (req,res)=>{
+    const queryData = url.parse(req.url, true).query;
+    const role = queryData.role;
+    const pageVisit = queryData.visit;
+
+    res.render("dashboard",)
 }
 
 module.exports = {
-    orgCreationFunc
+    orgCreationFunc,
+    orgDashboardOrgPage
 }

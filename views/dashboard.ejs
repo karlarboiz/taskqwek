@@ -17,9 +17,9 @@
 
 <main class="container-fluid ">
   <div class="row">
-    <%- include('dashboard-content/dashboard-sidebar'); %>
+    <%- include('dashboard-content/dashboard-sidebar',{role:role}); %>
 
-    <%- include('dashboard-content/dashboard-main'); %>
+    <%- include('dashboard-content/dashboard-main',{role:role}); %>
 
   </div>
 </main>
