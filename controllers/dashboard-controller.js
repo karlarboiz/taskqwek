@@ -8,7 +8,6 @@ const dashboardPage = (req,res)=>{
     if(role != queryData.role) {
         return res.redirect(`/dashboard?role=${role}`)
     }else {
-    
         res.render('dashboard',{role:role,
             activeLink: 'dashboard',
             orgs:[]});

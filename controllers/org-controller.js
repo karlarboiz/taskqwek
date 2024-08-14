@@ -27,7 +27,7 @@ const orgCreationFunc = async (req,res,next) =>{
 
 const orgDashboardOrgPage = async (req,res)=>{
     const queryData = url.parse(req.url, true).query;
-    console.log(queryData);
+   
     const role = queryData.role;
     // const pageVisit = queryData.visit;
     const creatorAuthorId = req.session.user.id;
