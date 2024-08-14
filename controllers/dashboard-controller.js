@@ -9,7 +9,9 @@ const dashboardPage = (req,res)=>{
         return res.redirect(`/dashboard?role=${role}`)
     }else {
     
-        res.render('dashboard',{role:role});
+        res.render('dashboard',{role:role,
+            activeLink: 'dashboard',
+            orgs:[]});
     }
 
     

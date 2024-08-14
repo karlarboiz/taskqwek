@@ -13,6 +13,11 @@
     </div>
 
     <div class="table-responsive small">
-    
+      <% if(activeLink === 'org') {%>
+
+        <% for(item of orgs ) {%>
+          <p><%=  item.name%></p>
+        <% } %>
+      <% }%>
     </div>
   </section>

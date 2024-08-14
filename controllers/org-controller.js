@@ -31,7 +31,6 @@ const orgDashboardOrgPage = async (req,res)=>{
     const role = queryData.role;
     // const pageVisit = queryData.visit;
     const creatorAuthorId = req.session.user.id;
-    console.log(creatorAuthorId)
     const leaderOrgs = await Org.aggregate([
         {
             $match: {creatorAuthorId: creatorAuthorId}
