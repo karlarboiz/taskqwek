@@ -10,9 +10,8 @@ const dashboardPage = (req,res)=>{
     }else {
         res.render('dashboard',
             {role:role,
-                activeLink: 'dashboard',
-                orgs:[]
-            
+            activeLink: 'dashboard',
+            orgs:[]
             });
     }
 

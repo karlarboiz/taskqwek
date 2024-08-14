@@ -13,9 +13,7 @@
       </button>
 
       <div class="collapse" id="orgCreation">
-        <div class="card card-body">
-          Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-        </div>
+          <%- include('../complete-setup') %>
       </div>
 
     </aside>
@@ -36,7 +34,7 @@
   
         <% orgs.forEach((item) => {%>
           <tr>
-            <th scope="row"><%=  item.name %></th>
+            <th scope="row"><a href=""><%=  item.name %></a></th>
             <td><%=  item.description %></td>
             <td><%=  item.population %></td>
             <td>15</td>

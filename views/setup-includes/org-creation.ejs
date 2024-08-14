@@ -3,6 +3,7 @@
     <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
     <div>As a Leader: Create Your Organization</div>
     <div class="form-floating mb-3">
+        <input type="hidden" name="pageLoc" value="<%=pageLoc%>">
         <input type="text" class="form-control"
          id="org-name" name="org-name" 
          placeholder="Sample Org Name"
@@ -24,7 +25,9 @@
         <label for="population">Population</label>
       </div>
 
-      <button class="btn btn-primary" type="submit" name="skip" value="skip"> Skip </button>
+      <% if(pageLoc === 'out') {%>
+        <button class="btn btn-primary" type="submit" name="skip" value="skip"> Skip </button>
+      <%}%>
       <button class="btn btn-primary" type="submit" name="create" value="create"> Create </button>
 
 </form>

@@ -156,7 +156,7 @@ const signupRoleFunctionalitySetup = (req,res)=>{
     if(role !== realRole){
         return res.redirect(`/signup/setting-up?role=${realRole}`)
     }
-    res.render('complete-setup', {role:role})
+    res.render('complete-setup', {role:role, pageLoc: 'out'})
 }
 
 

@@ -1,14 +1,19 @@
-<%- include('includes/header', {title: "Complete Set up",
-navItemsPresent: true}); %>
+<% if(pageLoc === 'out') {%>
+  <%- include('includes/header', {title: "Complete Set up",
+  navItemsPresent: true}); %>
+<% }%>
 
 <main class="container mx-auto my-3">
     <% if(role === 'member')  {%>
         <%- include('setup-includes/org-member'); %>
     <%} else {%>
-      <%- include('setup-includes/org-creation'); %>
+      <%- include('setup-includes/org-creation', {pageLoc: pageLoc}); %>
     <%}%>
 </main>
 
 
+<% if(pageLoc === 'out') {%>
+  <%- include('includes/footer'); %>
+<% }%>
 
-<%- include('includes/footer'); %>
+
