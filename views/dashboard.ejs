@@ -1,4 +1,4 @@
-<%- include('includes/header', {title: "Dashboard",navItemsPresent: false}); %>
+<%- include('includes/header', {title: "Dashboard", navItemsPresent: false}); %>
 <header class="navbar sticky-top bg-dark flex-md-nowrap py-2 shadow" data-bs-theme="dark">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">TaskQwek</a>
 
@@ -17,9 +17,9 @@
 
 <main class="container-fluid ">
   <div class="row">
-    <%- include('dashboard-content/dashboard-sidebar',{role:role,activeLink:activeLink}); %>
+    <%- include('dashboard/dashboard-sidebar',{role:role, activeLink:activeLink}); %>
 
-    <%- include('dashboard-content/dashboard-main',{role:role, activeLink:activeLink ,orgs:orgs}); %>
+    <%- include('dashboard/dashboard-main',{role:role, activeLink:activeLink, orgs:orgs}); %>
 
   </div>
 </main>

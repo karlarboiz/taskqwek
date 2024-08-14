@@ -30,14 +30,14 @@ const orgDashboardOrgPage = async (req,res)=>{
    
     const role = queryData.role;
     // const pageVisit = queryData.visit;
-    const creatorAuthorId = req.session.user.id;
+    const creatorAuthorId = req.session.user?.id;
     const leaderOrgs = await Org.aggregate([
         {
             $match: {creatorAuthorId: creatorAuthorId}
         }
     ]);
-
-    res.render("dashboard",{role:role,orgs: leaderOrgs,activeLink: 'org'});
+   
+    res.render("dashboard",{role:role, orgs:leaderOrgs, activeLink: 'org'});
 }
 
 module.exports = {

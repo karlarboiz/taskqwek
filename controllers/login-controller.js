@@ -51,7 +51,7 @@ const loginFunc = async (req,res)=>{
                 const designatedRoute = hasEmailExisted.role === 1 ? 'leader': 'member';
                 req.session.save(()=>{
                     
-                    res.redirect(`/dashboard?role=${designatedRoute}`);
+                    return res.redirect(`/dashboard?role=${designatedRoute}`);
                 });
 
                 return;

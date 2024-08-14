@@ -5,12 +5,15 @@ const dashboardPage = (req,res)=>{
     
     let role= req.session.user.role === 1 ? 'leader' : 'member';
     
-    if(role != queryData.role) {
+    if(role !== queryData.role) {
         return res.redirect(`/dashboard?role=${role}`)
     }else {
-        res.render('dashboard',{role:role,
-            activeLink: 'dashboard',
-            orgs:[]});
+        res.render('dashboard',
+            {role:role,
+                activeLink: 'dashboard',
+                orgs:[]
+            
+            });
     }
 
     
