@@ -77,12 +77,12 @@ app.use(memberRoutes);
 app.use(leaderRoutes);
 app.use(orgRoutes);
 app.use(dashboardRoutes);
+
 app.use((req,res)=>{
     res.status(404).render('404');
 });
 
 app.use((error,req,res,next)=>{
-    console.log(error)
     res.status(500).render('500');
 })
 

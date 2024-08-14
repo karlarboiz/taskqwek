@@ -4,42 +4,41 @@ const url = require('url');
 const orgCreationFunc = async (req,res,next) =>{
     const creatorAuthorId = req.session.user.id;
 
-     const role = 'member';
+    const newOrg = new Org({
+        name: req.body['org-name'],
+        description: req.body.description,
+        population: req.body.population,
+        creatorAuthorId: creatorAuthorId
+    })
 
-     console.log(req.body)
+    const role = req.session.user.role === 1 ? 'leader' : 'member';
 
-    return res.redirect(`/dashboard/member`);
-    // const newOrg = new Org({
-    //     name: req.body['org-name'],
-    //     description: req.body.description,
-    //     population: req.body.population,
-    //     creatorAuthorId: creatorAuthorId
-    // })
-
-    // const role = req.session.user.role === 1 ? 'leader' : 'member';
-
-    // if(req.body.skip) {
-    //     return res.redirect(`/dashboard/${role}`)
-    // }else {
-    //     try {
-    //         await newOrg.save((err,result)=>{
-    //             if(err) {
-    //                 return res.redirect("/signup/")
-    //             }
-    //         });
-    
-    //     }catch(e) {
-    //         throw new Error("Something went wrong");
-    //     }   
-    // }
+    if(req.body.skip) {
+        return res.redirect(`/dashboard?role=${role}`)
+    }else {
+        await newOrg.save().then((err,result)=>{
+            if(err) {
+                return res.redirect(`/dashboard?role=${role}`)
+            }
+            return res.redirect(`/dashboard?role=${role}`)
+        });
+    }
 }
 
-const orgDashboardOrgPage = (req,res)=>{
+const orgDashboardOrgPage = async (req,res)=>{
     const queryData = url.parse(req.url, true).query;
+    console.log(queryData);
     const role = queryData.role;
-    const pageVisit = queryData.visit;
+    // const pageVisit = queryData.visit;
+    const creatorAuthorId = req.session.user.id;
+    console.log(creatorAuthorId)
+    const leaderOrgs = await Org.aggregate([
+        {
+            $match: {creatorAuthorId: creatorAuthorId}
+        }
+    ]);
 
-    res.render("dashboard",)
+    res.render("dashboard",{role:role,orgs: leaderOrgs,activeLink: 'org'});
 }
 
 module.exports = {

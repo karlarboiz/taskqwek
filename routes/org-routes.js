@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.post("/org-creation",orgController.orgCreationFunc);
 
-router.get(`/dashboard/org-page`,orgController.orgDashboardOrgPage);
+router.get(`/org-page`,orgController.orgDashboardOrgPage);
 
 module.exports = router;
