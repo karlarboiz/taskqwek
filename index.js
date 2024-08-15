@@ -54,8 +54,7 @@ app.use((req,res,next)=>{
     if(!isAuthenticated || !user) {
         return next();
     }
-    const isAdmin = user?.isAdmin;
-
+    const isAdmin = user?.isAdmin;   
     res.locals.isAuthenticated = isAuthenticated;
     res.locals.isAdmin = isAdmin; 
     next();
