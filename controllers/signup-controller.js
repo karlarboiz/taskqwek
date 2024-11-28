@@ -1,6 +1,5 @@
 //declaring the model saving user information
 const User = require('../model/User');
-
 //using bcrypt
 const bcrypt = require('bcrypt');
 //initiating salt rounds
@@ -9,7 +8,6 @@ const saltRounds = 10;
 //initiating functions from util for signup page
 const signupSession = require('../util/signup-session');
 const url = require('url');
-
 
 const signupPage = async (req,res)=>{
     
@@ -36,17 +34,14 @@ const signupFunc = async (req,res,next)=>{
         role: Number(req.body.role)
     })
     
-    const err = await user.validateSync();
+    const err = await user.validateSync();  
 
-    
     const errors = Object.entries(err.errors);
 
     for (const [key, value] of Object.entries(err.errors)) {
         errorMessage[key] = value.properties.message;
        
     }
-
-   
     if(errors.length > 0){
         signupSession.signupErrorSessionPage(req,{
             errorMessage:errorMessage,
@@ -61,25 +56,25 @@ const signupFunc = async (req,res,next)=>{
         return;
     }
 
-    // let hasAccountExisted = await User.findOne({emailAddress: req.body?.email}).
-    //                                 then(result=>result);
+    let hasAccountExisted = await User.findOne({emailAddress: req.body?.email}).
+                                    then(result=>result);
 
-    // if(hasAccountExisted) {
+    if(hasAccountExisted) {
         
-    //     signupSession.signupErrorSessionPage(req,{
-    //         message: "Account existed! Please Log in",
-    //         firstName: req.body['first-name'],
-    //         lastName:req.body['last-name'],
-    //         username: req.body.username,  
-    //         email: req.body.email,
-    //         password: req.body.password
-    //     },()=>{
-    //         res.redirect('/signup')
-    //     })
+        signupSession.signupErrorSessionPage(req,{
+            message: "Account existed! Please Log in",
+            firstName: req.body['first-name'],
+            lastName:req.body['last-name'],
+            username: req.body.username,  
+            email: req.body.email,
+            password: req.body.password
+        },()=>{
+            res.redirect('/signup')
+        })
 
         
-    //     return;
-    // }
+        return;
+    }
 }
 
 const signupRoleFunctionalitySetup = (req,res)=>{
