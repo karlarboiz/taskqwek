@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const {initializeConnection} = require('./data/database');
 const flash = require("connect-flash");
-const port = 3000;
+const port = 5000;
 
 
 require('dotenv').config();

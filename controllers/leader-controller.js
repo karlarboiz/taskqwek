@@ -54,8 +54,7 @@ const leaderDashboardOrganizationPage = (req,res)=>{
     res.render('dashboard',{role:role});
 }
 
-// module.exports = {
-//     // leaderDashboardPage,
-//     leaderCreateOrganizationFunc,
-//     leaderDashboardOrganizationPage
-// }
+module.exports = {
+    leaderCreateOrganizationFunc,
+    leaderDashboardOrganizationPage
+}
