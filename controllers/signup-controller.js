@@ -24,60 +24,67 @@ const signupPage = async (req,res)=>{
 }
 
 const signupFunc = async (req,res,next)=>{
-    const errorMessage = {};
-    let user = new User({
-        firstName: req.body["first-name"],
-        lastName: req.body['last-name'],
-        username: req.body['username'],
-        emailAddress: req.body.email,
-        password: await bcrypt.hash(req.body.password, saltRounds),
-        role: Number(req.body.role)
-    })
-    
-    const err = await user.validateSync();  
-
-    const errors = Object.entries(err.errors);
-
-    for (const [key, value] of Object.entries(err.errors)) {
-        errorMessage[key] = value.properties.message;
-       
-    }
-    if(errors.length > 0){
-        signupSession.signupErrorSessionPage(req,{
-            errorMessage:errorMessage,
+    try{
+        const errorMessage = {};
+        let user = new User({
             firstName: req.body["first-name"],
             lastName: req.body['last-name'],
             username: req.body['username'],
             emailAddress: req.body.email,
-            role:Number(req.body.role)
-        },()=>{
-            res.redirect("/signup")
+            password: await bcrypt.hash(req.body.password, saltRounds),
+            role: Number(req.body.role)
         })
-
-        return;
-    }else if(hasAccountExisted) {
         
-        signupSession.signupErrorSessionPage(req,{
-            message: "Account existed! Please Log in",
-            firstName: req.body['first-name'],
-            lastName:req.body['last-name'],
-            username: req.body.username,  
-            email: req.body.email,
-            password: req.body.password
-        },()=>{
-            res.redirect('/signup')
-        })
-        return;
-    }else {
+        const err = await user.validateSync();  
 
-        if(Number(req.body.role) === 1){
-            res.redirect('/signup/leader')
-        }else if(Number(req.body.role) === 2) {
-            
-        }else {
-            res.redirect('/dashboard')
+    
+        const errors = Object.entries(err.errors);
+
+
+    
+        for (const [key, value] of Object.entries(err.errors)) {
+            errorMessage[key] = value.properties.message;
+           
         }
-        
+        if(errors.length > 0){
+            signupSession.signupErrorSessionPage(req,{
+                errorMessage:errorMessage,
+                firstName: req.body["first-name"],
+                lastName: req.body['last-name'],
+                username: req.body['username'],
+                emailAddress: req.body.email,
+                password:req.body.password,
+                role:Number(req.body.role)
+            },()=>{
+                res.redirect("/signup")
+            })
+    
+            return;
+        }else if(hasAccountExisted) {
+            
+            signupSession.signupErrorSessionPage(req,{
+                message: "Account existed! Please Log in",
+                firstName: req.body['first-name'],
+                lastName:req.body['last-name'],
+                username: req.body.username,  
+                emailAddress: req.body.email,
+                password: req.body.password
+            },()=>{
+                res.redirect('/signup')
+            })
+            return;
+        }else {
+            if(Number(req.body.role) === 1){
+                res.redirect('/signup/leader')
+            }else if(Number(req.body.role) === 2) {
+                
+            }else {
+                res.redirect('/dashboard')
+            }
+            
+        }
+    }catch(e){
+        next(e)
     }
 }
 

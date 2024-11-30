@@ -3,8 +3,9 @@ const express = require('express');
 const router = express.Router();
 
 const signupController = require("../controllers/signup-controller");
+const { checkActiveUser } = require('../middlewares/checkActiveUsers');
 
-router.get('/signup',signupController.signupPage);
+router.get('/signup',checkActiveUser,signupController.signupPage);
 
 router.get('/signup/setting-up',signupController.signupRoleFunctionalitySetup);
     
