@@ -1,6 +1,6 @@
 <%- include('includes/header', {title: "Signup Page",navItemsPresent: true}); %>
 <div><%=signupInputs.hasError ? signupInputs?.message : ''%></div>
-<main class="container">
+<main class="container mt-5">
     <form action="/signup?_csrf=<%= locals.csrf %>"
         method="post">
         <section class="form-register">
@@ -46,11 +46,15 @@
             <div class="form-group">
                 <label for="role">Role</label>
                 <select name="role">
-                    <option value="0" selected="<%=signupInputs.role == 0%>">Position</option>
-                    <option value="1" selected="<%=signupInputs.role == 1%>">LEADER</option>
-                    <option value="2" selected="<%=signupInputs.role == 2%>">MEMBER</option>
+                    <% ["","LEADER","MEMBER"].forEach((value,i)=>{%>
+                        <% if(i===signupInputs.role) {%>
+                            <option value="<%=i%>" selected="true"><%=value%></option>
+                        <% } else{%>
+                            <option value="<%=i%>" ><%=value%></option>
+                        <% }%>
+                    <%}) %>
+                
                 </select>
-                <p><%=signupInputs.role%></p>
                 <span class="error-msg"><%=signupInputs?.errorMessage?.role%></span>
             </div>
         </section>

@@ -12,7 +12,7 @@ router.post('/signup',signupController.signupFunc);
 
 router.get('/signup/:role',(req,res)=>{
     const signUpValue = req.params['role'];
-    res.render(`signup${signUpValue}`);
+    res.render(`signup-${signUpValue}`);
 })
 
 module.exports = router

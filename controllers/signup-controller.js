@@ -55,12 +55,7 @@ const signupFunc = async (req,res,next)=>{
         })
 
         return;
-    }
-
-    let hasAccountExisted = await User.findOne({emailAddress: req.body?.email}).
-                                    then(result=>result);
-
-    if(hasAccountExisted) {
+    }else if(hasAccountExisted) {
         
         signupSession.signupErrorSessionPage(req,{
             message: "Account existed! Please Log in",
@@ -72,9 +67,17 @@ const signupFunc = async (req,res,next)=>{
         },()=>{
             res.redirect('/signup')
         })
-
-        
         return;
+    }else {
+
+        if(Number(req.body.role) === 1){
+            res.redirect('/signup/leader')
+        }else if(Number(req.body.role) === 2) {
+            
+        }else {
+            res.redirect('/dashboard')
+        }
+        
     }
 }
 
