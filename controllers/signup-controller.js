@@ -31,7 +31,7 @@ const signupFunc = async (req,res,next)=>{
             lastName: req.body['last-name'],
             username: req.body['username'],
             emailAddress: req.body.email,
-            password: await bcrypt.hash(req.body.password, saltRounds),
+            password: req.body.password,
             role: Number(req.body.role)
         })
         

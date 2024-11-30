@@ -42,6 +42,7 @@ body {
 
 .form-group {
   text-align: left;
+  text-wrap: wrap;
 }
 
 .form-group * {
