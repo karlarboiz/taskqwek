@@ -1,53 +1,61 @@
 <%- include('includes/header', {title: "Signup Page",navItemsPresent: true}); %>
 <div><%=signupInputs.hasError ? signupInputs?.message : ''%></div>
 <main class="container">
-    <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
-        <div class="form-group">
-            <label for="first-name">First Name:</label>
-            <input type="text" value="<%=signupInputs.firstName%>" name="first-name">
-
-            <span class="error-msg"><%=signupInputs.hasError ? signupInputs?.errorMessage?.firstName : ''%></span>
-        </div>
+    <form action="/signup?_csrf=<%= locals.csrf %>"
+        method="post">
+        <section class="form-register">
+            <div class="form-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" value="<%=signupInputs.firstName%>" name="first-name">
     
-        <div class="form-group">
-            <label for="last-name">Last Name:</label>
-            <input type="text" name="last-name" value="<%=signupInputs.lastName%>" >
-            <span class="error-msg"><%=signupInputs?.errorMessage?.lastName%></span>
-        </div>
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" name="username" value="<%=signupInputs.username%>" > 
-            <span class="error-msg"><%=signupInputs?.errorMessage?.username%></span>
-        </div>
+                <span class="error-text
+                text-danger"><%=signupInputs.hasError ? signupInputs?.errorMessage?.firstName : ''%></span>
+            </div>
+        
+            <div class="form-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" name="last-name" value="<%=signupInputs.lastName%>" >
+                <span class="error-text text-danger"><%=signupInputs?.errorMessage?.lastName%></span>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" value="<%=signupInputs.username%>" > 
+                <span class="error-text
+                text-danger"><%=signupInputs?.errorMessage?.username%></span>
+            </div>
+        
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" name="email" value="<%=signupInputs.email%>">
+                <span class="error-text
+                text-danger"><%=signupInputs?.errorMessage?.emailAddress%></span>
+            </div>
+        
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" value="<%=signupInputs.password%>">
+                <span class="error-text
+                text-danger"><%=signupInputs?.errorMessage?.password%></span>
+            </div>
+        
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" name="confirm-password">
+            </div>
+        
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select name="role">
+                    <option value="0" selected="<%=signupInputs.role == 0%>">Position</option>
+                    <option value="1" selected="<%=signupInputs.role == 1%>">LEADER</option>
+                    <option value="2" selected="<%=signupInputs.role == 2%>">MEMBER</option>
+                </select>
+                <p><%=signupInputs.role%></p>
+                <span class="error-msg"><%=signupInputs?.errorMessage?.role%></span>
+            </div>
+        </section>
     
-        <div class="form-group">
-            <label for="email">Email Address:</label>
-            <input type="email" name="email" value="<%=signupInputs.email%>">
-            <span class="error-msg"><%=signupInputs?.errorMessage?.emailAddress%></span>
-        </div>
-    
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" value="<%=signupInputs.password%>">
-            <span class="error-msg"><%=signupInputs?.errorMessage?.password%></span>
-        </div>
-    
-        <div class="form-group">
-            <label for="confirm-password">Confirm Password:</label>
-            <input type="password" name="confirm-password">
-        </div>
-    
-        <div class="form-group">
-            <label for="role">Role</label>
-            <select name="role">
-                <option value="0">Position</option>
-                <option value="1">LEADER</option>
-                <option value="2">MEMBER</option>
-            </select>
-            <span class="error-msg"><%=signupInputs?.errorMessage?.role%></span>
-        </div>
-    
-        <div class="form-group mt-4 text-center">
+        <div class="form-group mt-4 text-center mx-auto">
             <button type="submit" class="btn btn-primary">
                 Signup
             </button>

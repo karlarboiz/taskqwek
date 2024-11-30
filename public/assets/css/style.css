@@ -34,6 +34,24 @@ body {
   max-width: 50%;
 }
 
+.form-register {
+  display: grid;
+  grid-template-columns: repeat(2, 20rem);
+  justify-content: center;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.form-group * {
+  display: block;
+}
+
+.error-text {
+  font-size: 0.75rem;
+}
+
 .dashboard-height {
   min-height: 35rem;
 }

@@ -49,6 +49,7 @@ const signupFunc = async (req,res,next)=>{
             lastName: req.body['last-name'],
             username: req.body['username'],
             emailAddress: req.body.email,
+            role:Number(req.body.role)
         },()=>{
             res.redirect("/signup")
         })

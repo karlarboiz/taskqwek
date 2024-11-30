@@ -3,3 +3,23 @@
 .signup-section {
     max-width: 50%;
 }
+
+.form-register{
+    display: grid;
+    grid-template-columns: repeat(2,20rem);
+    
+    justify-content: center;
+}
+
+
+.form-group{
+    text-align: left;
+}
+
+.form-group * {
+    display: block;
+}
+
+.error-text{
+    font-size: $error-text;
+}
