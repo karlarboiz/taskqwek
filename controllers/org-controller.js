@@ -19,7 +19,9 @@ const orgDashboardOrgPage = async (req,res)=>{
 }
 
 const orgCreationFunc = async (req,res,next) =>{
-    const pageLoc = req.body.pageLoc;
+    try{
+
+        const pageLoc = req.body.pageLoc;
     const creatorAuthorId = req.session.user.id;
 
     const newOrg = new Org({
@@ -40,6 +42,9 @@ const orgCreationFunc = async (req,res,next) =>{
             }
             return res.redirect(`/dashboard?role=${role}`)
         });
+    }
+    }catch(e){
+        next(e);
     }
 }
 

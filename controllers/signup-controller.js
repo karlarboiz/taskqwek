@@ -90,26 +90,26 @@ const signupFunc = async (req,res,next)=>{
                 "/signup/complete-setup/member"
             ) ;
 
-            // let user = new User({
-            //     firstName: req.body["first-name"],
-            //     lastName: req.body['last-name'],
-            //     username: req.body['username'],
-            //     emailAddress: req.body.email,
-            //     password: await bcrypt.hash(req.body.password,10),
-            //     role: Number(req.body.role)
-            // })
-            // await user.save().then((result,err)=>{
-            //     if(err){
-            //         next(err);
-            //     }
-            //     req.session.user={
-            //         id:result._id,
-            //         email:result.emailAddress,
-            //         role:result.role
-            //     }
-            //     res.redirect(urlRoute)
-            // });
-            res.redirect(urlRoute)
+            let user = new User({
+                firstName: req.body["first-name"],
+                lastName: req.body['last-name'],
+                username: req.body['username'],
+                emailAddress: req.body.email,
+                password: await bcrypt.hash(req.body.password,10),
+                role: Number(req.body.role)
+            })
+            await user.save().then((result,err)=>{
+                if(err){
+                    next(err);
+                }
+                req.session.user={
+                    id:result._id,
+                    email:result.emailAddress,
+                    role:result.role
+                }
+                res.redirect(urlRoute)
+            });
+           
        
         }
     }catch(e){

@@ -74,7 +74,7 @@ app.use(loginRoutes);
 
 app.use("/member",memberRoutes);
 // app.use(leaderRoutes);
-app.use(orgRoutes);
+app.use("/org",orgRoutes);
 app.use(dashboardRoutes);
 app.use(signupRoutes);
 
