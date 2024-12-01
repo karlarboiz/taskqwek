@@ -8,17 +8,10 @@ const membership_setup_schema = new mongoose.Schema({
     expectedEmail: {
         type: String
     },
-    validity: {
-        type: Number
-    },
-    regDate: {
+    expirationDate: {
         type: Date,
         default: new Date()
-    },
-    deleteFlg : {
-        type: Boolean,
-        default: false
-    }   
+    }
 })
 
 module.exports = mongoose.model("MembershipSetup", membership_setup_schema);

@@ -1,6 +1,7 @@
 const Org = require("../model/Org");
 const url = require('url');
 const orgCreationSession = require("../util/org-creation-session");
+const { encryptValue,decryptValue } = require("../util/encrypt-code");
 
 const leaderCreateOrganizationFunc = async(req,res)=>{
     let errorMessage = {};
@@ -48,6 +49,16 @@ const leaderCreateOrganizationFunc = async(req,res)=>{
 //     res.render('dashboard',{role:role});
    
 // }
+
+const createLinkToJoin = (req,res,next)=>{
+
+    const {emailAdress}=req.body
+    try{
+
+    }catch(e){
+        next(e);
+    }
+}
 
 const leaderDashboardOrganizationPage = (req,res)=>{
     const role = "leader";

@@ -13,7 +13,6 @@ const {initializeConnection} = require('./data/database');
 const flash = require("connect-flash");
 const port = 5000;
 
-
 require('dotenv').config();
 
 app.use(express.static('public'));
