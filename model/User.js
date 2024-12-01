@@ -38,15 +38,14 @@ const user_schema = new mongoose.Schema({
         type: String,  
         trim: true,
         minLength: [10, "Password must have a minimum of 10 characters"],
-        maxLength: [12, "Password must have a maximum of 12 characters"],
-        validate: {
-            validator: function(v){
+        // validate: {
+        //     validator: function(v){
                 
-               const passwordCheck = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,20}$/;
-                return v.match(passwordCheck);
-            },
-            message: "Invalid Password pattern"
-        },
+        //        const passwordCheck = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,20}$/;
+        //         return v.match(passwordCheck);
+        //     },
+        //     message: "Invalid Password pattern"
+        // },
        
         required: [true, "User's Password is required"],
        

@@ -11,7 +11,7 @@ router.get('/signup/setting-up',signupController.signupRoleFunctionalitySetup);
     
 router.post('/signup',signupController.signupFunc);
 
-router.get('/signup/complete-setup/:role',checkSessionRole,checkActiveUser,(req,res)=>{
+router.get('/signup/complete-setup/:role',(req,res)=>{
     const signUpValue = req.params['role'];
     res.render("complete-setup",{
         role:signUpValue,

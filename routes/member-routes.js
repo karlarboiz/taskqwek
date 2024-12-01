@@ -1,13 +1,12 @@
 const express = require('express');
 
-const multer = require('multer');
+const { joinOrgMember } = require('../controllers/membership-controller');
 
-const memberController = require("../controllers/member-controller");
 
 const router = express.Router();
 
 
-// router.get("/dashboard/member",memberController.memberDashboardPage);
+router.post("/join-org",joinOrgMember);
 
 
 module.exports = router;

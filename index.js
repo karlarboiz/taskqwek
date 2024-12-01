@@ -73,7 +73,7 @@ const dashboardRoutes = require("./routes/dashboard-routes");
 app.use(commonRoutes);
 app.use(loginRoutes);
 
-app.use(memberRoutes);
+app.use("/member",memberRoutes);
 // app.use(leaderRoutes);
 app.use(orgRoutes);
 app.use(dashboardRoutes);

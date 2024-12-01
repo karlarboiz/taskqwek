@@ -36,15 +36,21 @@ const signupFunc = async (req,res,next)=>{
         })
         
         const err = await user.validateSync();  
-
+        const passwordCheck = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,20}$/;
+       
         const hasAccountExisted=await User.findOne({
             emailAddress:req.body.email
         })
 
+        const passwordCheckResult = req.body?.password.match(passwordCheck);
+
+        if(!passwordCheckResult){
+            errorMessage["password"] = "Invalid Password pattern";
+        }
     
         const errors = err?.errors ? Object.entries(err?.errors):[];
         
-        console.log(errors.length)
+        
         if(errors?.length > 0){
             
             for (const [key, value] of Object.entries(err?.errors)) {
@@ -83,22 +89,30 @@ const signupFunc = async (req,res,next)=>{
             const urlRoute = convert === 0 ?"/dashboard": (convert ===1 ? "/signup/complete-setup/leader":
                 "/signup/complete-setup/member"
             ) ;
-            await User.save().then((result,err)=>{
-                if(err){
-                    next(err);
-                }
-                req.session.user={
-                    id:result._id,
-                    email:result.emailAddress,
-                    role:result.role
-                }
-                res.redirect(urlRoute)
-            });
-          
+
+            // let user = new User({
+            //     firstName: req.body["first-name"],
+            //     lastName: req.body['last-name'],
+            //     username: req.body['username'],
+            //     emailAddress: req.body.email,
+            //     password: await bcrypt.hash(req.body.password,10),
+            //     role: Number(req.body.role)
+            // })
+            // await user.save().then((result,err)=>{
+            //     if(err){
+            //         next(err);
+            //     }
+            //     req.session.user={
+            //         id:result._id,
+            //         email:result.emailAddress,
+            //         role:result.role
+            //     }
+            //     res.redirect(urlRoute)
+            // });
+            res.redirect(urlRoute)
        
         }
     }catch(e){
-        console.log(e.message)
         next(e)
     }
 }
