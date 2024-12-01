@@ -37,16 +37,20 @@ const signupFunc = async (req,res,next)=>{
         
         const err = await user.validateSync();  
 
-    
-        const errors = Object.entries(err.errors);
+        const hasAccountExisted=await User.findOne({
+            emailAddress:req.body.email
+        })
 
-
     
-        for (const [key, value] of Object.entries(err.errors)) {
-            errorMessage[key] = value.properties.message;
-           
-        }
-        if(errors.length > 0){
+        const errors = err?.errors ? Object.entries(err?.errors):[];
+        
+        console.log(errors.length)
+        if(errors?.length > 0){
+            
+            for (const [key, value] of Object.entries(err?.errors)) {
+                errorMessage[key] = value.properties.message;
+            
+            }
             signupSession.signupErrorSessionPage(req,{
                 errorMessage:errorMessage,
                 firstName: req.body["first-name"],
@@ -74,16 +78,27 @@ const signupFunc = async (req,res,next)=>{
             })
             return;
         }else {
-            if(Number(req.body.role) === 1){
-                res.redirect('/signup/leader')
-            }else if(Number(req.body.role) === 2) {
-                
-            }else {
-                res.redirect('/dashboard')
-            }
-            
+            const convert = Number(req.body.role);
+
+            const urlRoute = convert === 0 ?"/dashboard": (convert ===1 ? "/signup/complete-setup/leader":
+                "/signup/complete-setup/member"
+            ) ;
+            await User.save().then((result,err)=>{
+                if(err){
+                    next(err);
+                }
+                req.session.user={
+                    id:result._id,
+                    email:result.emailAddress,
+                    role:result.role
+                }
+                res.redirect(urlRoute)
+            });
+          
+       
         }
     }catch(e){
+        console.log(e.message)
         next(e)
     }
 }

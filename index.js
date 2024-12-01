@@ -72,11 +72,12 @@ const dashboardRoutes = require("./routes/dashboard-routes");
 
 app.use(commonRoutes);
 app.use(loginRoutes);
-app.use(signupRoutes);
+
 app.use(memberRoutes);
 // app.use(leaderRoutes);
 app.use(orgRoutes);
 app.use(dashboardRoutes);
+app.use(signupRoutes);
 
 app.use((req,res)=>{
     res.status(404).render('404');

@@ -6,6 +6,19 @@ const checkActiveUser = (req,res,next)=>{
     next();
 }
 
+const checkSessionRole = (req,res,next)=>{
+    const role = req.params["role"];
+    try{
+        if(req.session.user === undefined || !role){
+            next();
+        }
+    }catch(e){
+        next(e)
+    }
+}
+
 module.exports ={
-    checkActiveUser
+    checkActiveUser,
+    checkSessionRole
+
 }
