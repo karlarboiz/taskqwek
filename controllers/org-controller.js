@@ -4,9 +4,10 @@ const url = require('url');
 const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
 
 const orgDashboardOrgPage = async (req,res)=>{
-    const queryData = url.parse(req.url, true).query;
     
-    const role = queryData.role;
+    const role = req.session.user.role === 1  ?"member": "role";
+    console.log(req.session.user)
+    console.log(role);
     // const pageVisit = queryData.visit;
     const creatorAuthorId = req.session.user?.id;
     const leaderOrgs = await Org.aggregate([

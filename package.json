@@ -35,6 +35,7 @@
     "node-encryption": "^2.0.1",
     "nodemailer": "^6.9.16",
     "npm-run-all": "^4.1.5",
+    "otp-generator": "^4.0.1",
     "postcss-cli": "^10.1.0",
     "puppeteer": "^22.13.1"
   },

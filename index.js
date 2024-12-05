@@ -80,7 +80,7 @@ app.use(signupRoutes);
 
 app.use((error,req,res)=>{
     console.log(error)
-    res.status(404).render('404');
+    res?.status(404).render('404');
 });
 
 app.use((error,req,res,next)=>{
