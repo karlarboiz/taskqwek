@@ -15,6 +15,6 @@ router.get('/about',(req,res)=>{
 })
 router.post('/logout',commonController.logoutFunc);
 
-
+ 
 
 module.exports = router;

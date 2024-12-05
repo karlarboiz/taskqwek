@@ -1,13 +1,13 @@
 
 const Org = require("../model/Org");
 const url = require('url');
-const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
+const { orgCreationErrorSessionPage, orgCreationSessionPage } = require("../util/org-creation-session");
 
 const orgDashboardOrgPage = async (req,res)=>{
+    const orgCreationInputs = orgCreationSessionPage(req);
     
-    const role = req.session.user.role === 1  ?"member": "role";
-    console.log(req.session.user)
-    console.log(role);
+    const role = req.session.user.role === 1  ?"leader": "member";
+    
     // const pageVisit = queryData.visit;
     const creatorAuthorId = req.session.user?.id;
     const leaderOrgs = await Org.aggregate([
@@ -15,8 +15,11 @@ const orgDashboardOrgPage = async (req,res)=>{
             $match: {creatorAuthorId: creatorAuthorId}
         }
     ]);
-
-    res.render("dashboard",{role:role, orgs:leaderOrgs, activeLink: 'org',pageLoc:'in'});
+    res.render("dashboard",{role:role, 
+        orgs:leaderOrgs, 
+        activeLink: 'org',
+        pageLoc:'in',
+        orgCreationInputs:orgCreationInputs});
 }
 
 const orgCreationFunc = async (req,res,next) =>{
@@ -52,9 +55,8 @@ const orgCreationFunc = async (req,res,next) =>{
         const isLoggedIn = req.session?.isAuthenticated;
         const roleConversion = req.session?.user?.role === 1 ? "leader"
         : "member";
-
-        console.log(req.session.user)
-        const returnUrl = isLoggedIn ? "/dashboard":`/signup/complete-setup/${roleConversion}`
+        
+        const returnUrl = isLoggedIn ? "/org/org-page":`/signup/complete-setup/${roleConversion}`
 
         if(errorSet.length >0){
             for(const [key,value] of errorSet) {

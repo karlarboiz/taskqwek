@@ -12,7 +12,7 @@
     </div>
 
     <% if(activeLink === 'org' && role === 'leader') { %>
-      <%- include('../dashboard-pages/org-leader__page',{orgs:orgs}); %>
+      <%- include('../dashboard-pages/org-leader__page',{orgs,orgCreationInputs}); %>
     <% }else { %>
 
     <% }%>

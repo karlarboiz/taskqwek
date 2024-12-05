@@ -78,13 +78,13 @@ app.use("/org",orgRoutes);
 app.use(dashboardRoutes);
 app.use(signupRoutes);
 
-app.use((error,req,res)=>{
+app.use((error,req,res,next)=>{
     console.log(error)
     res?.status(404).render('404');
 });
 
 app.use((error,req,res,next)=>{
-    console.log(error)
+    
     res.status(500).render('500');
 })
 

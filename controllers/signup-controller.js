@@ -137,7 +137,6 @@ const completeSetupPage= (req,res,next)=>{
     
     const orgCreationInputs = orgCreationSessionPage(req);
     
-    console.log(orgCreationInputs);
     try{
         const signUpValue = req.params['role'];
         res.render("complete-setup",{
