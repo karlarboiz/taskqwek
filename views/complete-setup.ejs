@@ -5,9 +5,10 @@
 
 <main class="container mx-auto my-3">
     <% if(role === 'member')  {%>
-        <%- include('setup-includes/org-member'); %>
+        <%- include('setup-includes/org-member',{membershipJoinInputs:membershipJoinInputs}); %>
     <%} else {%>
-      <%- include('setup-includes/org-creation', {pageLoc: pageLoc}); %>
+      <%- include('setup-includes/org-creation', {pageLoc:pageLoc,
+        orgCreationInputs:orgCreationInputs}); %>
     <%}%>
 </main>
 
@@ -15,5 +16,5 @@
 <% if(pageLoc === 'out') {%>
   <%- include('includes/footer'); %>
 <% }%>
-
+ 
 

@@ -7,30 +7,26 @@ function orgCreationSessionPage(req){
         orgCreationInputs = {
             hasError: false,
             errorMessage:{},
-            name: '',
+            orgName: '',
             description: '',
-            leaders: '',
-            members: ''
+            population: ''
         }
     }
     
-    req.session.signupInputs = null;
+    req.session.orgCreationInputs = null;
   
-    return signupInputs;
+    return orgCreationInputs;
 }
 
-function orgErrorSessionPage(req,data,action){
-    req.session.orgcreationInputs = {
+function orgCreationErrorSessionPage(req,data,action){
+    req.session.orgCreationInputs = {
         hasError: true,
         ...data
     }
-
-    req.session.cookie.originalMaxAge = 5000;
-
     req.session.save(action);
 }
 
 module.exports = {
-  orgCreationSessionPage,
-  orgErrorSessionPage
+    orgCreationSessionPage,
+    orgCreationErrorSessionPage
 }

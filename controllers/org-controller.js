@@ -1,10 +1,11 @@
 
 const Org = require("../model/Org");
 const url = require('url');
+const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
 
 const orgDashboardOrgPage = async (req,res)=>{
     const queryData = url.parse(req.url, true).query;
-   
+    
     const role = queryData.role;
     // const pageVisit = queryData.visit;
     const creatorAuthorId = req.session.user?.id;
@@ -14,34 +15,79 @@ const orgDashboardOrgPage = async (req,res)=>{
         }
     ]);
 
-
     res.render("dashboard",{role:role, orgs:leaderOrgs, activeLink: 'org',pageLoc:'in'});
 }
 
 const orgCreationFunc = async (req,res,next) =>{
     try{
-
+        const errorMessage = {};
         const pageLoc = req.body.pageLoc;
-    const creatorAuthorId = req.session.user.id;
-
-    const newOrg = new Org({
+    const creatorAuthorId = req.session.user?.id;
+        console.log(req.session.user)
+    const newOrg = await new Org({
         name: req.body['org-name'],
         description: req.body.description,
         population: req.body.population,
         creatorAuthorId: creatorAuthorId
     })
 
-    const role = req.session.user.role === 1 ? 'leader' : 'member';
+    const role = req.session?.user?.role === 1 ? 'leader' : 'member';
+
+    const err = await newOrg.validateSync();
+
+    const errors = err?.errors;
+
+    const errorSet = Object.entries(errors);
 
     if(req.body.skip) {
-        return res.redirect(`/dashboard?role=${role}`)
+        
+        req.session.isAuthenticated = true;
+        return res.redirect(`/dashboard`)
     }else {
-        await newOrg.save().then((err,result)=>{
-            if(err) {
-                return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org-page'}?role=${role}`)
+        const orgExisted = await Org.findOne({
+            name: req.body["orgName"]
+        })
+
+        const isLoggedIn = req.session?.isAuthenticated;
+        const roleConversion = req.session?.user?.role === 1 ? "leader"
+        : "member";
+
+        console.log(req.session.user)
+        const returnUrl = isLoggedIn ? "/dashboard":`/signup/complete-setup/${roleConversion}`
+
+        if(errorSet.length >0){
+            for(const [key,value] of errorSet) {
+                errorMessage[key] = value.properties.message;
             }
-            return res.redirect(`/dashboard?role=${role}`)
-        });
+
+            console.log(errorMessage)
+            orgCreationErrorSessionPage(req,{
+                errorMessage:errorMessage,
+                orgName:req.body["org-name"],
+                description:req.body.description,
+                population:req.body.population
+            },()=>{
+                res.redirect(returnUrl)
+            })
+        }else if(orgExisted){
+            orgCreationErrorSessionPage(req,{
+                message:"Organization already existed!",
+                orgName:req.body["org-name"],
+                description:req.body.description,
+                population:req.body.population
+            },()=>{
+                res.redirect(returnUrl)
+            })
+        }else {
+            
+            await newOrg.save().then((err,result)=>{
+                if(err) {
+                    return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org-page'}?role=${role}`)
+                }
+                req.session.isAuthenticated = true;
+                return res.redirect(`/dashboard?role=${role}`)
+            });
+        }
     }
     }catch(e){
         next(e);

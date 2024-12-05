@@ -14,12 +14,6 @@ router.post('/signup',signupController.signupFunc);
 router.get('/signup/complete-setup/:role',
     checkSessionRole,
     checkSessionRoleMatchesQuery,
-    (req,res)=>{
-    const signUpValue = req.params['role'];
-    res.render("complete-setup",{
-        role:signUpValue,
-        pageLoc: "out"
-    });
-})
+    signupController.completeSetupPage)
 
 module.exports = router

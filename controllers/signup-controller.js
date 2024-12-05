@@ -8,6 +8,7 @@ const saltRounds = 10;
 //initiating functions from util for signup page
 const signupSession = require('../util/signup-session');
 const url = require('url');
+const { orgCreationSessionPage } = require('../util/org-creation-session');
 
 const signupPage = async (req,res)=>{
     
@@ -107,6 +108,9 @@ const signupFunc = async (req,res,next)=>{
                     email:result.emailAddress,
                     role:result.role
                 }
+
+                req.session.isAuthenticated = false;
+              req.session.cookie.originalMaxAge = 864000;
                 res.redirect(urlRoute)
             });
            
@@ -129,9 +133,28 @@ const signupRoleFunctionalitySetup = (req,res)=>{
     res.render('complete-setup', {role:role, pageLoc: 'out'})
 }
 
+const completeSetupPage= (req,res,next)=>{
+    
+    const orgCreationInputs = orgCreationSessionPage(req);
+    
+    console.log(orgCreationInputs);
+    try{
+        const signUpValue = req.params['role'];
+        res.render("complete-setup",{
+            orgCreationInputs:orgCreationInputs,
+            membershipJoinInputs:{},
+            role:signUpValue,
+            pageLoc: "out"
+        });
+    }catch(e){
+        next()
+    }
+}
+
 
 module.exports = {
     signupPage,
     signupFunc,
-    signupRoleFunctionalitySetup
+    signupRoleFunctionalitySetup,
+    completeSetupPage
 }   

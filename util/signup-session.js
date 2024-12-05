@@ -24,8 +24,7 @@ function signupErrorSessionPage(req,data,action){
         ...data
     }
 
-    req.session.cookie.originalMaxAge = 5000;
-
+    
     req.session.save(action);
 }
 

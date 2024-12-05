@@ -4,14 +4,14 @@ const org_schema = new mongoose.Schema({
     name : {
         type : String,
         required : [true, "Organization Name is required"],
-        min: 5,
-        max: 15
+        minLength: [5, "Organization Name must have at least 5 characters"],
+        maxLength: [15, "Organization Name must have a maximum least 15 characters"]
     },
     description : {
         type : String,
         required : [true, "Password is required"],
-        min: 40,
-        max: 255
+        minLength: [40, "Org Description must have at least 40 letters long"],
+        maxLength: [255, "Org Description must have a maximum of 255 letters long"]
     },
     population: {
         type: Number,

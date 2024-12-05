@@ -1,28 +1,37 @@
-<form action="/org-creation" class="mt-5" method="post">
-
-    <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
+<form action="/org/org-creation" class="mt-5" method="post">
+  <div><%=orgCreationInputs.hasError ? orgCreationInputs.message : ''%></div>  
+  <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
     <div>As a Leader: Create Your Organization</div>
     <div class="form-floating mb-3">
         <input type="hidden" name="pageLoc" value="<%=pageLoc%>">
         <input type="text" class="form-control"
          id="org-name" name="org-name" 
          placeholder="Sample Org Name"
+         value="<%= orgCreationInputs?.orgName%>"
         >
         <label for="org-name">Organization</label>
+        <span class="error-text
+        text-danger"><%=orgCreationInputs?.errorMessage?.name%></span>
       </div>
 
         <div class="form-floating mb-3">
         <textarea type="text" class="form-control"
-         id="description" name="description"> </textarea>
+         id="description" name="description"
+         value="<%= orgCreationInputs?.description%>"> </textarea>
         <label for="description">Description</label>
+        <span class="error-text
+        text-danger"><%=orgCreationInputs?.errorMessage?.description%></span>
       </div>
 
       <div class="form-floating mb-3">
         <input type="number" class="form-control"
          id="population" name="population" 
-         placeholder="Sample Org Name"
+         placeholder="Ex: 10"
+         value="<%= orgCreationInputs?.population%>"
         >
         <label for="population">Population</label>
+        <span class="error-text
+        text-danger"><%=orgCreationInputs?.errorMessage?.population%></span>
       </div>
 
       <% if(pageLoc === 'out') {%>
