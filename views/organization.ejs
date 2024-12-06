@@ -17,9 +17,13 @@
 
 <main class="container-fluid ">
   <div class="row">
+
     <%- include('dashboard/dashboard-sidebar',{role,activeLink}); %>
-    <%- include('dashboard/dashboard-main',{role, activeLink, 
-        orgs,orgCreationInputs}); %>
+    
+    <%- include("section-template/top-section__template"); %>
+    <%- include('org-content/org-leader__page',{orgs,orgCreationInputs}); %>
+    <%- include("section-template/bottom-section__template"); %>
+    
   </div>
 </main>
     

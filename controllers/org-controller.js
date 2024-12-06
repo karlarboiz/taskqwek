@@ -1,6 +1,6 @@
 
 const Org = require("../model/Org");
-const url = require('url');
+// const url = require('url');
 const { orgCreationErrorSessionPage, orgCreationSessionPage } = require("../util/org-creation-session");
 
 const orgDashboardOrgPage = async (req,res)=>{
@@ -27,7 +27,8 @@ const orgCreationFunc = async (req,res,next) =>{
         const errorMessage = {};
         const pageLoc = req.body.pageLoc;
     const creatorAuthorId = req.session.user?.id;
-        console.log(req.session.user)
+    
+
     const newOrg = await new Org({
         name: req.body['org-name'],
         description: req.body.description,
@@ -39,12 +40,12 @@ const orgCreationFunc = async (req,res,next) =>{
 
     const err = await newOrg.validateSync();
 
-    const errors = err?.errors;
+    const errors = !err? {}:err.errors;
 
+    
     const errorSet = Object.entries(errors);
 
     if(req.body.skip) {
-        
         req.session.isAuthenticated = true;
         return res.redirect(`/dashboard`)
     }else {
@@ -62,8 +63,6 @@ const orgCreationFunc = async (req,res,next) =>{
             for(const [key,value] of errorSet) {
                 errorMessage[key] = value.properties.message;
             }
-
-            console.log(errorMessage)
             orgCreationErrorSessionPage(req,{
                 errorMessage:errorMessage,
                 orgName:req.body["org-name"],
@@ -85,7 +84,7 @@ const orgCreationFunc = async (req,res,next) =>{
             
             await newOrg.save().then((err,result)=>{
                 if(err) {
-                    return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org-page'}?role=${role}`)
+                    return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
                 }
                 req.session.isAuthenticated = true;
                 return res.redirect(`/dashboard?role=${role}`)

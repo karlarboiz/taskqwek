@@ -10,4 +10,8 @@ router.post("/org-creation",orgController.orgCreationFunc);
 
 router.get(`/org-page`,orgController.orgDashboardOrgPage);
 
+router.get("/edit-org")
+
+router.put("/update-org")
+
 module.exports = router;
