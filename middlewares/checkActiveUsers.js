@@ -13,7 +13,6 @@ const checkSessionRole = (req,res,next)=>{
         if(req.session.user === undefined ||req.session.user === null || !role){
            return res.status(404).render('404');
         }
-
         next()
     }catch(e){
         next(e)
@@ -35,9 +34,23 @@ const checkSessionRoleMatchesQuery = (req,res,next)=>{
     }
 }
 
+const checkIfUserJustGotNewlyRegistered = (req,res,next)=>{
+    
+    const newSignup = req.session?.newSignup;
+
+    try{
+        if(!newSignup) {
+            return  res.redirect(`/dashboard}`);
+        }
+    }catch(e){
+        next(e);
+    }
+}
+
 module.exports ={
     checkActiveUser,
     checkSessionRole,
-    checkSessionRoleMatchesQuery
+    checkSessionRoleMatchesQuery,
+    checkIfUserJustGotNewlyRegistered
 
 }

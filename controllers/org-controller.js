@@ -15,7 +15,7 @@ const orgDashboardOrgPage = async (req,res)=>{
             $match: {creatorAuthorId: creatorAuthorId}
         }
     ]);
-    res.render("dashboard",{role:role, 
+    res.render("organization",{role:role, 
         orgs:leaderOrgs, 
         activeLink: 'org',
         pageLoc:'in',
