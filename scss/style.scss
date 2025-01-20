@@ -1,9 +1,9 @@
 @use './generalconfig/body';
 @use './section/regular-section';
 @use './components/buttons';
+@use "./components/footer";
+@use "./components/top-section__template.scss";
 @use './generalconfig/nav';
-
-
 @use './pages/login';
 @use './pages/signup';
 @use './pages/dashboard';

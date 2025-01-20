@@ -9,8 +9,8 @@ const router = express.Router();
 router.post("/org-creation",orgController.orgCreationFunc);
 
 router.post("/org-creation/json",orgController.orgCreationFuncJson);
-router.get(`/org-page`,orgController.orgDashboardOrgPage);
 
+router.get(`/org-page`,orgController.orgDashboardOrgPage);
 
 router.get("/edit-org")
 

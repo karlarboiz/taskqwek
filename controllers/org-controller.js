@@ -97,11 +97,17 @@ const orgCreationFunc = async (req,res,next) =>{
 }
 
 const orgCreationFuncJson =async (req,res,next)=>{
+try{
+    console.log(req.csrfToken());
 
- res.send(200).send({
-    isSuccess: true,
-    message: "Something went right"
- })   
+    console.log(req.body);
+
+    res.status(200).send({
+        message:"Hello there"
+    })
+}catch(e){
+    console.log(e.message)
+}
 }
 
 const orgEditFunc = async(req,res)=>{

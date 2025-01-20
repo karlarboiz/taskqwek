@@ -14,24 +14,27 @@
     </button>
 
     <div class="collapse mt-4" id="orgCreation">
-      <form >
+      <form id="org-form">
+        <input type="hidden" id="_csrf" name="_csrf" value="<%=locals.csrf%>">
+
         <div class="form-group">
-          <label for="org-name">Organization's Name</label>
-          <input type="text">
+            <label for="org-name">Organization's Name</label>
+            <input type="text" id="org-name">
         </div>
-  
+    
         <div class="form-group">
-          <label for="org-description">Description</label>
-          <input type="text">
+            <label for="org-description">Description</label>
+            <input type="text" id="org-description">
         </div>
-  
+    
         <div class="form-group">
-          <label for="org-name">Population</label>
-          <input type="number">
+            <label for="org-population">Population</label>
+            <input type="number" id="org-population">
         </div>
-  
+    
         <button type="submit" class="btn btn-primary mt-4">Submit</button>
-      </form>
+    </form>
+    
     </div>
 
   </aside>
