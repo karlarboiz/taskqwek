@@ -3,7 +3,7 @@ $(document).ready(function () {
       event.preventDefault(); // Prevent the default form submission
 
 
-      $("#loading").show();
+      $("#loader-container").show();
       // Gather form data
       const data = {
         name: $('#org-name').val(),
@@ -28,7 +28,7 @@ $(document).ready(function () {
         },
         complete: function(){
             
-            $("#loading").hide();
+            $("#loader-container").hide();
         }
       });
     });
