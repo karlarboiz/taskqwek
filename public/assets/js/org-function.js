@@ -2,6 +2,8 @@ $(document).ready(function () {
     $('#org-form').on('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
 
+
+      $("#loading").show();
       // Gather form data
       const data = {
         name: $('#org-name').val(),
@@ -22,9 +24,12 @@ $(document).ready(function () {
           console.log(response);
         },
         error: function (xhr, status, error) {
-
           console.error(error);
         },
+        complete: function(){
+            
+            $("#loading").hide();
+        }
       });
     });
   });
