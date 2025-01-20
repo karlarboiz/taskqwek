@@ -6,7 +6,7 @@ const { orgCreationErrorSessionPage, orgCreationSessionPage } = require("../util
 const orgDashboardOrgPage = async (req,res)=>{
     const orgCreationInputs = orgCreationSessionPage(req);
     
-    const role = req.session.user.role === 1  ?"leader": "member";
+    const role = req.session.user?.role === 1  ?"leader": "member";
     
     // const pageVisit = queryData.visit;
     const creatorAuthorId = req.session.user?.id;
@@ -96,6 +96,14 @@ const orgCreationFunc = async (req,res,next) =>{
     }
 }
 
+const orgCreationFuncJson =async (req,res,next)=>{
+
+ res.send(200).send({
+    isSuccess: true,
+    message: "Something went right"
+ })   
+}
+
 const orgEditFunc = async(req,res)=>{
 
     
@@ -103,5 +111,6 @@ const orgEditFunc = async(req,res)=>{
 
 module.exports = {
     orgCreationFunc,
-    orgDashboardOrgPage
+    orgDashboardOrgPage,
+    orgCreationFuncJson
 }
