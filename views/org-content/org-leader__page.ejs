@@ -15,19 +15,22 @@
 
     <div class="collapse mt-4" id="orgCreation">
       <form id="org-form">
+
         <input type="hidden" id="_csrf" name="_csrf" value="<%=locals.csrf%>">
 
-        <div class="form-group">
+        <div class="form-group org-field--name">
             <label for="org-name">Organization's Name</label>
             <input type="text" id="org-name">
+           
         </div>
     
-        <div class="form-group">
+        <div class="form-group org-field--description">
             <label for="org-description">Description</label>
             <input type="text" id="org-description">
+           
         </div>
     
-        <div class="form-group">
+        <div class="form-group org-field--population">
             <label for="org-population">Population</label>
             <input type="number" id="org-population">
         </div>

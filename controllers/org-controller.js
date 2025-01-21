@@ -8,8 +8,7 @@ const orgDashboardOrgPage = async (req,res)=>{
     const role = req.session.user?.role === 1  ?"leader": "member";
 
     res.render("organization",{role:role, 
-        activeLink: 'org',
-        pageLoc:'in'});
+        activeLink: 'org'});
 }
 
 const orgCreationFunc = async (req,res,next) =>{
@@ -19,68 +18,66 @@ const orgCreationFunc = async (req,res,next) =>{
         const creatorAuthorId = req.session.user?.id;
     
 
-    const newOrg = await new Org({
-        name: req.body['org-name'],
-        description: req.body.description,
-        population: req.body.population,
-        creatorAuthorId: creatorAuthorId
-    })
-
-    const role = req.session?.user?.role === 1 ? 'leader' : 'member';
-
-    const err = await newOrg.validateSync();
-
-    const errors = !err? {}:err.errors;
-
-    
-    const errorSet = Object.entries(errors);
-
-    if(req.body.skip) {
-        req.session.isAuthenticated = true;
-        return res.redirect(`/dashboard`)
-    }else {
-        const orgExisted = await Org.findOne({
-            name: req.body["orgName"]
+        const newOrg = await new Org({
+            name: req.body['org-name'],
+            description: req.body.description,
+            population: req.body.population,
+            creatorAuthorId: creatorAuthorId
         })
 
-        const isLoggedIn = req.session?.isAuthenticated;
-        const roleConversion = req.session?.user?.role === 1 ? "leader"
-        : "member";
-        
-        const returnUrl = isLoggedIn ? "/org/org-page":`/signup/complete-setup/${roleConversion}`
+        const role = req.session?.user?.role === 1 ? 'leader' : 'member';
 
-        if(errorSet.length >0){
-            for(const [key,value] of errorSet) {
-                errorMessage[key] = value.properties.message;
-            }
-            orgCreationErrorSessionPage(req,{
-                errorMessage:errorMessage,
-                orgName:req.body["org-name"],
-                description:req.body.description,
-                population:req.body.population
-            },()=>{
-                res.redirect(returnUrl)
-            })
-        }else if(orgExisted){
-            orgCreationErrorSessionPage(req,{
-                message:"Organization already existed!",
-                orgName:req.body["org-name"],
-                description:req.body.description,
-                population:req.body.population
-            },()=>{
-                res.redirect(returnUrl)
-            })
+        const err = await newOrg.validateSync();
+
+        const errors = !err? {}:err.errors;
+        const errorSet = Object.entries(errors);
+
+        if(req.body.skip) {
+            req.session.isAuthenticated = true;
+            return res.redirect(`/dashboard`)
         }else {
+            const orgExisted = await Org.findOne({
+                name: req.body["orgName"]
+            })
+
+            const isLoggedIn = req.session?.isAuthenticated;
+            const roleConversion = req.session?.user?.role === 1 ? "leader"
+            : "member";
             
-            await newOrg.save().then((err,result)=>{
-                if(err) {
-                    return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
+            const returnUrl = isLoggedIn ? "/org/org-page":`/signup/complete-setup/${roleConversion}`
+
+            if(errorSet.length >0){
+                for(const [key,value] of errorSet) {
+                    errorMessage[key] = value.properties.message;
                 }
-                req.session.isAuthenticated = true;
-                return res.redirect(`/dashboard?role=${role}`)
-            });
+                orgCreationErrorSessionPage(req,{
+                    errorMessage:errorMessage,
+                    orgName:req.body["org-name"],
+                    description:req.body.description,
+                    population:req.body.population
+                },()=>{
+                    res.redirect(returnUrl)
+                })
+            }else if(orgExisted){
+                orgCreationErrorSessionPage(req,{
+                    message:"Organization already existed!",
+                    orgName:req.body["org-name"],
+                    description:req.body.description,
+                    population:req.body.population
+                },()=>{
+                    res.redirect(returnUrl)
+                })
+            }else {
+                
+                await newOrg.save().then((err,result)=>{
+                    if(err) {
+                        return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
+                    }
+                    req.session.isAuthenticated = true;
+                    return res.redirect(`/dashboard?role=${role}`)
+                });
+            }
         }
-    }
     }catch(e){
         next(e);
     }
@@ -99,12 +96,28 @@ const orgCreationFuncJson =async (req,res,next)=>{
 
         const err = await newOrg.validateSync();
         
-        console.log(err)
+        const errors = !err? {}:err.errors;
+        const errorSet = Object.entries(errors);
+        let errorMessage = new Object();
+        for(const [key,value] of errorSet) {
+            errorMessage[key] = value.properties.message
+        }
+        if(errorSet.length === 0) {
+            await newOrg.save();
+        }
+
         res.status(200).send({
-            message:"Hello there"
+            isSuccess: errorSet.length ==0,
+            message:errorSet.length == 0 ? "Organization is Successfully created": 
+            "Some fields are missing or invalid. Kindly check on these fields",
+            errorMessage: errorMessage
         })
+        
     }catch(e){
-        console.log(e.message)
+        res.status(500).send({
+            isSuccess: false,
+            message:"Something went wrong. Try again!"
+        })
     }
 }
 
@@ -122,7 +135,10 @@ const orgFetchFuncJson = async (req,res,next) =>{
             leaderOrgs
         })
     }catch(e){
-
+        res.status(500).send({
+            isSuccess: false,
+            message:"Something went wrong. Try again!"
+        })
     }
 }
 

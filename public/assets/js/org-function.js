@@ -3,6 +3,11 @@ $(document).ready(function () {
       event.preventDefault(); // Prevent the default form submission
 
       $("#loader-container").show();
+
+      if($(".message").length > 0) {
+        $(".message").remove();
+      } 
+
       // Gather form data
       const data = {
         name: $('#org-name').val(),
@@ -20,13 +25,18 @@ $(document).ready(function () {
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function (response) {
-          console.log(response);
+          const {message,isSuccess,errorMessage}=response;
+          $('#org-form').prepend(`<p class="message">${message}</p>`)
+          
+          for (const [key,value] of Object.entries(errorMessage)) {
+            $(`.org-field--${key}`)
+            .append(`<p class="message">${value}</p>`)
+          }
         },
-        error: function (xhr, status, error) {
+        error: function (xhr, status, error) {     
           console.error(error);
         },
         complete: function(){
-            
             $("#loader-container").hide();
         }
       });

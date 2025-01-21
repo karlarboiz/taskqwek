@@ -9,7 +9,7 @@ const org_schema = new mongoose.Schema({
     },
     description : {
         type : String,
-        required : [true, "Password is required"],
+        required : [true, "Description for organization is required"],
         minLength: [10, "Org Description must have at least 40 letters long"],
         maxLength: [255, "Org Description must have a maximum of 255 letters long"]
     },
