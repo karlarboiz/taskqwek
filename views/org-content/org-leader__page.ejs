@@ -52,20 +52,7 @@
             <th scope="col"></th>
           </tr>
         </thead>
-        <tbody>
-  
-        <% orgs.forEach((item) => {%>
-          <tr>
-            <th scope="row"><a href=""><%=  item.name %></a></th>
-            <td><%=  item.description %></td>
-            <td><%=  item.population %></td>
-            <td>15</td>
-            <td><button>Edit</button>
-            <button>Delete</button></td>
-          </tr>
-  
-        <% }); %>
-  
+        <tbody id="org-tbody">
                 
         </tbody>
       </table>

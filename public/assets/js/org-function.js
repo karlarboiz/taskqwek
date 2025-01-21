@@ -2,7 +2,6 @@ $(document).ready(function () {
     $('#org-form').on('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
 
-
       $("#loader-container").show();
       // Gather form data
       const data = {
@@ -32,4 +31,17 @@ $(document).ready(function () {
         }
       });
     });
+
+
+    $.ajax({
+      url:"/org/org-list",
+      type: "GET",
+      contentType: 'application/json',
+      success: function (response) {
+        console.log(response);
+      },
+    })
+
+
+
   });

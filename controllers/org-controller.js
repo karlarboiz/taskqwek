@@ -4,29 +4,19 @@ const Org = require("../model/Org");
 const { orgCreationErrorSessionPage, orgCreationSessionPage } = require("../util/org-creation-session");
 
 const orgDashboardOrgPage = async (req,res)=>{
-    const orgCreationInputs = orgCreationSessionPage(req);
     
     const role = req.session.user?.role === 1  ?"leader": "member";
-    
-    // const pageVisit = queryData.visit;
-    const creatorAuthorId = req.session.user?.id;
-    const leaderOrgs = await Org.aggregate([
-        {
-            $match: {creatorAuthorId: creatorAuthorId}
-        }
-    ]);
+
     res.render("organization",{role:role, 
-        orgs:leaderOrgs, 
         activeLink: 'org',
-        pageLoc:'in',
-        orgCreationInputs:orgCreationInputs});
+        pageLoc:'in'});
 }
 
 const orgCreationFunc = async (req,res,next) =>{
     try{
         const errorMessage = {};
         const pageLoc = req.body.pageLoc;
-    const creatorAuthorId = req.session.user?.id;
+        const creatorAuthorId = req.session.user?.id;
     
 
     const newOrg = await new Org({
@@ -97,17 +87,43 @@ const orgCreationFunc = async (req,res,next) =>{
 }
 
 const orgCreationFuncJson =async (req,res,next)=>{
-try{
-    console.log(req.csrfToken());
+    try{
 
-    console.log(req.body);
+        const creatorAuthorId = req.session.user?.id;
+        const newOrg = await new Org({
+            name: req.body['org-name'],
+            description: req.body.description,
+            population: req.body.population,
+            creatorAuthorId: creatorAuthorId
+        });
 
-    res.status(200).send({
-        message:"Hello there"
-    })
-}catch(e){
-    console.log(e.message)
+        const err = await newOrg.validateSync();
+        
+        console.log(err)
+        res.status(200).send({
+            message:"Hello there"
+        })
+    }catch(e){
+        console.log(e.message)
+    }
 }
+
+const orgFetchFuncJson = async (req,res,next) =>{
+    try{
+        // const pageVisit = queryData.visit;
+        const creatorAuthorId = req.session.user?.id;
+        const leaderOrgs = await Org.aggregate([
+            {
+                $match: {creatorAuthorId: creatorAuthorId}
+            }
+        ]);
+
+        return res.status(200).send({
+            leaderOrgs
+        })
+    }catch(e){
+
+    }
 }
 
 const orgEditFunc = async(req,res)=>{
@@ -118,5 +134,6 @@ const orgEditFunc = async(req,res)=>{
 module.exports = {
     orgCreationFunc,
     orgDashboardOrgPage,
-    orgCreationFuncJson
+    orgCreationFuncJson,
+    orgFetchFuncJson
 }
