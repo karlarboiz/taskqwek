@@ -27,6 +27,14 @@ LEADER functions:
 
 
 
+previous command for scripts
+
+// "scripts": {
+  //   "compile:sass": "sass --watch scss:public/assets/css",
+  //   "nodemon": "nodemon index.js",
+  //   "start": "npm-run-all --parallel nodemon compile:sass"
+  // }
+
 
 
 
