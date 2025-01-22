@@ -12,11 +12,8 @@ RUN npm install
 # Copy application files
 COPY . .
 
-# Compile Sass for production
-RUN npm run compile:sass
-
 # Expose the application port
 EXPOSE 5000
 
-# Use the production start script
-CMD ["npm", "run", "start:prod"]
+# Use the development start script
+CMD ["npm", "start"]

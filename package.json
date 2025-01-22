@@ -4,7 +4,6 @@
   "description": "website for forms, links, and certificates usually government",
   "main": "index.js",
   
-  
   "scripts": {
   "compile:sass": "sass scss:public/assets/css",
   "compile:sass:watch": "sass --watch scss:public/assets/css",
