@@ -91,12 +91,10 @@ app.use("/project",projectRoutes);
 app.use("/profile",profileRoutes);
 
 app.use((error,req,res,next)=>{
-    console.log(error)
-    res?.status(404).render('404');
+    res.status(404).render('404');
 });
 
 app.use((error,req,res,next)=>{
-    
     res.status(500).render('500');
 })
 
