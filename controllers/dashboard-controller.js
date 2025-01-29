@@ -1,11 +1,11 @@
 const url = require('url');
 
 const dashboardPage = (req,res)=>{
-    const user = req.session?.user; 
+    const role = req.session.user?.role === 1  ?"leader": "member";
+
     res.render('dashboard',
-        {role:"kwan",
-        activeLink: 'dashboard',
-        orgs:[]
+        {role:role,
+        activeLink: 'dashboard'
         });
 
     

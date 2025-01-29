@@ -75,7 +75,7 @@ const memberRoutes = require('./routes/member-routes');
 const orgRoutes = require("./routes/org-routes");
 const dashboardRoutes = require("./routes/dashboard-routes");
 const taskRoutes = require('./routes/task-routes');
-
+const projectRoutes = require("./routes/project-routes");
 app.use(commonRoutes);
 app.use(loginRoutes);
 
@@ -85,7 +85,7 @@ app.use("/org",orgRoutes);
 app.use(dashboardRoutes);
 app.use(signupRoutes);
 app.use("/task",taskRoutes);
-
+app.use("/project",projectRoutes)
 app.use((error,req,res,next)=>{
     console.log(error)
     res?.status(404).render('404');
