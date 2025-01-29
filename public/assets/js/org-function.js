@@ -14,7 +14,7 @@ $(document).ready(function () {
         description: $('#org-description').val(),
         population: $('#org-population').val(),
       };
-
+      
       // Make an AJAX POST request
       $.ajax({
         url: '/org/org-creation/json', // Replace with your endpoint
@@ -25,6 +25,7 @@ $(document).ready(function () {
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function (response) {
+          
           const {message,isSuccess,errorMessage}=response;
           $('#org-form').prepend(`<p class="message">${message}</p>`)
           
@@ -48,7 +49,20 @@ $(document).ready(function () {
       type: "GET",
       contentType: 'application/json',
       success: function (response) {
-        console.log(response);
+        $("#loader-container").show();
+        const {leaderOrgs} = response;
+        
+        for (let element of leaderOrgs) {
+           $("#org-tbody").append(`
+             <tr>
+            <th scope="row">${element.name}</th>
+            <td>${element.description}</td>
+            <td>${element.population}</td>
+            <td>${element.population}</td>
+          </tr>`)
+        }
+
+        $("#loader-container").hide();
       },
     })
 
