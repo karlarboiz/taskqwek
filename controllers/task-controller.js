@@ -7,6 +7,10 @@ const taskPage = (req,res,next)=>{
     })
 }
 
+const createTask = (req,res)=>{
+
+}
+
 
 module.exports = {
     taskPage
