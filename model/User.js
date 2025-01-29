@@ -39,7 +39,6 @@ const user_schema = new mongoose.Schema({
         trim: true,
         minLength: [10, "Password must have a minimum of 10 characters"],       
         required: [true, "User's Password is required"],
-       
     },
     role: {
         type: Number,
