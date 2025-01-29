@@ -68,6 +68,7 @@ const memberRoutes = require('./routes/member-routes');
 // const leaderRoutes = require("./routes/leader-routes");
 const orgRoutes = require("./routes/org-routes");
 const dashboardRoutes = require("./routes/dashboard-routes");
+const taskRoutes = require('./routes/task-routes');
 
 app.use(commonRoutes);
 app.use(loginRoutes);
@@ -77,6 +78,7 @@ app.use("/member",memberRoutes);
 app.use("/org",orgRoutes);
 app.use(dashboardRoutes);
 app.use(signupRoutes);
+app.use("/task",taskRoutes);
 
 app.use((error,req,res,next)=>{
     console.log(error)
