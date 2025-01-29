@@ -8,3 +8,11 @@ main {
     font-family: $font-family--special;
     font-size: $font-size--header;
 }
+
+.sub-header {
+    font-size: $font-size--sub-header;
+    font-family: $font-family--special;
+    padding: 0;
+    margin: 1.75rem 0;
+    line-height: 1.75rem;
+}
