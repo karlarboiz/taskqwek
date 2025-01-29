@@ -23,6 +23,10 @@ const task_schema = new mongoose.Schema({
         type: Array,
         default: new Array()
     },
+    directOrgId: {
+        type: Number,
+        required: [true, "Org ID is required"]
+    },
     createAuthorId: {
         type: String,
         required: [true, "Author ID is required"]
