@@ -138,28 +138,6 @@ main {
   cursor: pointer;
 }
 
-.parent {
-  width: 200px;
-  min-height: 100px;
-  border: 2px dashed #333;
-  margin: 10px;
-  padding: 10px;
-  position: relative;
-}
-
-.child {
-  width: 100px;
-  height: 50px;
-  background: lightblue;
-  margin-bottom: 5px;
-  cursor: grab;
-  transition: all 0.3s ease-in-out;
-}
-
-.child:active {
-  cursor: grabbing;
-}
-
 /*
 
 This section here is for components classes
@@ -217,6 +195,31 @@ body {
 .error-message {
   font-size: 0.75rem;
   color: red;
+}
+
+/*
+This is for project page leader scss
+*/
+.parent {
+  width: 200px;
+  min-height: 100px;
+  border: 2px dashed #333;
+  margin: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.child {
+  width: 100px;
+  height: 50px;
+  background: lightblue;
+  margin-bottom: 5px;
+  cursor: grab;
+  transition: all 0.3s ease-in-out;
+}
+
+.child:active {
+  cursor: grabbing;
 }
 
 /*# sourceMappingURL=style.css.map */

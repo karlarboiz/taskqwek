@@ -1,0 +1,21 @@
+.parent {
+    width: 200px;
+    min-height: 100px;
+    border: 2px dashed #333;
+    margin: 10px;
+    padding: 10px;
+    position: relative;
+}
+
+.child {
+    width: 100px;
+    height: 50px;
+    background: lightblue;
+    margin-bottom: 5px;
+    cursor: grab;
+    transition: all 0.3s ease-in-out;
+}
+
+.child:active {
+    cursor: grabbing;
+}

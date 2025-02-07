@@ -37,3 +37,10 @@ General css configuration
 */
 
 @use "./shared-classes/font-size--text";
+
+
+/*
+This is for project page leader scss
+*/
+
+@use "./project-page--leader/project-page--leader";
