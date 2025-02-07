@@ -2,19 +2,23 @@ const express = require('express');
 
 const router = express.Router();
 
-const signupController = require("../controllers/signup-controller");
 const { checkActiveUser, checkSessionRole, checkSessionRoleMatchesQuery, checkIfUserJustGotNewlyRegistered } = require('../middlewares/checkActiveUsers');
+const { signupPage,signupRoleFunctionalitySetup,signupFunc,completeSetupPage } = require('../controllers/signup-controller');
 
-router.get('/signup',checkActiveUser,signupController.signupPage);
+router.get('/signup',checkActiveUser,signupPage);
 
-router.get('/signup/setting-up',signupController.signupRoleFunctionalitySetup);
+router.get('/signup/setting-up',signupRoleFunctionalitySetup);
     
-router.post('/signup',signupController.signupFunc);
+router.post('/signup',signupFunc);
+
+// router.get('/signup/complete-setup/:role',
+//     checkSessionRole,
+//     checkSessionRoleMatchesQuery,
+//     checkIfUserJustGotNewlyRegistered,
+//     signupController.completeSetupPage)
 
 router.get('/signup/complete-setup/:role',
     checkSessionRole,
-    checkSessionRoleMatchesQuery,
-    checkIfUserJustGotNewlyRegistered,
-    signupController.completeSetupPage)
+    completeSetupPage)
 
 module.exports = router

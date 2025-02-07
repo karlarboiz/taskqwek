@@ -9,11 +9,11 @@ const checkActiveUser = (req,res,next)=>{
 const checkSessionRole = (req,res,next)=>{
     const role = req.params["role"];
     try{
-
-        if(req.session.user === undefined ||req.session.user === null || !role){
+      
+        if(!role){
            return res.status(404).render('404');
         }
-        next()
+        next();
     }catch(e){
         next(e)
     }

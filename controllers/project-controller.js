@@ -9,10 +9,10 @@ const projectPage = (req,res,next)=>{
 }
 
 const createProject = (req,res,next)=>{
-
     const {name,description,}= req.body;
 }
 
 module.exports = {
-    projectPage
+    projectPage,
+    createProject
 }

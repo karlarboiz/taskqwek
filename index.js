@@ -91,6 +91,7 @@ app.use("/project",projectRoutes);
 app.use("/profile",profileRoutes);
 
 app.use((error,req,res,next)=>{
+    
     res.status(404).render('404');
 });
 
