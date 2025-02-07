@@ -1,8 +1,6 @@
 $(document).ready(function(){
 
-    $(".child").draggable({
-        revert: true
-      });
+    $(".child").draggable();
   
 
     $("#save-changes").click(function(){
