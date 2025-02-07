@@ -1,14 +1,14 @@
 <%- include('includes/header', {title: "Error 404 Page",navItemsPresent: true}); %>
 
-    <section class="container mx-auto text-center">
-       <h1 class="display-2">
-         <span class="strong">
-            404
-         </span>
-
-         We couldn't find this page!
-       </h1>
-    </section>
+<div class="container">
+   <div class="row justify-content-center">
+       <div class="col-md-6 error-container">
+           <div class="error-code">404</div>
+           <div class="error-message">Oops! The page you are looking for does not exist.</div>
+           <a href="/" class="btn btn-primary">Go Back Home</a>
+       </div>
+   </div>
+</div>
 
 <%- include('includes/footer'); %>
 
