@@ -9,11 +9,6 @@ const project_schema = new mongoose.Schema({
         type: String,
         required: [true, "Description is required"]
     },
-    associatedTaskNumber: {
-        type: Number,
-        default: 5,
-        required: [true, "Number of Task is required"]
-    },
     completionRate: {
         type: Number,   
         default: 0
