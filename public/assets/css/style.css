@@ -138,6 +138,20 @@ main {
   cursor: pointer;
 }
 
+.parent {
+  float: left;
+  margin-left: 5px;
+  height: 200px;
+  width: 200px;
+  border: 3px solid black;
+}
+
+.child {
+  height: 50px;
+  width: 50px;
+  background-color: khaki;
+}
+
 /*
 
 This section here is for components classes
