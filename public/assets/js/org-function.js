@@ -31,7 +31,7 @@ $(document).ready(function () {
           
           for (const [key,value] of Object.entries(errorMessage)) {
             $(`.org-field--${key}`)
-            .append(`<p class="message">${value}</p>`)
+            .append(`<p class="error-message">${value}</p>`)
           }
         },
         error: function (xhr, status, error) {     

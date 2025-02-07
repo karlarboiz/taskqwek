@@ -1,11 +1,38 @@
-@use './generalconfig/body';
-@use './section/regular-section';
-@use './components/buttons';
-@use "./components/footer";
-@use "./components/top-section__template.scss";
-@use './generalconfig/nav';
+/*
+
+This section here is for pages classes
+
+*/
 @use './pages/login';
 @use './pages/signup';
 @use './pages/dashboard';
 @use './pages/home';
 @use "./pages/page-404";
+
+/*
+
+This section here is for components classes
+
+*/
+
+@use './components/buttons';
+@use "./components/footer";
+@use "./components/top-section__template.scss";
+
+
+/*
+
+General css configuration
+*/
+
+@use './generalconfig/body';
+@use './section/regular-section';
+@use './generalconfig/nav';
+
+
+/*
+*This is for shared classes for the following elements
+- error text
+*/
+
+@use "./shared-classes/font-size--text";

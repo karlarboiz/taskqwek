@@ -14,7 +14,7 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
 }
-.error-message {
+.error-message--404 {
     font-size: $font-size--sub-header;
     margin-bottom: 20px;
     font-family: $font-family--special;

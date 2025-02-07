@@ -1,0 +1,7 @@
+@use '../abstracts/' as *;
+
+
+.error-message {
+    font-size: $font-size--error-text;
+    color: red;
+}
