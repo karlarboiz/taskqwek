@@ -33,14 +33,23 @@
 
 
 .parent {
-    float: left;
-    margin-left: 5px;
-    height: 200px;
     width: 200px;
-    border: 3px solid black
-  }
-  .child,.child--1,.child--2 {
+    min-height: 100px;
+    border: 2px dashed #333;
+    margin: 10px;
+    padding: 10px;
+    position: relative;
+}
+
+.child {
+    width: 100px;
     height: 50px;
-    width: 50px;
-    background-color: khaki;
-  }
+    background: lightblue;
+    margin-bottom: 5px;
+    cursor: grab;
+    transition: all 0.3s ease-in-out;
+}
+
+.child:active {
+    cursor: grabbing;
+}
