@@ -7,8 +7,10 @@ const orgDashboardOrgPage = async (req,res)=>{
     
     const role = req.session.user?.role === 1  ?"leader": "member";
 
-    res.render("organization",{role:role, 
-        activeLink: 'org'});
+    res.render("organization",
+        {role:role, 
+        activeLink: 'org',
+        orgPageType:"main"});
 }
 
 const orgCreationFunc = async (req,res,next) =>{
@@ -144,6 +146,12 @@ const orgFetchFuncJson = async (req,res,next) =>{
 
 const orgEditFunc = async(req,res)=>{
 
+    const role = req.session.user?.role === 1  ?"leader": "member";
+
+    res.render("organization",{
+        role:role, 
+        activeLink: 'org',
+        orgPageType: "sub"});
     
 }
 
@@ -151,5 +159,6 @@ module.exports = {
     orgCreationFunc,
     orgDashboardOrgPage,
     orgCreationFuncJson,
-    orgFetchFuncJson
+    orgFetchFuncJson,
+    orgEditFunc
 }

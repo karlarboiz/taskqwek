@@ -59,6 +59,8 @@ $(document).ready(function () {
             <td>${element.description}</td>
             <td>${element.population}</td>
             <td>${element.population}</td>
+            <td><a href="org-page/details/${element._id}" class="btn btn-secondary">Edit</a>
+           </td>
           </tr>`)
         }
 

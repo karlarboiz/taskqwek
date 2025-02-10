@@ -11,14 +11,10 @@ router.get('/signup/setting-up',signupRoleFunctionalitySetup);
     
 router.post('/signup',signupFunc);
 
-// router.get('/signup/complete-setup/:role',
-//     checkSessionRole,
-//     checkSessionRoleMatchesQuery,
-//     checkIfUserJustGotNewlyRegistered,
-//     signupController.completeSetupPage)
-
 router.get('/signup/complete-setup/:role',
     checkSessionRole,
+    checkSessionRoleMatchesQuery,
+    checkIfUserJustGotNewlyRegistered,
     completeSetupPage)
 
 module.exports = router
