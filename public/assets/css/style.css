@@ -138,6 +138,28 @@ main {
   cursor: pointer;
 }
 
+.parent {
+  width: 200px;
+  min-height: 100px;
+  border: 2px dashed #333;
+  margin: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.child {
+  width: 100px;
+  height: 50px;
+  background: lightblue;
+  margin-bottom: 5px;
+  cursor: grab;
+  transition: all 0.3s ease-in-out;
+}
+
+.child:active {
+  cursor: grabbing;
+}
+
 /*
 
 This section here is for components classes
@@ -169,6 +191,10 @@ This section here is for components classes
     background-size: 100% 1.5rem;
   }
 }
+.reg-section {
+  min-height: 100vh;
+}
+
 /*
 
 General css configuration
@@ -180,46 +206,18 @@ body {
   box-sizing: border-box;
 }
 
-.reg-section {
-  min-height: 100vh;
-}
-
 .navbar {
   background-color: #427D9D;
 }
 
-/*
-*This is for shared classes for the following elements
-- error text
-*/
 .error-message {
   font-size: 0.75rem;
   color: red;
 }
 
 /*
-This is for project page leader scss
+*This is for shared classes for the following elements
+- error text
 */
-.parent {
-  width: 200px;
-  min-height: 100px;
-  border: 2px dashed #333;
-  margin: 10px;
-  padding: 10px;
-  position: relative;
-}
-
-.child {
-  width: 100px;
-  height: 50px;
-  background: lightblue;
-  margin-bottom: 5px;
-  cursor: grab;
-  transition: all 0.3s ease-in-out;
-}
-
-.child:active {
-  cursor: grabbing;
-}
 
 /*# sourceMappingURL=style.css.map */

@@ -18,7 +18,8 @@ This section here is for components classes
 
 @use './components/buttons';
 @use "./components/footer";
-@use "./components/top-section__template.scss";
+@use "./components/loading";
+@use "./components/section";
 
 
 /*
@@ -27,20 +28,11 @@ General css configuration
 */
 
 @use './generalconfig/body';
-@use './section/regular-section';
 @use './generalconfig/nav';
+@use "./generalconfig/font-size--text";
 
 
 /*
 *This is for shared classes for the following elements
 - error text
 */
-
-@use "./shared-classes/font-size--text";
-
-
-/*
-This is for project page leader scss
-*/
-
-@use "./project-page--leader/project-page--leader";

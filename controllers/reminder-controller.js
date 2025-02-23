@@ -7,7 +7,7 @@ const reminderPage = async(req,res)=>{
         activeLink:"reminder"
     })
 }
-
+ 
 module.exports = {
     reminderPage
 }
