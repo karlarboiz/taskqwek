@@ -78,7 +78,7 @@ const taskRoutes = require('./routes/task-routes');
 const projectRoutes = require("./routes/project-routes");
 const profileRoutes = require("./routes/profile-routes");
 const reminderRoutes = require("./routes/reminder-routes")
-
+const notifRoutes = require("./routes/notification-routes");
 
 app.use(commonRoutes);
 app.use(loginRoutes);
@@ -92,6 +92,7 @@ app.use("/task",taskRoutes);
 app.use("/project",projectRoutes);
 app.use("/profile",profileRoutes);
 app.use("/reminder",reminderRoutes);
+app.use("/notification",notifRoutes);
 
 app.use((error,req,res,next)=>{
     console.log(error)

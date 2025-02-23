@@ -13,6 +13,17 @@
           </li>
 
         <hr class="my-3">
+
+        <% if(role === 'leader' ) {%>
+          <li class="nav-item">
+              <a class="nav-link d-flex align-items-center
+               gap-2 <%= activeLink === 'project' ? 'text-success' : ''%>" href="/project/project-page">
+                Projects
+              </a>
+            </li>
+        <%}%>
+
+        
           <% if(role === 'leader') {%>
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'org' ? 'text-success' : ''%>" href="/org/org-page">
@@ -27,14 +38,7 @@
                   </li>
             <% }%>
 
-            <% if(role === 'leader' ) {%>
-              <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center
-                   gap-2 <%= activeLink === 'project' ? 'text-success' : ''%>" href="/project/project-page">
-                    Project
-                  </a>
-                </li>
-            <%}%>
+            
 
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center
@@ -51,7 +55,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'notif' ? 'text-success' : ''%>" href="/notifications">
+            <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'notifications' ? 'text-success' : ''%>" href="/notification/notification-page">
             
               Notifications
             </a>

@@ -4,7 +4,7 @@ const reminderPage = async(req,res)=>{
     
     res.render("reminders",{
         role:role,
-        activeLink:"reminder"
+        activeLink:"reminders"
     })
 }
  
