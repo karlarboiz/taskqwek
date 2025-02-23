@@ -29,21 +29,23 @@
 
             <% if(role === 'leader' ) {%>
               <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'project' ? 'text-success' : ''%>" href="/project/project-page">
+                  <a class="nav-link d-flex align-items-center
+                   gap-2 <%= activeLink === 'project' ? 'text-success' : ''%>" href="/project/project-page">
                     Project
                   </a>
                 </li>
             <%}%>
 
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'task' ? 'text-success' : ''%>" href="/task/task-page">
+            <a class="nav-link d-flex align-items-center
+             gap-2 <%= activeLink === 'task' ? 'text-success' : ''%>" href="/task/task-page">
             
               Tasks
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'reminders' ? 'text-success' : ''%>" href="/reminders">
+            <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'reminders' ? 'text-success' : ''%>" href="/reminder/reminder-page">
               Reminders
             </a>
           </li>

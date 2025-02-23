@@ -77,6 +77,8 @@ const dashboardRoutes = require("./routes/dashboard-routes");
 const taskRoutes = require('./routes/task-routes');
 const projectRoutes = require("./routes/project-routes");
 const profileRoutes = require("./routes/profile-routes");
+const reminderRoutes = require("./routes/reminder-routes")
+
 
 app.use(commonRoutes);
 app.use(loginRoutes);
@@ -89,9 +91,10 @@ app.use(signupRoutes);
 app.use("/task",taskRoutes);
 app.use("/project",projectRoutes);
 app.use("/profile",profileRoutes);
+app.use("/reminder",reminderRoutes);
 
 app.use((error,req,res,next)=>{
-    
+    console.log(error)
     res.status(404).render('404');
 });
 
