@@ -18,7 +18,16 @@ const project_schema = new mongoose.Schema({
     },
     deadline: {
         type: Date,
-        default: Date.now()
+        required: true,
+        validate: {
+            validator: function(value) {
+                const currentDate = new Date();
+                const sevenDaysLater = new Date();
+                sevenDaysLater.setDate(currentDate.getDate() + 7);
+                return value >= sevenDaysLater;
+            },
+            message: "The date must be at least 7 days ahead of today."
+        }
     },
     createAuthorId: {
         type: String,

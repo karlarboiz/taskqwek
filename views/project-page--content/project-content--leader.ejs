@@ -7,18 +7,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="project-form">
                         <div class="mb-3">
                             <label for="projectName" class="form-label">Project Name</label>
-                            <input type="text" class="form-control" id="projectName" placeholder="Enter project name">
+                            <input type="text" class="form-control" id="project-name" placeholder="Enter project name">
                         </div>
                         <div class="mb-3">
                             <label for="projectDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="projectDescription" rows="3" placeholder="Enter project description"></textarea>
+                            <textarea class="form-control" id="project-description" rows="3" placeholder="Enter project description"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="projectDeadline" class="form-label">Deadline</label>
-                            <input type="date" class="form-control" id="projectDeadline">
+                            <input type="date" class="form-control" id="project-deadline">
                         </div>
 
                         <div class="parent">
@@ -30,12 +30,14 @@
                           </div>
                           <div class="parent">
                         </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="save-changes">Save changes</button>
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="save-changes">Save changes</button>
-                </div>
+
             </div>
             </div>
         </div>
