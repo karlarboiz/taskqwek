@@ -21,8 +21,11 @@ const org_schema = new mongoose.Schema({
     creatorAuthorId: {
         type: String,
         required: [true, "Creator Author Id is required"]
-    }
-    ,
+    },
+    memberList:{
+        type: Array,
+        default: []
+    },
     regDate: {
         type: Date,
         default: new Date()

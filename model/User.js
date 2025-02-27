@@ -40,6 +40,9 @@ const user_schema = new mongoose.Schema({
         minLength: [10, "Password must have a minimum of 10 characters"],       
         required: [true, "User's Password is required"],
     },
+    activeOrg: {
+        type: String
+    },
     role: {
         type: Number,
     },

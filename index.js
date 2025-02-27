@@ -14,6 +14,7 @@ const {initializeConnection} = require('./data/database');
 const flash = require("connect-flash");
 const port = 5000;
 const mysqlDb = require("./data/database1");
+const mysql = require('mysql2/promise');
 
 
 // const WebSocketServer = require('websocket').server;
@@ -104,6 +105,16 @@ app.use((error,req,res,next)=>{
 
 app.use((error,req,res,next)=>{
     res.status(500).render('500');
+})
+
+
+mysql.createConnection({
+    user     : process.env.USER,
+    password : process.env.PASSWORD
+}).then((connection) => {
+    connection.query('CREATE DATABASE IF NOT EXISTS taskqwek_db;').then(() => {
+        // Safe to use sequelize now
+    })
 })
 
 
