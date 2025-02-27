@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express'); 
 const path = require('path');
 const app = express();
@@ -12,6 +13,8 @@ const methodOverride = require('method-override');
 const {initializeConnection} = require('./data/database');
 const flash = require("connect-flash");
 const port = 5000;
+const mysqlDb = require("./data/database1");
+
 
 // const WebSocketServer = require('websocket').server;
 // const WebSocketClient = require('websocket').client;
@@ -19,7 +22,7 @@ const port = 5000;
 // const WebSocketRouter = require('websocket').router;
 // const W3CWebSocket = require('websocket').w3cwebsocket;
 
-require('dotenv').config();
+
 
 app.use(express.static('public'));
 
@@ -106,7 +109,9 @@ app.use((error,req,res,next)=>{
 
 initializeConnection();
 
-app.listen(process.env.PORT || port,()=>{
+app.listen(process.env.PORT || port,async()=>{
+    await mysqlDb.authenticate();
+    
     console.log(`The backend system for TaskQwek is now running at localhost:${process.env.PORT || port}`);
 })
 
