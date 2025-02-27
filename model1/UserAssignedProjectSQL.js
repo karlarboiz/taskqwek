@@ -1,4 +1,4 @@
-const sequelize = require("../data/database1");
+const sequelize = require("../../data/database1");
 // how you would import Sequelize in CommonJS
 const { DataTypes } = require('@sequelize/core');
 
