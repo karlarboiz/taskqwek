@@ -2,7 +2,7 @@ const sequelize = require("../data/database1");
 // how you would import Sequelize in CommonJS
 const { DataTypes } = require('@sequelize/core');
 
-const UsersAssignedItemSQL = sequelize.define('UsersAssignedItemSQL',{
+const UserAssignedProjectSQL = sequelize.define('UserAssignedProjectSQL',{
     assigned_project_id: {
         type: DataTypes.INTEGER,
         allowNull:false,
@@ -36,9 +36,9 @@ const UsersAssignedItemSQL = sequelize.define('UsersAssignedItemSQL',{
     }      
 
 },{
-    tableName: 'users_assigned_item_sql',
+    tableName: 'user_assigned_project_sql',
     timestamps:false
 }
 
 )
-module.exports = UsersAssignedItemSQL;
+module.exports = UserAssignedProjectSQL;
