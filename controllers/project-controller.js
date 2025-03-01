@@ -2,8 +2,9 @@ const Messages = require("../common/Messages");
 
 const Project = require("../model/Project");
 const { encryptValue } = require("../util/encrypt-code");
-const projectPage = (req,res,next)=>{
-
+const projectPage = async(req,res,next)=>{
+    console.log("hello hello")
+    console.log(req.session)
     const role = req.session.user?.role === 1  ?"leader": "member";
     res.render("project",{
         role:role,

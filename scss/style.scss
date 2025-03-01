@@ -3,6 +3,12 @@
 This section here is for pages classes
 
 */
+
+
+
+@use "./custom";
+
+
 @use './pages/login';
 @use './pages/signup';
 @use './pages/dashboard';
@@ -38,6 +44,3 @@ General css configuration
 *This is for shared classes for the following elements
 - error text
 */
-
-
-@use "./custom";

@@ -4,222 +4,6 @@
 This section here is for pages classes
 
 */
-.login-section {
-  margin-top: 5.5rem;
-}
-.login-section form {
-  max-width: 65%;
-}
-
-.signup-section {
-  max-width: 50%;
-}
-
-.form-register {
-  display: grid;
-  grid-template-columns: repeat(2, 20rem);
-  justify-content: center;
-}
-
-.form-group {
-  text-align: left;
-  text-wrap: wrap;
-}
-
-.form-group * {
-  display: block;
-}
-
-.error-text {
-  font-size: 0.75rem;
-}
-
-.dashboard-height {
-  min-height: 35rem;
-}
-
-main {
-  text-align: center;
-}
-
-.main-header {
-  font-family: "Share Tech Mono", serif;
-  font-size: 3.5rem;
-}
-
-.sub-header {
-  font-size: 1.75rem;
-  font-family: "Share Tech Mono", serif;
-  padding: 0;
-  margin: 1.75rem 0;
-  line-height: 1.75rem;
-}
-
-.feature-box {
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  background: #f8f9fa;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.feature-box:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.feature-icon {
-  font-size: 3rem;
-  color: #007bff;
-}
-
-.error-container {
-  text-align: center;
-}
-
-.error-code {
-  font-size: 120px;
-  font-weight: bold;
-  color: #dc3545;
-  animation: bounce 1s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-.error-message--404 {
-  font-size: 1.75rem;
-  margin-bottom: 20px;
-  font-family: "Share Tech Mono", serif;
-  line-height: 1.85rem;
-}
-
-.error-container {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.error-code {
-  font-size: 120px;
-  font-weight: bold;
-  color: #dc3545;
-  animation: bounce 1s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-.error-message {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.project-card {
-  text-align: center;
-  padding: 20px;
-}
-
-.add-project-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  color: #6c757d;
-  cursor: pointer;
-}
-
-.parent {
-  width: 200px;
-  min-height: 100px;
-  border: 2px dashed #333;
-  margin: 10px;
-  padding: 10px;
-  position: relative;
-}
-
-.child {
-  width: 100px;
-  height: 50px;
-  background: lightblue;
-  margin-bottom: 5px;
-  cursor: grab;
-  transition: all 0.3s ease-in-out;
-}
-
-.child:active {
-  cursor: grabbing;
-}
-
-/*
-
-This section here is for components classes
-
-*/
-.btn {
-  border-radius: 1.5rem;
-  padding: 0.725rem 1.05rem;
-  font-size: 1.05rem;
-}
-
-.btn-primary {
-  background-color: #164863;
-}
-
-.loader {
-  width: 100%;
-  font-weight: bold;
-  font-family: sans-serif;
-  font-size: 30px;
-  padding-bottom: 8px;
-  background: linear-gradient(currentColor 0 0) 0 100%/0% 3px no-repeat;
-  animation: l2 2s linear infinite;
-  margin: 0;
-}
-
-@keyframes l2 {
-  to {
-    background-size: 100% 1.5rem;
-  }
-}
-.reg-section {
-  min-height: 100vh;
-}
-
-/*
-
-General css configuration
-*/
-body {
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.navbar {
-  background-color: #427D9D;
-}
-
-.error-message {
-  font-size: 0.75rem;
-  color: red;
-}
-
-/*
-*This is for shared classes for the following elements
-- error text
-*/
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors
@@ -12096,5 +11880,222 @@ textarea.form-control-lg {
     left: 0;
   }
 }
+
+.login-section {
+  margin-top: 5.5rem;
+}
+.login-section form {
+  max-width: 65%;
+}
+
+.signup-section {
+  max-width: 50%;
+}
+
+.form-register {
+  display: grid;
+  grid-template-columns: repeat(2, 20rem);
+  justify-content: center;
+}
+
+.form-group {
+  text-align: left;
+  text-wrap: wrap;
+}
+
+.form-group * {
+  display: block;
+}
+
+.error-text {
+  font-size: 0.75rem;
+}
+
+.dashboard-height {
+  min-height: 35rem;
+}
+
+main {
+  text-align: center;
+}
+
+.main-header {
+  font-family: "Share Tech Mono", serif;
+  font-size: 3.5rem;
+}
+
+.sub-header {
+  font-size: 1.75rem;
+  font-family: "Share Tech Mono", serif;
+  padding: 0;
+  margin: 1.75rem 0;
+  line-height: 1.75rem;
+}
+
+.feature-box {
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  background: #f8f9fa;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.feature-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: #007bff;
+}
+
+.error-container {
+  text-align: center;
+}
+
+.error-code {
+  font-size: 120px;
+  font-weight: bold;
+  color: #dc3545;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.error-message--404 {
+  font-size: 1.75rem;
+  margin-bottom: 20px;
+  font-family: "Share Tech Mono", serif;
+  line-height: 1.85rem;
+}
+
+.error-container {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.error-code {
+  font-size: 120px;
+  font-weight: bold;
+  color: #dc3545;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.error-message {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.project-card {
+  text-align: center;
+  padding: 20px;
+}
+
+.add-project-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: #6c757d;
+  cursor: pointer;
+}
+
+.parent {
+  width: 200px;
+  min-height: 100px;
+  border: 2px dashed #333;
+  margin: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.child {
+  width: 100px;
+  height: 50px;
+  background: lightblue;
+  margin-bottom: 5px;
+  cursor: grab;
+  transition: all 0.3s ease-in-out;
+}
+
+.child:active {
+  cursor: grabbing;
+}
+
+/*
+
+This section here is for components classes
+
+*/
+.btn {
+  border-radius: 1.5rem;
+  padding: 0.725rem 1.05rem;
+  font-size: 1.05rem;
+}
+
+.btn-primary {
+  background-color: #164863;
+}
+
+.loader {
+  width: 100%;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 30px;
+  padding-bottom: 8px;
+  background: linear-gradient(currentColor 0 0) 0 100%/0% 3px no-repeat;
+  animation: l2 2s linear infinite;
+  margin: 0;
+}
+
+@keyframes l2 {
+  to {
+    background-size: 100% 1.5rem;
+  }
+}
+.reg-section {
+  min-height: 100vh;
+}
+
+/*
+
+General css configuration
+*/
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  background-color: #427D9D;
+}
+
+.error-message {
+  font-size: 0.75rem;
+  color: red;
+}
+
+/*
+*This is for shared classes for the following elements
+- error text
+*/
 
 /*# sourceMappingURL=style.css.map */
