@@ -7,4 +7,29 @@
 
 
 
-@import '../node_modules/bootstrap/scss/bootstrap.scss'
+
+
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+.modal-content {
+    position: relative;    
+    display: flex;
+    flex-direction: column;
+    width: 50rem;
+    left: -25rem;
+ // Ensures it doesn’t overflow the screen
+    margin: auto; // Centers the modal horizontally
+    color: aliceblue;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.175);
+    outline: 0;
+
+    // Responsive design for smaller screens
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+
