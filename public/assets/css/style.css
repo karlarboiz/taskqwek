@@ -12081,7 +12081,7 @@ textarea.form-control-lg {
   display: flex;
   flex-direction: column;
   width: 50rem;
-  left: -25rem;
+  left: calc(25rem - 100%);
   margin: auto;
   color: aliceblue;
   pointer-events: auto;
@@ -12090,9 +12090,10 @@ textarea.form-control-lg {
   border: 1px solid rgba(0, 0, 0, 0.175);
   outline: 0;
 }
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .modal-content {
     width: 100%;
+    left: 0;
   }
 }
 

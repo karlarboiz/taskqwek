@@ -1,6 +1,7 @@
 const Messages = require("../common/Messages");
 
 const Project = require("../model/Project");
+const { encryptValue } = require("../util/encrypt-code");
 const projectPage = (req,res,next)=>{
 
     const role = req.session.user?.role === 1  ?"leader": "member";
@@ -10,19 +11,33 @@ const projectPage = (req,res,next)=>{
     })
 }
 
-const createProject = (req,res,next)=>{
-    const {name,description,organizations,}= req.body;
-    const leaderId = req.session.user?._id
-
-    console.log(name,description,organizations)
+const createProject = async(req,res,next)=>{
+    try{
+        const {name,description,organizations,}= req.body;
+        const leaderId = req.session.user?.id
     
-    // const newProject = new Project({
-    //     name:name,
-    // })
-    return res.status(200).send({
-        isSuccess: true,
-        message: Messages.PROJECT_CREATION_SUCCESS
-    })
+        console.log(name,description,organizations)
+
+        // const leaderIdEnc = await encryptValue(leaderId);
+        // console.log(leaderIdEnc)
+   
+
+        const project = new Project({
+            name:name,
+            description:description,
+            createAuthorId:leaderId
+        })
+
+        const validate = await project.validateSync();
+
+        console.log(validate);
+        return res.status(200).send({
+            isSuccess: true,
+            message: Messages.PROJECT_CREATION_SUCCESS
+        })
+    }catch(e){
+        
+    }
 }
 
 module.exports = {
