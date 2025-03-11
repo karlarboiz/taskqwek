@@ -41,7 +41,7 @@ $(document).ready(function(){
         const data = {
           name: $('#project-name').val(),
           description: $('#project-description').val(),
-          population: $('#project-deadline').val(),
+          deadline: $('#project-deadline').val(),
         };
 
         console.log(data)
