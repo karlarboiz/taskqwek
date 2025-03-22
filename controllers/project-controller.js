@@ -16,10 +16,6 @@ const createProject = async(req,res,next)=>{
     try{
         const {name,description,organizations,deadline}= req.body;
         const leaderId = req.session.user?.id
-
-        console.log(deadline)
-        // const leaderIdEnc = await encryptValue(leaderId);
-        // console.log(leaderIdEnc)
    
 
         const project = new Project({
@@ -31,19 +27,17 @@ const createProject = async(req,res,next)=>{
 
         const validate = await project.validateSync();
 
-       const result = errorParsingFromValidations(validate.errors);
+        const errorResult = errorParsingFromValidations(validate.errors);
    
-       const success = !result;
+        const success = !result;
 
         return res.status(200).send({
             isSuccess: success,
-            message: Messages.PROJECT_CREATION_SUCCESS
+            message: Messages.PROJECT_CREATION_SUCCESS,
+            errorResult: errorResult
         })
     }catch(e){
-        res.status(200).send({
-            isSuccess: false,
-            message: Messages.FAILED
-        })
+      next(e)
     }
 }
 

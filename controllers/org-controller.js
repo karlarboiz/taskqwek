@@ -3,6 +3,7 @@ const Org = require("../model/Org");
 // const url = require('url');
 const { orgCreationErrorSessionPage, orgCreationSessionPage } = require("../util/org-creation-session");
 
+const Messages = require("../common/Messages");
 const orgDashboardOrgPage = async (req,res)=>{
     
     const role = req.session.user?.role === 1  ?"leader": "member";
@@ -118,7 +119,7 @@ const orgCreationFuncJson =async (req,res,next)=>{
     }catch(e){
         res.status(500).send({
             isSuccess: false,
-            message:"Something went wrong. Try again!"
+            message: Messages.FAILED
         })
     }
 }
