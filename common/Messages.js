@@ -1,7 +1,8 @@
 class Messages {
     static PROJECT_CREATION_SUCCESS = "Project is successfully created!";
-    static ERROR = "An unexpected error occurred. Please try again later.";
-    static SUCCESS = "Your operation was successful!";
+    static FAILED = "An unexpected error occurred. Please try again later.";
+    static SUCCESS = "Your operation was successful! ";
+    
     static INVALID_INPUT = "The input provided is invalid. Please check and try again.";
     static LOGOUT = "You have been successfully logged out.";
     

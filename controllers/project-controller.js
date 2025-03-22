@@ -32,13 +32,18 @@ const createProject = async(req,res,next)=>{
         const validate = await project.validateSync();
 
        const result = errorParsingFromValidations(validate.errors);
-        console.log(result)
+   
+       const success = !result;
+
         return res.status(200).send({
-            isSuccess: true,
+            isSuccess: success,
             message: Messages.PROJECT_CREATION_SUCCESS
         })
     }catch(e){
-        
+        res.status(200).send({
+            isSuccess: false,
+            message: Messages.FAILED
+        })
     }
 }
 
