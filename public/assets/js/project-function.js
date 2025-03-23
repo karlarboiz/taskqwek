@@ -43,8 +43,6 @@ $(document).ready(function(){
           description: $('#project-description').val(),
           deadline: $('#project-deadline').val(),
         };
-
-        console.log(data)
         
         // Make an AJAX POST request
         $.ajax({
