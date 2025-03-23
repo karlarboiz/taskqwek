@@ -1,7 +1,10 @@
 
-const homePage = async(req,res)=>{  
-    res.render('/');
-}   
+const homePage = async(req,res,next)=>{
+    const isAuthenticated = req.session.isAuthenticated;
+    res.render('home',{messages: req.flash("info"),
+        isAuthenticated
+    });
+}
 
 const logoutFunc = async (req,res)=>{
     req.session.user = null;
@@ -10,7 +13,6 @@ const logoutFunc = async (req,res)=>{
 }
 
 module.exports = {
-    logoutFunc:logoutFunc,
-    homePage: homePage,
-
+    logoutFunc,
+    homePage
 }   

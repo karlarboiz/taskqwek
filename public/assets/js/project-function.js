@@ -33,9 +33,9 @@ $(document).ready(function(){
         event.preventDefault(); // Prevent the default form submission
   
         $("#project-creation--loader-container").show();
-        // if($(".message").length > 0) {
-        //   $(".message").remove();
-        // } 
+        if($(".message").length > 0) {
+          $(".message").remove();
+        } 
   
         // Gather form data
         const data = {

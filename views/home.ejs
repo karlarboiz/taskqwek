@@ -1,5 +1,8 @@
 <%- include('includes/header', {title: "Home Page",navItemsPresent: true}); %>
-    <p><%= messages %></p> 
+    
+    <% if(isAuthenticated) {%>
+        <a href="/dashboard" class="text-decoration-none text-info">Back to your Dashboard</a>
+    <%}%>
 
     <main class="container mt-4">
         <div class="main-header">TaskQwek</div>

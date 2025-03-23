@@ -4,10 +4,7 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('',(req,res,next)=>{
-
-    res.render('home',{messages: req.flash("info")});
-})
+router.get('',commonController.homePage)
  
 
 router.get('/about',(req,res)=>{
