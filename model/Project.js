@@ -18,7 +18,7 @@ const project_schema = new mongoose.Schema({
     },
     deadline: {
         type: Date,
-        required: true,
+        required:[true,"Project Deadline is required"],
         validate: {
             validator: function(value) {
                 const currentDate = new Date();

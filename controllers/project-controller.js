@@ -29,15 +29,15 @@ const createProject = async(req,res,next)=>{
 
         const errorResult = errorParsingFromValidations(validate.errors);
    
-        const success = !result;
+        const success = !errorResult;
 
         return res.status(200).send({
             isSuccess: success,
-            message: Messages.PROJECT_CREATION_SUCCESS,
+            message: !success ? Messages.PROJECT_CREATION_SUCCESS : Messages.FAILED,
             errorResult: errorResult
         })
     }catch(e){
-      next(e)
+        
     }
 }
 
