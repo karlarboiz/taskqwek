@@ -1,6 +1,7 @@
 const Messages = require("../common/Messages");
 
 const Project = require("../model/Project");
+const ResponseObj = require("../response-obj/ResponseObj");
 // const { encryptValue } = require("../util/encrypt-code");
 const { errorParsingFromValidations } = require("../util/error-parsing");
 const projectPage = async(req,res,next)=>{
@@ -30,12 +31,13 @@ const createProject = async(req,res,next)=>{
         const errorResult = errorParsingFromValidations(validate.errors);
    
         const success = !errorResult;
-        
-        return res.status(200).send({
-            isSuccess: success,
-            message: !success ? Messages.PROJECT_CREATION_SUCCESS : Messages.FAILED,
-            errorResult: errorResult
-        })
+
+        const responseObj = new ResponseObj(success,
+            !success ? Messages.PROJECT_CREATION_SUCCESS : Messages.FAILED,
+            errorResult   
+        )
+
+        return res.status(200).send(responseObj)
     }catch(e){
         
     }

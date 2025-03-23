@@ -1,7 +1,9 @@
 class ResponseObj {
-    constructor(isSuccess,message,errorList){
-        this._isSuccess = isSuccess
-        this._message = message
-        this._errorList = errorList
+    constructor(isSuccess,message,errorResult){
+        this.   isSuccess = isSuccess
+        this.message = message
+        this.errorResult = errorResult || {}
     }
 }
+
+module.exports = ResponseObj
