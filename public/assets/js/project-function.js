@@ -36,6 +36,13 @@ $(document).ready(function(){
         if($(".message").length > 0) {
           $(".message").remove();
         } 
+
+        $(".error-message").each(function(){
+          console.log(this);
+          if(this.length > 0){
+            this.remove();
+          }
+        })
   
         // Gather form data
         const data = {
@@ -54,7 +61,7 @@ $(document).ready(function(){
           contentType: 'application/json',
           data: JSON.stringify(data),
           success: function (response) {
-            console.log(response)
+       
             const {message,errorResult}=response;
             // $('#org-form').prepend(`<p class="message">${message}</p>`)
             

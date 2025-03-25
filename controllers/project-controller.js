@@ -18,7 +18,6 @@ const createProject = async(req,res,next)=>{
         const {name,description,organizations,deadline}= req.body;
         const leaderId = req.session.user?.id
    
-
         const project = new Project({
             name:name,
             description:description,
