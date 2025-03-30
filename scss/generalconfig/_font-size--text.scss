@@ -1,7 +1,27 @@
 @use '../abstracts/' as *;
 
+.main-message--success {
+    font-size: $font-size--main-message;
+    animation: bounce 1s linear;
+    color: green;
+}
+
+
+.main-message--failure {
+    font-size: $font-size--main-message;
+    animation: bounce 1s linear;
+    color: red;
+}
 
 .error-message {
     font-size: $font-size--error-text;
     color: red;
+}
+
+
+
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }

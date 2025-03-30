@@ -34,8 +34,8 @@ $(document).ready(function(){
   
         $("#project-creation--loader-container").show();
 
-        if($(".error-message").length > 0) {
-          $(".error-message").remove();
+        if($(".message").length > 0) {
+          $(".message").remove();
         } 
   
         // Gather form data
@@ -55,13 +55,15 @@ $(document).ready(function(){
           contentType: 'application/json',
           data: JSON.stringify(data),
           success: function (response) {
-          
-            const {message,errorResult}=response;
+
+            const {isSuccess,message,errorResult}=response;
+            console.log(response);
             // $('#org-form').prepend(`<p class="message">${message}</p>`)
-            $("#project-form").append(`<div>${message}</div>`)
+            $("#project-form").prepend(`<div class="message
+              main-message--${isSuccess ? "success": "failure"} ">${message}</div>`);
             for (const [key,value] of Object.entries(errorResult)) {
               $(`.project-field--${key}`)
-              .append(`<p class="error-message">${value}</p>`)
+              .append(`<p class="message error-message">${value}</p>`)
             }
           },
           error: function (xhr, status, error) {     

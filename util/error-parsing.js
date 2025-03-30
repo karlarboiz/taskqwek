@@ -1,9 +1,8 @@
 const errorParsingFromValidations = (errorObj)=>{
     const parsedErrors = {};
     if(!errorObj) {
-        return parsedErrors;
+        return null;
     }
-
 
     for(const [key,value] of Object.entries(errorObj)) {
         parsedErrors[key] = value.properties.message;

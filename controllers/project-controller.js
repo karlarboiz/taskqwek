@@ -15,7 +15,7 @@ const projectPage = async(req,res,next)=>{
 
 const createProject = async(req,res,next)=>{
     try{
-        const {name,description,organizations,deadline}= req.body;
+        const {name,description,deadline}= req.body;
         const leaderId = req.session.user?.id
    
         const project = new Project({
@@ -26,19 +26,20 @@ const createProject = async(req,res,next)=>{
         })
 
         const validate = await project.validateSync();
-
-        const errorResult = errorParsingFromValidations(validate.errors);
+     
+        const errorResult = errorParsingFromValidations(validate?.errors);
    
         const success = !errorResult;
 
-        const responseObj = new ResponseObj(success,
-            !success ? Messages.PROJECT_CREATION_SUCCESS : Messages.FAILED,
+        const responseObj = new ResponseObj(    success,
+            success ? Messages.PROJECT_CREATION_SUCCESS : 
+            Messages.PROJECT_CREATION_FAILED,
             errorResult   
         )
 
         return res.status(200).send(responseObj)
     }catch(e){
-        
+        console.log(e.message)
     }
 }
 

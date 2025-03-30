@@ -11982,26 +11982,6 @@ main {
   margin-bottom: 50px;
 }
 
-.error-code {
-  font-size: 120px;
-  font-weight: bold;
-  color: #dc3545;
-  animation: bounce 1s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-.error-message {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
 .project-card {
   text-align: center;
   padding: 20px;
@@ -12088,11 +12068,31 @@ body {
   background-color: #427D9D;
 }
 
+.main-message--success {
+  font-size: 1.025rem;
+  animation: bounce 1s linear;
+  color: green;
+}
+
+.main-message--failure {
+  font-size: 1.025rem;
+  animation: bounce 1s linear;
+  color: red;
+}
+
 .error-message {
   font-size: 0.75rem;
   color: red;
 }
 
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
 /*
 *This is for shared classes for the following elements
 - error text
