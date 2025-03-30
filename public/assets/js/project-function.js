@@ -33,16 +33,10 @@ $(document).ready(function(){
         event.preventDefault(); // Prevent the default form submission
   
         $("#project-creation--loader-container").show();
-        if($(".message").length > 0) {
-          $(".message").remove();
-        } 
 
-        $(".error-message").each(function(){
-          console.log(this);
-          if(this.length > 0){
-            this.remove();
-          }
-        })
+        if($(".error-message").length > 0) {
+          $(".error-message").remove();
+        } 
   
         // Gather form data
         const data = {
@@ -61,10 +55,10 @@ $(document).ready(function(){
           contentType: 'application/json',
           data: JSON.stringify(data),
           success: function (response) {
-       
+          
             const {message,errorResult}=response;
             // $('#org-form').prepend(`<p class="message">${message}</p>`)
-            
+            $("#project-form").append(`<div>${message}</div>`)
             for (const [key,value] of Object.entries(errorResult)) {
               $(`.project-field--${key}`)
               .append(`<p class="error-message">${value}</p>`)

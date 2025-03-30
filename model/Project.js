@@ -13,9 +13,6 @@ const project_schema = new mongoose.Schema({
         type: Number,   
         default: 0
     },
-    projectAssociates:{
-        type:Array
-    },
     deadline: {
         type: Date,
         required:[true,"Project Deadline is required"],
