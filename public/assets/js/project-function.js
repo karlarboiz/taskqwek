@@ -28,6 +28,12 @@ $(document).ready(function(){
     //     }
     // });
 
+    $('#form-project--button-reset').click(function(){
+      if($(".message").length > 0) {
+        $(".message").remove();
+      } 
+    })
+
 
     $('#project-form').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
@@ -71,6 +77,8 @@ $(document).ready(function(){
           },
           complete: function(){
             $("#project-creation--loader-container").hide();
+
+           
           }
         });
       });

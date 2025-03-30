@@ -30,6 +30,10 @@ const createProject = async(req,res,next)=>{
         const errorResult = errorParsingFromValidations(validate?.errors);
    
         const success = !errorResult;
+        
+        if(!errorResult){
+            await project.save();
+        }
 
         const responseObj = new ResponseObj(    success,
             success ? Messages.PROJECT_CREATION_SUCCESS : 
