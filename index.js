@@ -83,20 +83,20 @@ const projectRoutes = require("./routes/project-routes");
 const profileRoutes = require("./routes/profile-routes");
 const reminderRoutes = require("./routes/reminder-routes")
 const notifRoutes = require("./routes/notification-routes");
+const { checkActiveUser } = require('./middlewares/checkActiveUsers');
 
 app.use(commonRoutes);
 app.use(loginRoutes);
-
-app.use("/member",memberRoutes);
-// app.use(leaderRoutes);
-app.use("/org",orgRoutes);
-app.use(dashboardRoutes);
 app.use(signupRoutes);
-app.use("/task",taskRoutes);
-app.use("/project",projectRoutes);
-app.use("/profile",profileRoutes);
-app.use("/reminder",reminderRoutes);
-app.use("/notification",notifRoutes);
+app.use("/member",checkActiveUser,memberRoutes);
+// app.use(leaderRoutes);
+app.use("/org",checkActiveUser,orgRoutes);
+app.use(checkActiveUser,dashboardRoutes);
+app.use("/task",checkActiveUser,taskRoutes);
+app.use("/project",checkActiveUser,projectRoutes);
+app.use("/profile",checkActiveUser,profileRoutes);
+app.use("/reminder",checkActiveUser,reminderRoutes);
+app.use("/notification",checkActiveUser,notifRoutes);
 
 app.use((error,req,res,next)=>{
     console.log(error)
