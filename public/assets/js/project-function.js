@@ -89,7 +89,21 @@ $(document).ready(function(){
         contentType: 'application/json',
         success: function (response) {
           
-          console.log(response)
+          const{isSuccess,data,message} = response;
+
+          console.log(data)
+
+          for (let element of data) {
+            $("#project-list__container").append( `
+              
+          <div class="col-md-3">
+              <div class="card project-card">
+                  <div class="card-body">${element.name}</div>
+              </div>
+          </div>`)
+         }
+
+         
           
           $("#loader-container").show();
 

@@ -35,7 +35,7 @@ const createProject = async(req,res,next)=>{
             await project.save();
         }
 
-        const responseObj = new ResponseObj(    success,
+        const responseObj = new ResponseObj( success,
             success ? Messages.PROJECT_CREATION_SUCCESS : 
             Messages.PROJECT_CREATION_FAILED,
             errorResult   
@@ -51,8 +51,6 @@ const fetchProjectListFunctionHandler = async(req,res,next)=>{
 
     try{
         const creatorAuthorId = req.session.user?.id;
-
-        console.log(creatorAuthorId);
         
         const leaderProjects = await Project.aggregate([
             {
@@ -60,7 +58,7 @@ const fetchProjectListFunctionHandler = async(req,res,next)=>{
             }
         ]);
 
-        return res.status(200).send(leaderProjects)
+        return res.status(200).send(new ResponseObj(true,Messages.FETCH_LIST_SUCCESS + "projects",{},leaderProjects))
     }catch(e){
 
     }

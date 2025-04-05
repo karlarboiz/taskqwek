@@ -1,8 +1,9 @@
 class ResponseObj {
-    constructor(isSuccess,message,errorResult){
-        this.   isSuccess = isSuccess
+    constructor(isSuccess,message,errorResult,data){
+        this.isSuccess = isSuccess
         this.message = message
         this.errorResult = errorResult || {}
+        this.data = data || []
     }
 }
 

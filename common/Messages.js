@@ -8,9 +8,11 @@ class Messages {
     static LOGOUT = "You have been successfully logged out.";
     static CREATED_STATUS_SUCCESS = "created";
 
-    static getMessage(type) {
-        return this[type] || "Message not found.";
-    }
+    static FETCH_LIST_SUCCESS = "Successfully fetch list of ";
+
+    // static concatMessage(type) {
+    //     return this[type] || "Message not found.";
+    // }
 }
 
 module.exports = Messages
