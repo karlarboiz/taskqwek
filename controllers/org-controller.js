@@ -129,11 +129,8 @@ const orgCreationFuncJson =async (req,res,next)=>{
 
 const orgFetchFuncJson = async (req,res,next) =>{
     try{
-        // const pageVisit = queryData.visit;
-
         const creatorAuthorId = req.session.user?.id;
-
-        console.log(req.session)
+        
         const leaderOrgs = await Org.aggregate([
             {
                 $match: {creatorAuthorId: creatorAuthorId}

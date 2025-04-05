@@ -47,7 +47,27 @@ const createProject = async(req,res,next)=>{
     }
 }
 
+const fetchProjectListFunctionHandler = async(req,res,next)=>{
+
+    try{
+        const creatorAuthorId = req.session.user?.id;
+
+        console.log(creatorAuthorId);
+        
+        const leaderProjects = await Project.aggregate([
+            {
+                $match: {createAuthorId: creatorAuthorId}
+            }
+        ]);
+
+        return res.status(200).send(leaderProjects)
+    }catch(e){
+
+    }
+}
+
 module.exports = {
     projectPage,
-    createProject
+    createProject,
+    fetchProjectListFunctionHandler
 }

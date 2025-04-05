@@ -83,6 +83,18 @@ $(document).ready(function(){
         });
       });
     
-  
+      $.ajax({
+        url:"/project/project-list",
+        type: "GET",
+        contentType: 'application/json',
+        success: function (response) {
+          
+          console.log(response)
+          
+          $("#loader-container").show();
+
+          $("#loader-container").hide();
+        },
+      })
     
 })

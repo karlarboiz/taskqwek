@@ -50,8 +50,6 @@ $(document).ready(function () {
         $("#loader-container").show();
         const {leaderOrgs} = response;
 
-        console.log(leaderOrgs)
-        
         for (let element of leaderOrgs) {
            $("#org-tbody").append(`
              <tr>
