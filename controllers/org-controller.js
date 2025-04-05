@@ -137,8 +137,6 @@ const orgFetchFuncJson = async (req,res,next) =>{
             }
         ]);
 
-        console.log(leaderOrgs);
-
         return res.status(200).send({
             leaderOrgs
         })

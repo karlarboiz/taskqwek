@@ -29,9 +29,7 @@ $(document).ready(function(){
     // });
 
     $('#form-project--button-reset').click(function(){
-      if($(".message").length > 0) {
-        $(".message").remove();
-      } 
+      $(".message").remove();
     })
 
 
@@ -40,9 +38,7 @@ $(document).ready(function(){
   
         $("#project-creation--loader-container").show();
 
-        if($(".message").length > 0) {
-          $(".message").remove();
-        } 
+        $(".message").remove();
   
         // Gather form data
         const data = {
@@ -89,23 +85,22 @@ $(document).ready(function(){
         contentType: 'application/json',
         success: function (response) {
           
-          const{isSuccess,data,message} = response;
-
-          console.log(data)
+          $("#loader-container").show();
+          const{data} = response;
 
           for (let element of data) {
             $("#project-list__container").append( `
               
           <div class="col-md-3">
-              <div class="card project-card">
-                  <div class="card-body">${element.name}</div>
-              </div>
+              <a href="/project-details/${element._id}">   
+                <div class="card project-card">
+                    <div class="card-body">${element.name}</div>
+                </div>
+                
+              </a>
           </div>`)
          }
 
-         
-          
-          $("#loader-container").show();
 
           $("#loader-container").hide();
         },

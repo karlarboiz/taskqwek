@@ -12064,6 +12064,10 @@ body {
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
 .navbar {
   background-color: #427D9D;
 }
