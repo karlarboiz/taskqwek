@@ -1,7 +1,19 @@
 const checkActiveUser = (req,res,next)=>{
     if(req.session?.user){
-        return res.redirect("/dashboard");
+        next();
+    }else {
+        return res.redirect("/");
     }
+
+    
+}
+
+const loginPageCheckForActiveUser = (req,res,next)=>{
+
+    if(req.session?.user){
+        return res.redirect("/dashboard")
+    }
+
 
     next();
 }
@@ -51,6 +63,7 @@ module.exports ={
     checkActiveUser,
     checkSessionRole,
     checkSessionRoleMatchesQuery,
-    checkIfUserJustGotNewlyRegistered
+    checkIfUserJustGotNewlyRegistered,
+    loginPageCheckForActiveUser
 
 }

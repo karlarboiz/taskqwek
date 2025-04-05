@@ -3,10 +3,8 @@ $(document).ready(function () {
       event.preventDefault(); // Prevent the default form submission
 
       $("#loader-container").show();
-
-      if($(".message").length > 0) {
-        $(".message").remove();
-      } 
+      $(".message").remove();
+      $(".error-message").remove();
 
       // Gather form data
       const data = {
@@ -51,6 +49,8 @@ $(document).ready(function () {
       success: function (response) {
         $("#loader-container").show();
         const {leaderOrgs} = response;
+
+        console.log(leaderOrgs)
         
         for (let element of leaderOrgs) {
            $("#org-tbody").append(`

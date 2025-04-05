@@ -90,8 +90,11 @@ const orgCreationFuncJson =async (req,res,next)=>{
     try{
 
         const creatorAuthorId = req.session.user?.id;
+
+
+
         const newOrg = await new Org({
-            name: req.body['org-name'],
+            name: req.body['name'],
             description: req.body.description,
             population: req.body.population,
             creatorAuthorId: creatorAuthorId
@@ -127,12 +130,17 @@ const orgCreationFuncJson =async (req,res,next)=>{
 const orgFetchFuncJson = async (req,res,next) =>{
     try{
         // const pageVisit = queryData.visit;
+
         const creatorAuthorId = req.session.user?.id;
+
+        console.log(req.session)
         const leaderOrgs = await Org.aggregate([
             {
                 $match: {creatorAuthorId: creatorAuthorId}
             }
         ]);
+
+        console.log(leaderOrgs);
 
         return res.status(200).send({
             leaderOrgs

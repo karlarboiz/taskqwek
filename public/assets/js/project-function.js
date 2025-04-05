@@ -58,7 +58,7 @@ $(document).ready(function(){
           headers: {
               'X-CSRF-Token': $('#_csrf').val(), // CSRF token in header
             },
-          contentType: 'application/json',
+            contentType: 'application/json',
           data: JSON.stringify(data),
           success: function (response) {
 
@@ -68,7 +68,7 @@ $(document).ready(function(){
             $("#project-form").prepend(`<div class="message
               main-message--${isSuccess ? "success": "failure"} ">${message}</div>`);
             for (const [key,value] of Object.entries(errorResult)) {
-              $(`.project-field--${key}`)
+               $(`.project-field--${key}`)
               .append(`<p class="message error-message">${value}</p>`)
             }
           },
