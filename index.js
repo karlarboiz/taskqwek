@@ -15,7 +15,7 @@ const flash = require("connect-flash");
 const port = 5000;
 const mysqlDb = require("./data/database1");
 const mysql = require('mysql2/promise');
-
+const sequelize = require("./data/database1");
 
 // const WebSocketServer = require('websocket').server;
 // const WebSocketClient = require('websocket').client;
@@ -120,6 +120,24 @@ mysql.createConnection({
 
 
 initializeConnection();
+
+
+(async () => {
+    try {
+      await sequelize.authenticate();
+      console.log('Connection has been established successfully.');
+  
+      // This will create the table if it doesn't exist (DOESN'T DROP)
+      await sequelize.sync();
+  
+      // Optional: force table recreation every time
+      // await sequelize.sync({ force: true });
+  
+      console.log('All models were synchronized successfully.');
+    } catch (error) {
+      console.error('Unable to connect to the database:', error);
+    }
+  })();
 
 app.listen(process.env.PORT || port,async()=>{
     await mysqlDb.authenticate();

@@ -7,7 +7,7 @@ const saltRounds = 10;
 //
 //initiating functions from util for signup page
 const signupSession = require('../util/signup-session');
-const url = require('url');
+// const url = require('url');
 const { orgCreationSessionPage } = require('../util/org-creation-session');
 
 const signupPage = async (req,res)=>{
@@ -37,17 +37,12 @@ const signupFunc = async (req,res,next)=>{
         })
         
         const err = await user.validateSync();  
-        const passwordCheck = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,20}$/;
-       
+
         const hasAccountExisted=await User.findOne({
             emailAddress:req.body.email
         })
 
-        const passwordCheckResult = req.body?.password.match(passwordCheck);
 
-        if(!passwordCheckResult){
-            errorMessage["password"] = "Invalid Password pattern";
-        }
     
         const errors = err?.errors ? Object.entries(err?.errors):[];
         

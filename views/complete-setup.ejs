@@ -5,7 +5,7 @@
 
 <main class="container mx-auto my-3">
     <% if(role === 'member')  {%>
-        <%- include('setup-includes/org-member',{membershipJoinInputs:membershipJoinInputs}); %>
+        <%- include('setup-includes/org-member',{memberSetupInputs:orgCreationInputs}); %>
     <%} else {%>
       <%- include('setup-includes/org-creation', {pageLoc:pageLoc,
         orgCreationInputs:orgCreationInputs}); %>
