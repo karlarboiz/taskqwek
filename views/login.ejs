@@ -1,6 +1,13 @@
 <%- include('includes/header', {title: "Login Page",navItemsPresent: true}); %>
-<p class="text-danger bg-warning text-center py-2"><%= loginInputs?.errorMessage?.credentials %></p> 
 
+<% if(loginInputs?.errorMessage?.credentials) {%>
+    <div class="bg-warning text-center py-2">
+
+        <p class="text-danger "><%= loginInputs?.errorMessage?.credentials %></p> 
+
+    </div>
+
+<% }%>
 <section class="container mx-auto login-section">   
     <form action="/login" 
     method="post"
@@ -12,11 +19,10 @@
              placeholder="name@example.com"
              value="<%= loginInputs.email %>">
             <label for="email">Email address</label>
+            <p class="error-message"><%= loginInputs?.errorMessage?.email %></p> 
+        </div>
 
-           
-          </div>
-
-          <p class="error-message"><%= loginInputs?.errorMessage?.email %></p> 
+          
         <div class="form-floating">
             <input type="password" class="form-control"
              id="password" 

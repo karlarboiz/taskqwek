@@ -10,8 +10,7 @@ const { errorParsingFromValidations } = require('../util/error-parsing');
 
 const loginPage = async( req,res)=>{
     const loginInputs = loginSession.loginSessionPage(req);
-    
-    console.log(loginInputs )
+   
     if(req.session?.user === null ||
         req.session?.user === undefined) {
           res.render('login',{loginInputs: loginInputs});

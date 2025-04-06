@@ -83,35 +83,41 @@ const signupFunc = async (req,res,next)=>{
             const convert = Number(req.body.role);
 
             req.session.newSignup = true;
+        
 
-            const urlRoute = convert === 0 ?"/dashboard": (convert ===1 ? "/signup/complete-setup/leader":
-                "/signup/complete-setup/member"
+            const urlRoute = convert === 0 ?"/dashboard": (convert ==1 ? "/signup/complete-setup/leader":
+                "/signup/complete-setup/leader"
             ) ;
 
-            // let user = new User({
-            //     firstName: req.body["first-name"],
-            //     lastName: req.body['last-name'],
-            //     username: req.body['username'],
-            //     emailAddress: req.body.email,
-            //     password: await bcrypt.hash(req.body.password,10),
-            //     role: Number(req.body.role)
-            // })
-            // await user.save().then((result,err)=>{
-            //     if(err){
-            //         next(err);
-            //     }
-            //     req.session.user={
-            //         id:result._id,
-            //         email:result.emailAddress,
-            //         role:result.role
-            //     }
+            const user = new User({
+                firstName: req.body["first-name"],
+                lastName: req.body['last-name'],
+                username: req.body['username'],
+                emailAddress: req.body.email,
+                password: req.body.password,
+                role: Number(req.body.role)
+            })
 
-            //     req.session.isAuthenticated = false;
-            //     req.session.cookie.originalMaxAge = 864000;
-            //     res.redirect(urlRoute)
-            // });
+            const encryptedPassword = await bcrypt.hash(req.body.password,10);
+            await user.save().then((result,err)=>{
+                if(err){
+                    next(err);
+                }
 
-            res.redirect(urlRoute)
+                result.password = encryptedPassword;
+
+                req.session.user={
+                    id:result._id,
+                    email:result.emailAddress,
+                    role:result.role
+                }
+
+                req.session.isAuthenticated = false;
+                req.session.cookie.originalMaxAge = 864000;
+                res.redirect(urlRoute)
+            });
+          
+       
            
        
         }
@@ -126,8 +132,11 @@ const completeSetupPage= (req,res,next)=>{
     
     const orgCreationInputs = orgCreationSessionPage(req);
     
+
     try{
         const signUpValue = req.params['role'];
+
+        console.log(signUpValue)
         res.render("complete-setup",{
             orgCreationInputs:orgCreationInputs,
             membershipJoinInputs:{},
