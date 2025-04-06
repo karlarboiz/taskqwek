@@ -87,6 +87,8 @@ const signupFunc = async (req,res,next)=>{
         }else {
             const convert = Number(req.body.role);
 
+            req.session.newSignup = true;
+
             const urlRoute = convert === 0 ?"/dashboard": (convert ===1 ? "/signup/complete-setup/leader":
                 "/signup/complete-setup/member"
             ) ;
@@ -123,17 +125,7 @@ const signupFunc = async (req,res,next)=>{
     }
 }
 
-const signupRoleFunctionalitySetup = (req,res)=>{
-    const queryData = url.parse(req.url, true).query;
-    const role = queryData.role;
 
-    const realRole = Number(req.session.user.role) === 1 ? 'leader' : 'member';
-
-    if(role !== realRole){
-        return res.redirect(`/signup/setting-up?role=${realRole}`)
-    }
-    res.render('complete-setup', {role:role, pageLoc: 'out'})
-}
 
 const completeSetupPage= (req,res,next)=>{
     
@@ -156,6 +148,5 @@ const completeSetupPage= (req,res,next)=>{
 module.exports = {
     signupPage,
     signupFunc,
-    signupRoleFunctionalitySetup,
     completeSetupPage
 }   

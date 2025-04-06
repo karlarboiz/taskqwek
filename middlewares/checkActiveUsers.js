@@ -19,7 +19,6 @@ const loginPageCheckForActiveUser = (req,res,next)=>{
 const checkSessionRole = (req,res,next)=>{
     const role = req.params["role"];
     try{
-      
         if(!role){
            return res.status(404).render('404');
         }
@@ -31,9 +30,9 @@ const checkSessionRole = (req,res,next)=>{
 
 const checkSessionRoleMatchesQuery = (req,res,next)=>{
     const role = req.params["role"];
-    const session = req.session.user;
+    const session = req.session?.user;
 
-    const roleSession = session.role === 1 ? "leader":"member";
+    const roleSession = session?.role === 1 ? "leader":"member";
     try{
         if(role !== roleSession){
           return  res.redirect(`/signup/complete-setup/${roleSession}`);
@@ -47,11 +46,13 @@ const checkSessionRoleMatchesQuery = (req,res,next)=>{
 const checkIfUserJustGotNewlyRegistered = (req,res,next)=>{
     
     const newSignup = req.session?.newSignup;
-
+    console.log(newSignup);
     try{
         if(!newSignup) {
             return  res.redirect(`/dashboard}`);
         }
+
+        next();
     }catch(e){
         next(e);
     }

@@ -1,14 +1,12 @@
-const { encryptValue, decryptValue } = require("../util/encrypt-code");
+// const { encryptValue, decryptValue } = require("../util/encrypt-code");
 
 const joinOrgMember =async(req,res,next)=>{
-    const user = req.session.user;
-
     try{
         if(req.body.skip){
             res.redirect("/dashboard");
+            req.session.newSignup = false;
         }else {
-            console.log(req.body["org-code"])
-           const kwan = await decryptValue("");
+            req.session.newSignup = false;
             res.redirect("/signup/complete-setup/member");
         }
     }catch(e){

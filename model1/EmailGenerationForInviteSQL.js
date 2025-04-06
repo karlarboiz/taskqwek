@@ -11,7 +11,7 @@ const EmailGenerationForInviteSQL = sequelize.define('UserAssignedProjectSQL',{
     },
     sender_id: {
         type: DataTypes.INTEGER,
-        allowNull:false,
+         allowNull:false,
     },
     receiver_id:{
         type: DataTypes.INTEGER,

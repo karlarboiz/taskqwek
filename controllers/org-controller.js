@@ -91,8 +91,6 @@ const orgCreationFuncJson =async (req,res,next)=>{
 
         const creatorAuthorId = req.session.user?.id;
 
-
-
         const newOrg = await new Org({
             name: req.body['name'],
             description: req.body.description,
