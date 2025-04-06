@@ -1,12 +1,17 @@
 const bcrypt = require('bcrypt');
 //
 const User = require('../model/User');
+
 //getting data from util for session page
 const loginSession = require('../util/login-session');
+const LoginCredentials = require('../model/LoginCredentials');
+const { errorParsingFromValidations } = require('../util/error-parsing');
+// const { error } = require('jquery');
 
 const loginPage = async( req,res)=>{
     const loginInputs = loginSession.loginSessionPage(req);
     
+    console.log(loginInputs )
     if(req.session?.user === null ||
         req.session?.user === undefined) {
           res.render('login',{loginInputs: loginInputs});
@@ -17,13 +22,29 @@ const loginPage = async( req,res)=>{
 }
 
 const loginFunc = async (req,res)=>{
-   
-    if(req.body.email.trim() === "" ||
-    req.body.password.trim() === "" ||
-    !req.body.email.includes('@')){
-        
+
+    const loginCredentials = new LoginCredentials({
+        email:req.body.email,
+        password: req.body.password
+    })
+
+
+    const err =await loginCredentials.validateSync();   
+    const errors = err?.errors ;
+
+
+    const parsedErrors = await errorParsingFromValidations(errors);
+
+
+    
+    const isParsedErrorsEmpty = parsedErrors !== null ? Object.keys(parsedErrors)?.length === 0 : true;
+
+  
+    let hasEmailExisted = await User.findOne({emailAddress: req.body?.email});
+    console.log(isParsedErrorsEmpty)
+    if(!isParsedErrorsEmpty){
         loginSession.loginErrorSessionPage(req,{
-            message: "Some fields are missing or incomplete",
+            errorMessage: parsedErrors,
             email: req.body.email,
             password: req.body.password
         },()=>{
@@ -32,50 +53,35 @@ const loginFunc = async (req,res)=>{
          })
 
         return;
-    }else {
-        let hasEmailExisted = await User.findOne({emailAddress: req.body.email});
+    }
+    
+    if(hasEmailExisted) {
+        const isPasswordMatch = await bcrypt.compare(req.body.password, hasEmailExisted.password);
+        if(isPasswordMatch){
 
-        if(hasEmailExisted) {
-            const isPasswordMatch = await bcrypt.compare(req.body.password, hasEmailExisted.password);
-            if(isPasswordMatch){
-
-                // if(Object.entries(req.session.user).length > 0) {
-                //     req.session.user = null
-                // }
-                req.session.user = {id: hasEmailExisted._id, 
-                    email: hasEmailExisted.emailAddress,
-                    role: hasEmailExisted.role};
-                
-                req.session.isAuthenticated = true;
+            // if(Object.entries(req.session.user).length > 0) {
+            //     req.session.user = null
+            // }
+            req.session.user = {id: hasEmailExisted._id, 
+                email: hasEmailExisted.emailAddress,
+                role: hasEmailExisted.role};
             
-                const designatedRoute = hasEmailExisted.role === 1 ? 'leader': 'member';
-                req.session.save(()=>{
-                    
-                    return res.redirect(`/dashboard`);
-                });
+            req.session.isAuthenticated = true;
 
-                return;
+            
+            req.session.save(()=>{
                 
-            }
-            else {
-                loginSession.loginErrorSessionPage(req,{
-                    message: `
-                    Credentials are invalid. Please try again. 
-                    Or you can Sign up, if you have no account yet.`,
-                    email: req.body.email,
-                    password: req.body.password
-                },()=>{
-                    res.redirect('/login');
-                 })
-        
-                return;
-                
-            }
-        }else {
+                return res.redirect(`/dashboard`);
+            });
+
+            return;
+            
+        }
+        else {
             loginSession.loginErrorSessionPage(req,{
-                message: `
+                errorMessage: {credentials:`
                 Credentials are invalid. Please try again. 
-                Or you can Sign up, if you have no account yet.`,
+                Or you can Sign up, if you have no account yet.`} ,
                 email: req.body.email,
                 password: req.body.password
             },()=>{
@@ -83,7 +89,20 @@ const loginFunc = async (req,res)=>{
              })
     
             return;
+            
         }
+    }else {
+        loginSession.loginErrorSessionPage(req,{
+            errorMessage: {credentials:`
+                Credentials are invalid. Please try again. 
+                Or you can Sign up, if you have no account yet.`} ,
+            email: req.body.email,
+            password: req.body.password
+        },()=>{
+            res.redirect('/login');
+         })
+
+        return;
     }
 }
 

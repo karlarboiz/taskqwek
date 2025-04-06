@@ -1,9 +1,6 @@
 <%- include('includes/header', {title: "Login Page",navItemsPresent: true}); %>
-<% if(loginInputs.hasError) {%>
-    <div class="text-center bg-warning py-2">
-        <p ><%= loginInputs.message %></p> 
-    </div> 
-<% }%>
+<p class="text-danger bg-warning text-center py-2"><%= loginInputs?.errorMessage?.credentials %></p> 
+
 <section class="container mx-auto login-section">   
     <form action="/login" 
     method="post"
@@ -15,7 +12,11 @@
              placeholder="name@example.com"
              value="<%= loginInputs.email %>">
             <label for="email">Email address</label>
+
+           
           </div>
+
+          <p class="error-message"><%= loginInputs?.errorMessage?.email %></p> 
         <div class="form-floating">
             <input type="password" class="form-control"
              id="password" 
@@ -23,6 +24,8 @@
              placeholder="Password"
              value="<%= loginInputs.password %>">
             <label for="password">Password</label>
+
+            <p class="error-message"><%= loginInputs?.errorMessage?.password %></p> 
         </div>
 
         <div class="form-group mt-4 text-center">

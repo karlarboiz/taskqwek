@@ -4,7 +4,7 @@ function loginSessionPage(req){
     if(!loginInputs){
         loginInputs = {
             hasError: false,
-            message: '',
+            errorMessage: {},
             email: '',
             password: '' 
         }
