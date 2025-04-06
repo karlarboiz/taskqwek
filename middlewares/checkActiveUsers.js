@@ -46,7 +46,7 @@ const checkSessionRoleMatchesQuery = (req,res,next)=>{
 const checkIfUserJustGotNewlyRegistered = (req,res,next)=>{
     
     const newSignup = req.session?.newSignup;
-    console.log(newSignup);
+
     try{
         if(!newSignup) {
             return  res.redirect(`/dashboard}`);

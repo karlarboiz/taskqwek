@@ -17,6 +17,11 @@ const EmailGenerationForInviteSQL = sequelize.define('UserAssignedProjectSQL',{
         type: DataTypes.INTEGER,
         allowNull:false,
     },
+    org_classification_id:{
+        type: DataTypes.STRING,
+        allowNull:false,
+    }
+    ,
     reg_date: {
         type: DataTypes.Date,
         default: new Date()

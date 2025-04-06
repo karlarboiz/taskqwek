@@ -88,7 +88,7 @@ const { checkActiveUser } = require('./middlewares/checkActiveUsers');
 app.use(commonRoutes);
 app.use(loginRoutes);
 app.use(signupRoutes);
-app.use("/member",checkActiveUser,memberRoutes);
+app.use("/member",memberRoutes);
 // app.use(leaderRoutes);
 app.use("/org",checkActiveUser,orgRoutes);
 app.use(checkActiveUser,dashboardRoutes);

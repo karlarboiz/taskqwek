@@ -1,17 +1,27 @@
 // const { encryptValue, decryptValue } = require("../util/encrypt-code");
 
 const joinOrgMember =async(req,res,next)=>{
-    try{
-        if(req.body.skip){
-            res.redirect("/dashboard");
-            req.session.newSignup = false;
-        }else {
-            req.session.newSignup = false;
-            res.redirect("/signup/complete-setup/member");
-        }
-    }catch(e){
-        next(e);
-    }
+
+    return res.redirect("/signup/complete-setup/member"); 
+    // try{
+
+    //     console.log(req.body)
+    //     // if(req.body.skip){
+    //     //     return res.redirect("/signup/complete-setup/member");
+    //     //     // req.session.newSignup = false;
+
+    //     //     // console.log()
+
+            
+    //     // }else {
+    //     //     // req.session.newSignup = false;
+    //     //     return res.redirect("/signup/complete-setup/member");
+    //     // }
+
+       
+    // }catch(e){
+    //     next(e);
+    // }
 }
 
 module.exports ={
