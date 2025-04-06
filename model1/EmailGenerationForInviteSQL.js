@@ -1,9 +1,10 @@
-const sequelize = require("../../data/database1");
+const sequelize = require("../data/database1");
 // how you would import Sequelize in CommonJS
-const { DataTypes } = require('@sequelize/core');
+const DataTypes = require("sequelize");
 
-const EmailGenerationForInviteSQL = sequelize.define('UserAssignedProjectSQL',{
-    id: {
+
+const EmailGenerationForInviteSQL = sequelize.define('EmailGenerationForInviteSQL',{
+    token_id: {
         type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true,
@@ -20,20 +21,19 @@ const EmailGenerationForInviteSQL = sequelize.define('UserAssignedProjectSQL',{
     org_classification_id:{
         type: DataTypes.STRING,
         allowNull:false,
-    }
-    ,
-    reg_date: {
-        type: DataTypes.Date,
-        default: new Date()
-    },
-    update_date: {
-        type: Date,
-        default: new Date()
     },
     is_accepted: {
         type: DataTypes.BOOLEAN,
         default: false
-    }      
+    },   
+    reg_date: {
+        type: DataTypes.DATE,
+        default: DataTypes.NOW
+    },
+    update_date: {
+        type: DataTypes.DATE,
+        default: DataTypes.NOW
+    }   
 
 },{
     tableName: 'email_generation_for_invite_sql',

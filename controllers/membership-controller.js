@@ -1,27 +1,25 @@
 // const { encryptValue, decryptValue } = require("../util/encrypt-code");
-
+const EmailGenerationForInviteSQL = require("../model1/EmailGenerationForInviteSQL");
 const joinOrgMember =async(req,res,next)=>{
+ 
+    try{
+        if(req.body.skip){
 
-    return res.redirect("/signup/complete-setup/member"); 
-    // try{
+            req.session.newSignup = false;
 
-    //     console.log(req.body)
-    //     // if(req.body.skip){
-    //     //     return res.redirect("/signup/complete-setup/member");
-    //     //     // req.session.newSignup = false;
-
-    //     //     // console.log()
+            return res.redirect("dashboard");
 
             
-    //     // }else {
-    //     //     // req.session.newSignup = false;
-    //     //     return res.redirect("/signup/complete-setup/member");
-    //     // }
+        }else {
+            req.session.newSignup = false;
 
-       
-    // }catch(e){
-    //     next(e);
-    // }
+
+
+            return res.redirect("/signup/complete-setup/member");
+        }
+    }catch(e){
+        next(e);
+    }
 }
 
 module.exports ={

@@ -89,7 +89,6 @@ app.use(commonRoutes);
 app.use(loginRoutes);
 app.use(signupRoutes);
 app.use("/member",memberRoutes);
-// app.use(leaderRoutes);
 app.use("/org",checkActiveUser,orgRoutes);
 app.use(checkActiveUser,dashboardRoutes);
 app.use("/task",checkActiveUser,taskRoutes);
