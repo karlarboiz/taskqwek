@@ -4,14 +4,35 @@ const Org = require("../model/Org");
 const { orgCreationErrorSessionPage, orgCreationSessionPage } = require("../util/org-creation-session");
 
 const Messages = require("../common/Messages");
-const orgDashboardOrgPage = async (req,res)=>{
+const orgDashboardOrgPage = async (req,res,next)=>{
     
     const role = req.session.user?.role === 1  ?"leader": "member";
 
-    res.render("organization",
-        {role:role, 
-        activeLink: 'org',
-        orgPageType:"main"});
+    try{
+
+        res.render("organization",
+            {role:role, 
+            activeLink: 'org',
+            orgPageType:"orgList"});
+    }catch(e){
+        next(e)
+    }
+}
+
+const orgDashboardOrgDetails = async(req,res,next)=>{
+
+    const role = req.session.user?.role === 1  ?"leader": "member";
+
+    try{
+
+        res.render("organization",
+            {role:role, 
+            activeLink: 'org',
+            orgPageType:"orgDetails"});
+    }catch(e){
+        next(e)
+    }
+
 }
 
 const orgCreationFunc = async (req,res,next) =>{
@@ -146,21 +167,10 @@ const orgFetchFuncJson = async (req,res,next) =>{
     }
 }
 
-const orgEditFunc = async(req,res)=>{
-
-    const role = req.session.user?.role === 1  ?"leader": "member";
-
-    res.render("organization",{
-        role:role, 
-        activeLink: 'org',
-        orgPageType: "sub"});
-    
-}
-
 module.exports = {
     orgCreationFunc,
     orgDashboardOrgPage,
     orgCreationFuncJson,
     orgFetchFuncJson,
-    orgEditFunc
+    orgDashboardOrgDetails
 }

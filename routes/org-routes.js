@@ -12,7 +12,7 @@ router.post("/org-creation/json",orgController.orgCreationFuncJson);
 
 router.get(`/org-page`,orgController.orgDashboardOrgPage);
 
-router.get("/org-page/details/:orgId",orgController.orgEditFunc);
+router.get("/org-page/details/:orgId",orgController.orgDashboardOrgDetails);
 
 router.get("/org-list",orgController.orgFetchFuncJson);
 
