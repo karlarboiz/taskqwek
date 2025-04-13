@@ -40,7 +40,7 @@ const loginFunc = async (req,res)=>{
 
   
     let hasEmailExisted = await User.findOne({emailAddress: req.body?.email});
-    console.log(isParsedErrorsEmpty)
+  
     if(!isParsedErrorsEmpty){
         loginSession.loginErrorSessionPage(req,{
             errorMessage: parsedErrors,

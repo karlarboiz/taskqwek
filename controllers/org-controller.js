@@ -1,9 +1,11 @@
 
 const Org = require("../model/Org");
-// const url = require('url');
-const { orgCreationErrorSessionPage, orgCreationSessionPage } = require("../util/org-creation-session");
 
+// const url = require('url');
+const { orgCreationErrorSessionPage} = require("../util/org-creation-session");
+const MONTHS = require("../util/date-value");
 const Messages = require("../common/Messages");
+const OrgDto = require("../dto/OrgDto");
 const orgDashboardOrgPage = async (req,res,next)=>{
     
     const role = req.session.user?.role === 1  ?"leader": "member";
@@ -23,12 +25,23 @@ const orgDashboardOrgDetails = async(req,res,next)=>{
 
     const role = req.session.user?.role === 1  ?"leader": "member";
 
+    const orgId = req.params["orgId"];
     try{
 
+        const orgDetails = await Org.findOne({
+            _id: orgId
+        })
+
+        const parsedDate = new Date(orgDetails["regDate"]);
+        const monthConverted = MONTHS[parsedDate.getUTCMonth()].full;
+        const dateConverted = parsedDate.getDate();
+        const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
+        const orgDto = new OrgDto(orgDetails.name,orgDetails.description,fullDate);
         res.render("organization",
             {role:role, 
             activeLink: 'org',
-            orgPageType:"orgDetails"});
+            orgPageType:"orgDetails",
+            orgDto:orgDto});
     }catch(e){
         next(e)
     }
