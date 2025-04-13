@@ -36,7 +36,7 @@ const orgDashboardOrgDetails = async(req,res,next)=>{
         const monthConverted = MONTHS[parsedDate.getUTCMonth()].full;
         const dateConverted = parsedDate.getDate();
         const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
-        const orgDto = new OrgDto(orgDetails.name,orgDetails.description,fullDate);
+        const orgDto = new OrgDto(orgDetails.name,orgDetails.description,fullDate,orgDetails.population);
         res.render("organization",
             {role:role, 
             activeLink: 'org',

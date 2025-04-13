@@ -84,6 +84,8 @@ const profileRoutes = require("./routes/profile-routes");
 const reminderRoutes = require("./routes/reminder-routes")
 const notifRoutes = require("./routes/notification-routes");
 const { checkActiveUser } = require('./middlewares/checkActiveUsers');
+const inviteRoutes = require("./routes/invite-routes");
+
 
 app.use(commonRoutes);
 app.use(loginRoutes);
@@ -96,7 +98,7 @@ app.use("/project",checkActiveUser,projectRoutes);
 app.use("/profile",checkActiveUser,profileRoutes);
 app.use("/reminder",checkActiveUser,reminderRoutes);
 app.use("/notification",checkActiveUser,notifRoutes);
-
+app.use("/invite",checkActiveUser,inviteRoutes);
 app.use((error,req,res,next)=>{
     console.log(error)
     res.status(404).render('404');

@@ -1,0 +1,22 @@
+<%- include('includes/header', {title: "Organization", navItemsPresent: false}); %>
+    <%- include('includes/sub-header'); %>
+    <%- include('dashboard/dashboard-sidebar',{role,activeLink}); %>
+
+    <%- include("section-template/top-section__template"); %>
+
+    <form action="invite/send" method="post">
+        <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
+        <input type="email" name="to" >
+        <button type="submit">email</button>
+    </form>
+
+     
+    <%- include("section-template/bottom-section__template"); %>
+    
+  </div>
+</main>
+    
+<%- include('includes/footer'); %>
+
+
+

@@ -1,6 +1,6 @@
 const express = require('express');
 
-const multer = require('multer');
+
 
 const dashboardController = require("../controllers/dashboard-controller");
 
