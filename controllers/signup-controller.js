@@ -99,12 +99,15 @@ const signupFunc = async (req,res,next)=>{
             })
 
             const encryptedPassword = await bcrypt.hash(req.body.password,10);
+            
+            
+           
             await user.save().then((result,err)=>{
                 if(err){
                     next(err);
                 }
 
-                result.password = encryptedPassword;
+             
 
                 req.session.user={
                     id:result._id,
@@ -114,12 +117,15 @@ const signupFunc = async (req,res,next)=>{
 
                 req.session.isAuthenticated = false;
                 req.session.cookie.originalMaxAge = 864000;
-                res.redirect(urlRoute)
+               
             });
-          
+
+            user.password = encryptedPassword;
+
+            await user.save();
+            res.redirect(urlRoute)
        
-           
-       
+    
         }
     }catch(e){
         next(e)
