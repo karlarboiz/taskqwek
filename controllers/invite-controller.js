@@ -5,6 +5,7 @@ const MailTemplate = require("../common/MailTemplate");
 const ResponseObj = require("../response-obj/ResponseObj");
 const EmailGenerationForInviteSQL = require("../model-1/EmailGenerationForInviteSQL");
 const Messages = require("../common/Messages");
+const { errorParsingFromValidationsSequelize } = require("../util/error-parsing");
 
 // Replace with your actual email and app password or SMTP settings
 const transporter = nodemailer.createTransport({
@@ -43,25 +44,26 @@ const sendEmail = async(req,res,next)=> {
 
     await emailInviteItem.validate()
 
-    // await emailInviteItem.save();
+    await emailInviteItem.save();
 
     
-    // const mailOptions = {
-    //   from: '"Your App Name" <your.email@gmail.com>',
-    //   to:email,
-    //   subject: MailTemplate.SUBJECT_MEMBERSHIP_JOIN,
-    //   html:concatHTMLMessage,
-    // };  
+    const mailOptions = {
+      from: '"Your App Name" <your.email@gmail.com>',
+      to:email,
+      subject: MailTemplate.SUBJECT_MEMBERSHIP_JOIN,
+      html:concatHTMLMessage,
+    };  
 
-    // const info = await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
 
     const responseObj = new ResponseObj(true,info.messageId)
     
 
     return  res.status(200).send(responseObj);
   } catch (e) {
-    console.log(e.errors[0].message)
-    const responseObj = new ResponseObj(false,Messages.FAILED,e.messsage)
+  
+    const errorMessage = errorParsingFromValidationsSequelize(e.errors);
+    const responseObj = new ResponseObj(false,Messages.INVALID_INPUT,errorMessage);
     res.status(200).send(responseObj);
   }
 

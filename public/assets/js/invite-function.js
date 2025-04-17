@@ -24,14 +24,16 @@ $(document).ready(function(){
           contentType: 'application/json',
           data: JSON.stringify(data),
           success: function (response) {
-            console.log(response)            
-            const {message,isSuccess,errorMessage}=response;
-            $('#invite-form').prepend(`<p class="error-message">${message}</p>`)
-            
-            // for (const [key,value] of Object.entries(errorMessage)) {
-            //   $(`.org-field--${key}`)
-            //   .append(`<p class="error-message">${value}</p>`)
-            // }
+                        
+            const {message,isSuccess,errorResult}=response;
+            $('#invite-form').prepend(`<p class="${isSuccess ? "success-message": "error-message"}">${message}</p>`);
+
+            for (const [key,value] of Object.entries(errorResult)) {
+              console.log(key)
+              console.log(value)
+              $(`.invite-field--${key}`)
+              .append(`<p class="error-message">${value}</p>`)
+            }
           },
           error: function (xhr, status, error) {     
             console.error(error);
