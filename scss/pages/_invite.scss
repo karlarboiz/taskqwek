@@ -1,5 +1,8 @@
 
 #invite-form {
-    display: unset;
-
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 20rem;
+    margin: 1.25rem auto;
 }
