@@ -5,7 +5,7 @@
     <%- include("section-template/top-section__template"); %>
 
     <h1 class="mt-4">Send Email To Invite a Member:</h1>
-    <form action="/invite/send" method="post" id="invite-form" class="align-items-left">
+    <!-- <form action="/invite/send" method="post" id="invite-form" class="align-items-left">
         <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
         <select name="org-name" id="org-name" class="my-3 py-2 px-2">
           <% leaderOrgs.forEach((item)=>{ %>
@@ -16,7 +16,21 @@
         <input type="email" name="to" class="my-3 px-2 py-2">
       
         <button type="submit" class="btn-primary btn">Send Email</button>
-    </form>
+    </form> -->
+
+
+    <form id="invite-form" class="align-items-left">
+      <input type="hidden" value="<%=locals.csrf%>" name="_csrf" id="_csrf">
+      <select name="org-name" id="org-name" class="my-3 py-2 px-2">
+        <% leaderOrgs.forEach((item)=>{ %>
+          <option value="<%= item._id%>"><%= item.name%></option>
+        <%})%>
+      </select>
+      
+      <input type="email" id="email" name="email" class="my-3 px-2 py-2">
+    
+      <button type="submit" class="btn-primary btn">Send Email</button>
+  </form>
 
      
     <%- include("section-template/bottom-section__template"); %>

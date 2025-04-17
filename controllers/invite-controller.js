@@ -2,7 +2,7 @@
 const nodemailer = require("nodemailer");
 const OrgControls = require("../model-functions/OrgControls");
 const MailTemplate = require("../common/MailTemplate");
-
+const ResponseObj = require("../response-obj/ResponseObj");
 // Replace with your actual email and app password or SMTP settings
 const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -20,30 +20,26 @@ const transporter = nodemailer.createTransport({
   
 const sendEmail = async(req,res,next)=> {
    
-    const {to } = req.body;
+    const {email } = req.body;
 
     const mailTemplate = new MailTemplate("TaskQwek","kwankwan")
   const concatHTMLMessage= MailTemplate.FIRST_MAIL_PART +
   MailTemplate.MIDDLE_MAIL_PART + mailTemplate.constructMailContent() + MailTemplate.LAST_MAIL_PART;
   const mailOptions = {
     from: '"Your App Name" <your.email@gmail.com>',
-    to,
+    to:email,
     subject:"kwankwan",
     text:"kwankwan",
     html:concatHTMLMessage,
   };
 
   try {
-    const role = req.session.user?.role === 1  ?"leader": "member";
-
-    const leaderId = req.session.user?.id;
-
-    const orgControls = new OrgControls(leaderId,false);
-    const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
 
     const info = await transporter.sendMail(mailOptions);
+
+    const responseObj = new ResponseObj(true,info.messageId)
     console.log("Email sent:", info.messageId);
-    return  res.render("invite",{role:role,activeLink:"invite",leaderOrgs:leaderOrgs});
+    return  res.status(200).send(responseObj);
   } catch (error) {
     console.error("Error sending email:", error);
     throw error;

@@ -10,9 +10,6 @@ class Messages {
 
     static FETCH_LIST_SUCCESS = "Successfully fetch list of ";
 
-    // static concatMessage(type) {
-    //     return this[type] || "Message not found.";
-    // }
 }
 
 module.exports = Messages
