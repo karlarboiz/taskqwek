@@ -4,7 +4,7 @@
 
     <%- include("section-template/top-section__template"); %>
 
-    <form action="/invite/send" method="post" class="align-items-left">
+    <form action="/invite/send" method="post" id="invite-form" class="align-items-left">
         <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
         <input type="email" name="to" >
         <button type="submit">email</button>

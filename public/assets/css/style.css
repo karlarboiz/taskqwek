@@ -12018,6 +12018,10 @@ main {
   cursor: grabbing;
 }
 
+#invite-form {
+  display: unset;
+}
+
 /*
 
 This section here is for components classes
