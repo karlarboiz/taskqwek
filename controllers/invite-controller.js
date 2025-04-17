@@ -4,6 +4,7 @@ const OrgControls = require("../model-functions/OrgControls");
 const MailTemplate = require("../common/MailTemplate");
 const ResponseObj = require("../response-obj/ResponseObj");
 const EmailGenerationForInviteSQL = require("../model-1/EmailGenerationForInviteSQL");
+const Messages = require("../common/Messages");
 
 // Replace with your actual email and app password or SMTP settings
 const transporter = nodemailer.createTransport({
@@ -40,17 +41,19 @@ const sendEmail = async(req,res,next)=> {
     })
 
 
-    await emailInviteItem.save();
+    console.log(await emailInviteItem.validate());
+
+    // await emailInviteItem.save();
 
     
-    const mailOptions = {
-      from: '"Your App Name" <your.email@gmail.com>',
-      to:email,
-      subject: MailTemplate.SUBJECT_MEMBERSHIP_JOIN,
-      html:concatHTMLMessage,
-    };  
+    // const mailOptions = {
+    //   from: '"Your App Name" <your.email@gmail.com>',
+    //   to:email,
+    //   subject: MailTemplate.SUBJECT_MEMBERSHIP_JOIN,
+    //   html:concatHTMLMessage,
+    // };  
 
-    const info = await transporter.sendMail(mailOptions);
+    // const info = await transporter.sendMail(mailOptions);
 
     const responseObj = new ResponseObj(true,info.messageId)
     

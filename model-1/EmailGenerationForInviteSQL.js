@@ -16,6 +16,13 @@ const EmailGenerationForInviteSQL = sequelize.define('EmailGenerationForInviteSQ
     receiver_email:{
         type: DataTypes.STRING,
         allowNull:false,
+        validate:{
+            isEmpty(value) {
+                if (!value || value === null) {
+                  throw new Error('Email required!');
+                }
+              }
+        }
     },
     org_id:{
         type: DataTypes.STRING,
