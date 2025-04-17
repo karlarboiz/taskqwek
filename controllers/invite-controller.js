@@ -3,6 +3,8 @@ const nodemailer = require("nodemailer");
 const OrgControls = require("../model-functions/OrgControls");
 const MailTemplate = require("../common/MailTemplate");
 const ResponseObj = require("../response-obj/ResponseObj");
+const EmailGenerationForInviteSQL = require("../model-1/EmailGenerationForInviteSQL");
+
 // Replace with your actual email and app password or SMTP settings
 const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -19,7 +21,7 @@ const transporter = nodemailer.createTransport({
 
   
 const sendEmail = async(req,res,next)=> {
-   
+  const leaderId = req.session.user?.id;
 
   try {
 
@@ -30,6 +32,16 @@ const sendEmail = async(req,res,next)=> {
     
     const concatHTMLMessage= MailTemplate.FIRST_MAIL_PART +
     MailTemplate.MIDDLE_MAIL_PART + mailTemplate.constructMailContent() + MailTemplate.LAST_MAIL_PART;
+
+    const emailInviteItem = EmailGenerationForInviteSQL.build({
+      sender_id: leaderId,
+      receiver_email:email,
+      org_id: orgId
+    })
+
+
+    await emailInviteItem.save();
+
     
     const mailOptions = {
       from: '"Your App Name" <your.email@gmail.com>',
@@ -41,11 +53,11 @@ const sendEmail = async(req,res,next)=> {
     const info = await transporter.sendMail(mailOptions);
 
     const responseObj = new ResponseObj(true,info.messageId)
-    console.log("Email sent:", info.messageId);
+    
+
     return  res.status(200).send(responseObj);
   } catch (error) {
-    console.error("Error sending email:", error);
-    throw error;
+    res.status(200).send(error.message);
   }
 
  
