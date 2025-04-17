@@ -1,5 +1,6 @@
 // mailer.js
 const nodemailer = require("nodemailer");
+const OrgControls = require("../model-functions/OrgControls");
 
 // Replace with your actual email and app password or SMTP settings
 const transporter = nodemailer.createTransport({
@@ -37,9 +38,17 @@ const sendEmail = async(req,res,next)=> {
  
 }
 
-const invitePage = (req,res,next)=>{
+const invitePage = async(req,res,next)=>{
     const role = req.session.user?.role === 1  ?"leader": "member";
-    res.render("invite",{role:role,activeLink:"invite"});
+
+    const leaderId = req.session.user?.id;
+    
+    const orgControls = new OrgControls(leaderId,false);
+    const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
+
+    console.log(leaderOrgs)
+    res.render("invite",{role:role,
+      activeLink:"invite"});
 }
 
 module.exports = {

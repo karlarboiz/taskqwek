@@ -14,20 +14,24 @@
 
         <hr class="my-3">
 
-        <% if(role === 'leader' ) {%>
-          <li class="nav-item">
+
+        
+          <% if(role === 'leader') {%>
+            <li class="nav-item">
               <a class="nav-link d-flex align-items-center
                gap-2 <%= activeLink === 'project' ? 'text-success' : ''%>" href="/project/project-page">
                 Projects
               </a>
             </li>
-        <%}%>
-
-        
-          <% if(role === 'leader') {%>
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'org' ? 'text-success' : ''%>" href="/org/org-page">
                   Organizations
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'invite' ? 'text-success' : ''%>" href="/invite/page">
+                  Invite
                 </a>
               </li>
             <%}else {%>
