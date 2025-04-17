@@ -25,8 +25,8 @@ $(document).ready(function(){
           data: JSON.stringify(data),
           success: function (response) {
             console.log(response)            
-            // const {message,isSuccess,errorMessage}=response;
-            // $('#invite-form').prepend(`<p class="message">${message}</p>`)
+            const {message,isSuccess,errorMessage}=response;
+            $('#invite-form').prepend(`<p class="error-message">${message}</p>`)
             
             // for (const [key,value] of Object.entries(errorMessage)) {
             //   $(`.org-field--${key}`)

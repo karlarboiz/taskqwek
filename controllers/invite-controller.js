@@ -41,7 +41,7 @@ const sendEmail = async(req,res,next)=> {
     })
 
 
-    console.log(await emailInviteItem.validate());
+    await emailInviteItem.validate()
 
     // await emailInviteItem.save();
 
@@ -59,8 +59,10 @@ const sendEmail = async(req,res,next)=> {
     
 
     return  res.status(200).send(responseObj);
-  } catch (error) {
-    res.status(200).send(error.message);
+  } catch (e) {
+    console.log(e.errors[0].message)
+    const responseObj = new ResponseObj(false,Messages.FAILED,e.messsage)
+    res.status(200).send(responseObj);
   }
 
  
