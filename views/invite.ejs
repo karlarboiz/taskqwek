@@ -4,10 +4,18 @@
 
     <%- include("section-template/top-section__template"); %>
 
-    <form action="/invite/send" method="post">
+    <form action="/invite/send" method="post" class="align-items-left">
         <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
         <input type="email" name="to" >
         <button type="submit">email</button>
+
+        <select name="org-name" id="org-name">
+          <% leaderOrgs.forEach((item)=>{ %>
+            <option value="<%= item._id%>"><%= item.name%></option>
+          <%})%>
+        </select>
+
+        <button type="submit">Send Email</button>
     </form>
 
      

@@ -46,9 +46,10 @@ const invitePage = async(req,res,next)=>{
     const orgControls = new OrgControls(leaderId,false);
     const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
 
-    console.log(leaderOrgs)
     res.render("invite",{role:role,
-      activeLink:"invite"});
+      activeLink:"invite",
+      leaderOrgs:leaderOrgs
+    });
 }
 
 module.exports = {
