@@ -1,5 +1,5 @@
 // const { encryptValue, decryptValue } = require("../util/encrypt-code");
-const EmailGenerationForInviteSQL = require("../model1/EmailGenerationForInviteSQL");
+const EmailGenerationForInviteSQL = require("../model-1/EmailGenerationForInviteSQL");
 const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
 
 const joinOrgMember =async(req,res,next)=>{

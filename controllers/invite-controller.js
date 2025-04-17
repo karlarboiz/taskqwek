@@ -20,20 +20,23 @@ const transporter = nodemailer.createTransport({
   
 const sendEmail = async(req,res,next)=> {
    
-    const {email } = req.body;
-
-    const mailTemplate = new MailTemplate("TaskQwek","kwankwan")
-  const concatHTMLMessage= MailTemplate.FIRST_MAIL_PART +
-  MailTemplate.MIDDLE_MAIL_PART + mailTemplate.constructMailContent() + MailTemplate.LAST_MAIL_PART;
-  const mailOptions = {
-    from: '"Your App Name" <your.email@gmail.com>',
-    to:email,
-    subject:"kwankwan",
-    text:"kwankwan",
-    html:concatHTMLMessage,
-  };
 
   try {
+
+    
+    const {email,orgId } = req.body;
+
+    const mailTemplate = new MailTemplate("TaskQwek","kwankwan")
+    
+    const concatHTMLMessage= MailTemplate.FIRST_MAIL_PART +
+    MailTemplate.MIDDLE_MAIL_PART + mailTemplate.constructMailContent() + MailTemplate.LAST_MAIL_PART;
+    
+    const mailOptions = {
+      from: '"Your App Name" <your.email@gmail.com>',
+      to:email,
+      subject: MailTemplate.SUBJECT_MEMBERSHIP_JOIN,
+      html:concatHTMLMessage,
+    };  
 
     const info = await transporter.sendMail(mailOptions);
 

@@ -51,6 +51,8 @@ class MailTemplate {
     </body>
   </html>`
 
+  static SUBJECT_MEMBERSHIP_JOIN = "You have been invited under Organization ";
+
   constructMailContent(){
     return `<p>
           You've been invited to join <strong>${this.message1}</strong>! Click the button below to accept the invitation and get started.

@@ -9,7 +9,9 @@ $(document).ready(function(){
   
         // Gather form data
         const data = {
-          email: $('#email').val()
+          email: $('#email').val(),
+          orgId: $('#org-name').val()
+
         };
         
         // Make an AJAX POST request
