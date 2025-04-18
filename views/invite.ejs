@@ -3,7 +3,7 @@
     <%- include('dashboard/dashboard-sidebar',{role,activeLink}); %>
 
     <%- include("section-template/top-section__template"); %>
-
+    <%- include("components/modal"); %>
     <h1 class="mt-4">Send Email To Invite a Member:</h1>
 
 
@@ -18,7 +18,7 @@
       
       <div class="form-group invite-field--receiver_email">
 
-        <input type="email" id="email" name="email" class="my-3 px-2 py-2">
+        <input type="email" id="email" name="email" class="my-3 px-2 py-2 w-100">
       </div>
       
       <button type="submit" class="btn-primary btn">Send Email</button>

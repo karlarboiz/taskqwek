@@ -56,7 +56,7 @@ const sendEmail = async(req,res,next)=> {
 
     const info = await transporter.sendMail(mailOptions);
 
-    const responseObj = new ResponseObj(true,info.messageId)
+    const responseObj = new ResponseObj(true,Messages.SUCCESS + " Email Sent");
     
 
     return  res.status(200).send(responseObj);

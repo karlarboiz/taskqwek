@@ -29,11 +29,17 @@ $(document).ready(function(){
             $('#invite-form').prepend(`<p class="${isSuccess ? "success-message": "error-message"}">${message}</p>`);
 
             for (const [key,value] of Object.entries(errorResult)) {
-              console.log(key)
-              console.log(value)
+          
               $(`.invite-field--${key}`)
               .append(`<p class="error-message">${value}</p>`)
             }
+
+            const modal = new bootstrap.Modal(document.getElementById('successModal'), {
+              backdrop: 'static',    // Prevent close when clicking outside
+              keyboard: false        // Prevent close on Esc key
+            });
+            
+            modal.show();
           },
           error: function (xhr, status, error) {     
             console.error(error);
