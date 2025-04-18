@@ -24,6 +24,11 @@ const EmailGenerationForInviteSQL = sequelize.define('EmailGenerationForInviteSQ
               }
         }
     },
+    otp_code: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+    ,
     org_id:{
         type: DataTypes.STRING,
         allowNull:false,
@@ -32,7 +37,13 @@ const EmailGenerationForInviteSQL = sequelize.define('EmailGenerationForInviteSQ
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull:false
-    },   
+    },
+
+    valid_seconds: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+    ,   
     reg_date: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,

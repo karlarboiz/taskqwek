@@ -24,7 +24,7 @@ $(document).ready(function(){
           contentType: 'application/json',
           data: JSON.stringify(data),
           success: function (response) {
-                        
+            console.log(response)  
             const {message,isSuccess,errorResult}=response;
             $('#invite-form').prepend(`<p class="${isSuccess ? "success-message": "error-message"}">${message}</p>`);
 

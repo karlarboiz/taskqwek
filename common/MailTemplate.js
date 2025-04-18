@@ -1,10 +1,13 @@
 class MailTemplate {
 
-    constructor(message1,message2,message3) {
+    constructor(message1,inviteCode,message3) {
         this.message1 = message1;
-        this.message2 = message2;
+        this.inviteCode = inviteCode;
         this.message3 = message3;
     }
+
+  
+
     static FIRST_MAIL_PART =`
     <!DOCTYPE html>
     <html>
@@ -58,7 +61,7 @@ class MailTemplate {
           You've been invited to join <strong>${this.message1}</strong>! Click the button below to accept the invitation and get started.
         </p>
         
-        <p> Here's your invite code: ${this.message2} </p>`
+        <p> Here's your invite code: ${this.inviteCode} </p>`
   }
 
   

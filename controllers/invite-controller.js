@@ -5,40 +5,38 @@ const MailTemplate = require("../common/MailTemplate");
 const ResponseObj = require("../response-obj/ResponseObj");
 const EmailGenerationForInviteSQL = require("../model-1/EmailGenerationForInviteSQL");
 const Messages = require("../common/Messages");
-const { errorParsingFromValidationsSequelize } = require("../util/error-parsing");
 
-// Replace with your actual email and app password or SMTP settings
-const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    port: 465,
-    secure: true, // true for port 465, false for 587
-    auth: {
-      user: process.env.ADMIN_EMAIL,
-      pass: process.env.ADMIN_PASSWORD,
-    },
-    tls: {
-      rejectUnauthorized: false, // <--- ADD THIS LINE
-    },
-  });
+const { errorParsingFromValidationsSequelize } = require("../util/error-parsing");
+const otpGenerator = require('otp-generator');
+const CommonValues = require("../common/CommonValues");
+const MailControls = require("../model-functions/MailControls");
+
 
   
 const sendEmail = async(req,res,next)=> {
   const leaderId = req.session.user?.id;
 
   try {
+    const otpCode = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });;
 
-    
+    const transporter = await MailControls.generateTransporterMail();
     const {email,orgId } = req.body;
 
-    const mailTemplate = new MailTemplate("TaskQwek","kwankwan")
+    const mailTemplate = new MailTemplate("TaskQwek",otpCode)
     
     const concatHTMLMessage= MailTemplate.FIRST_MAIL_PART +
     MailTemplate.MIDDLE_MAIL_PART + mailTemplate.constructMailContent() + MailTemplate.LAST_MAIL_PART;
+    
 
+
+    const validSeconds = CommonValues.EXPIRATION_DURATION_TOKEN * CommonValues.INVITATION_NUMBER_DAYS;
+ 
     const emailInviteItem = EmailGenerationForInviteSQL.build({
       sender_id: leaderId,
       receiver_email:email,
-      org_id: orgId
+      org_id: orgId,
+      otp_code: otpCode,
+      valid_seconds: validSeconds
     })
 
 
@@ -61,7 +59,7 @@ const sendEmail = async(req,res,next)=> {
 
     return  res.status(200).send(responseObj);
   } catch (e) {
-  
+    console.log(e)
     const errorMessage = errorParsingFromValidationsSequelize(e.errors);
     const responseObj = new ResponseObj(false,Messages.INVALID_INPUT,errorMessage);
     res.status(200).send(responseObj);
@@ -77,6 +75,9 @@ const invitePage = async(req,res,next)=>{
     
     const orgControls = new OrgControls(leaderId,false);
     const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
+
+    
+
 
     res.render("invite",{role:role,
       activeLink:"invite",
