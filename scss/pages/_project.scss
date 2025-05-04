@@ -43,4 +43,42 @@
 }
 
 
+.project-details{
+
+    &--container{
+        text-align: left;
+    }
+
+    &--project-name::before {
+        content: "";
+        display: flex;
+        width: 2.75rem;
+        height: 2.75rem;
+        background-color: green; 
+        border-radius: 50%;
+        margin: .75rem;
+        border: 0.35rem solid darkgray; 
+        box-shadow: 0 0 0 0.25rem lightgreen; 
+        animation: pulse 1.5s infinite ease-in-out;;
+    }
+
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0.25rem lightgreen;
+            transform: scale(1);
+        }
+        50% {
+            box-shadow: 0 0 0 0.45rem lightgreen;
+            transform: scale(1.05);
+        }
+        100% {
+            box-shadow: 0 0 0 0.25rem lightgreen;
+            transform: scale(1);
+        }
+    }
+   
+}
+
+
 

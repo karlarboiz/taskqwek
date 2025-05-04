@@ -1,6 +1,9 @@
 const Messages = require("../common/Messages");
-
+const ProjectDto = require("../dto/ProjectDto");
+const ProjectControls = require("../model-functions/ProjectControls");
+const UserControls = require("../model-functions/UserControls");
 const Project = require("../model/Project");
+
 const ResponseObj = require("../response-obj/ResponseObj");
 // const { encryptValue } = require("../util/encrypt-code");
 const { errorParsingFromValidations } = require("../util/error-parsing");
@@ -9,7 +12,8 @@ const projectPage = async(req,res,next)=>{
     const role = req.session.user?.role === 1  ?"leader": "member";
     res.render("project",{
         role:role,
-        activeLink: "project"
+        activeLink: "project",
+        pageType: "main"
     })
 }
 
@@ -64,8 +68,39 @@ const fetchProjectListFunctionHandler = async(req,res,next)=>{
     }
 }
 
+const projectDetailsPageHandler = async(req,res,next)=>{
+    const role = req.session.user?.role === 1  ?"leader": "member";
+    
+    try{
+        const projectId = req.params["projectId"];
+        
+        const projectControls = new ProjectControls(projectId);
+
+        const projectInfo = await projectControls.getProjectDetails();
+        
+        const userControls = new UserControls(projectInfo.createAuthorId);
+        
+        const userInfo = await userControls.getUserInfoByUserId();
+        
+        const projectDto = new ProjectDto(projectInfo.name,projectId,userInfo.firstName+ " "+ 
+            userInfo.lastName,projectInfo.regDate)
+        
+        res.render("project",{
+            role:role,
+            activeLink: "project",
+            pageType: "page-details",
+            projectDto: projectDto
+        })
+    }catch(e){
+        next(e);
+    }
+   
+    
+}
+
 module.exports = {
     projectPage,
     createProject,
-    fetchProjectListFunctionHandler
+    fetchProjectListFunctionHandler,
+    projectDetailsPageHandler
 }

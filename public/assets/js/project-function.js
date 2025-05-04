@@ -92,7 +92,7 @@ $(document).ready(function(){
             $("#project-list__container").append( `
               
           <div class="col-md-3">
-              <a href="/project-details/${element._id}">   
+              <a href="project-details/${element._id}">   
                 <div class="card project-card">
                     <div class="card-body">${element.name}</div>
                 </div>

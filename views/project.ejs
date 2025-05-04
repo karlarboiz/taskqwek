@@ -4,7 +4,12 @@
     
     <%- include("section-template/top-section__template"); %>
 
-    <%- include("project-page--content/project-content--leader"); %>
+    <% if(pageType === "main") {%>
+      <%- include("project-page--content/project-content--leader"); %>
+      <%}else {%>
+        <%- include("project-page--content/project-content--project-details"); %>
+    <%}%>
+
 
     <%- include("section-template/bottom-section__template"); %>
     
