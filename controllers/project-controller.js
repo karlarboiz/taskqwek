@@ -56,11 +56,9 @@ const fetchProjectListFunctionHandler = async(req,res,next)=>{
     try{
         const creatorAuthorId = req.session.user?.id;
         
-        const leaderProjects = await Project.aggregate([
-            {
-                $match: {createAuthorId: creatorAuthorId}
-            }
-        ]);
+        const projectControls = new ProjectControls(null,creatorAuthorId);
+        
+        const leaderProjects = await projectControls.getLeaderProjects();
 
         return res.status(200).send(new ResponseObj(true,Messages.FETCH_LIST_SUCCESS + "projects",{},leaderProjects))
     }catch(e){
