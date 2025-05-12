@@ -24,7 +24,7 @@ $(document).ready(function(){
           contentType: 'application/json',
           data: JSON.stringify(data),
           success: function (response) {
-            console.log(response)  
+            
             const {message,isSuccess,errorResult}=response;
             $('#invite-form').prepend(`<p class="${isSuccess ? "success-message": "error-message"}">${message}</p>`);
 
@@ -33,13 +33,15 @@ $(document).ready(function(){
               $(`.invite-field--${key}`)
               .append(`<p class="error-message">${value}</p>`)
             }
-
-            const modal = new bootstrap.Modal(document.getElementById('successModal'), {
-              backdrop: 'static',    // Prevent close when clicking outside
-              keyboard: false        // Prevent close on Esc key
-            });
-            
-            modal.show();
+            if(!isSuccess){
+              console.log(response)
+              // const modal = new bootstrap.Modal(document.getElementById('successModal'), {
+              //   backdrop: 'static',    // Prevent close when clicking outside
+              //   keyboard: false        // Prevent close on Esc key
+              // });
+              
+              // modal.show();
+            }
           },
           error: function (xhr, status, error) {     
             console.error(error);

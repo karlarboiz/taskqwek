@@ -10,6 +10,7 @@ const { errorParsingFromValidationsSequelize } = require("../util/error-parsing"
 const otpGenerator = require('otp-generator');
 const CommonValues = require("../common/CommonValues");
 const MailControls = require("../model-functions/MailControls");
+const Org = require("../model/Org");
 
 
   
@@ -17,18 +18,23 @@ const sendEmail = async(req,res,next)=> {
   const leaderId = req.session.user?.id;
 
   try {
-    const otpCode = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });;
-
+    const otpCode = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });    
     const transporter = await MailControls.generateTransporterMail();
     const {email,orgId } = req.body;
+
+    if(!email){
+      throw new Error(Messages.EMAIL_FIELD_EMPTY);
+    }
+
+    const orgControls = new OrgControls(null,null,orgId);
+
+    await orgControls.getOrgDetailsBasedOnOrgId();
 
     const mailTemplate = new MailTemplate("TaskQwek",otpCode)
     
     const concatHTMLMessage= MailTemplate.FIRST_MAIL_PART +
     MailTemplate.MIDDLE_MAIL_PART + mailTemplate.constructMailContent() + MailTemplate.LAST_MAIL_PART;
     
-
-
     const validSeconds = CommonValues.EXPIRATION_DURATION_TOKEN * CommonValues.INVITATION_NUMBER_DAYS;
  
     const emailInviteItem = EmailGenerationForInviteSQL.build({
@@ -59,9 +65,8 @@ const sendEmail = async(req,res,next)=> {
 
     return  res.status(200).send(responseObj);
   } catch (e) {
-    console.log(e)
     const errorMessage = errorParsingFromValidationsSequelize(e.errors);
-    const responseObj = new ResponseObj(false,Messages.INVALID_INPUT,errorMessage);
+    const responseObj = new ResponseObj(false,e.message,errorMessage);
     res.status(200).send(responseObj);
   }
 
@@ -76,9 +81,7 @@ const invitePage = async(req,res,next)=>{
     const orgControls = new OrgControls(leaderId,false);
     const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
 
-    
-
-
+  
     res.render("invite",{role:role,
       activeLink:"invite",
       leaderOrgs:leaderOrgs
