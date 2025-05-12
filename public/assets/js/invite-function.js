@@ -33,14 +33,14 @@ $(document).ready(function(){
               $(`.invite-field--${key}`)
               .append(`<p class="error-message">${value}</p>`)
             }
-            if(!isSuccess){
-              console.log(response)
-              // const modal = new bootstrap.Modal(document.getElementById('successModal'), {
-              //   backdrop: 'static',    // Prevent close when clicking outside
-              //   keyboard: false        // Prevent close on Esc key
-              // });
+            if(isSuccess){
               
-              // modal.show();
+              const modal = new bootstrap.Modal(document.getElementById('successModal'), {
+                backdrop: 'static',    // Prevent close when clicking outside
+                keyboard: false        // Prevent close on Esc key
+              });
+              
+              modal.show();
             }
           },
           error: function (xhr, status, error) {     
