@@ -92,7 +92,7 @@ app.use(loginRoutes);
 app.use(signupRoutes);
 app.use("/member",memberRoutes);
 app.use("/org",checkActiveUser,orgRoutes);
-app.use(checkActiveUser,dashboardRoutes);
+app.use("/dashboard",checkActiveUser,dashboardRoutes);
 app.use("/task",checkActiveUser,taskRoutes);
 app.use("/project",checkActiveUser,projectRoutes);
 app.use("/profile",checkActiveUser,profileRoutes);

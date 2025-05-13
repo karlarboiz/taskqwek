@@ -1,4 +1,4 @@
-const url = require('url');
+// const url = require('url');
 const OrgControls = require('../model-functions/OrgControls');
 const ProjectControls = require('../model-functions/ProjectControls');
 const ResponseObj = require('../response-obj/ResponseObj');
@@ -15,7 +15,7 @@ const dashboardPage = async(req,res)=>{
         });    
 }
 
-const dashboardPageData = async(req,res)=>{
+const fetchDashboardPageData = async(req,res)=>{
     const id = req.session.user?.id;
     try{
 
@@ -23,21 +23,25 @@ const dashboardPageData = async(req,res)=>{
 
         const orgs = await orgControls.getOrgListBasedOnLeaderId();
     
-        
         const projectControls = new ProjectControls(null,id);
     
         const projects = await projectControls.getLeaderProjects();
         
+        const data = {
+            orgs,
+            projects
+        }
         const responseObj = new ResponseObj(true,
-            Messages.FETCH_LIST_SUCCESS + "initial data",null)
+            Messages.FETCH_LIST_SUCCESS + "initial data",null,data)
         return res.status(200).send(responseObj)
     }catch(e){
-        
-        res.status(200).send()
+        const responseObj = new ResponseObj(false,
+            Messages.FAILED,e.message,null)
+        res.status(200).send(responseObj)
     }
 }
 
 module.exports = {
     dashboardPage,
-    dashboardPageData
+   fetchDashboardPageData
 }
