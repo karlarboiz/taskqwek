@@ -30,11 +30,13 @@ const fetchDashboardPageData = async(req,res)=>{
         const data = {
             orgs: {
                 title: "Organization/s",
-                content: orgs
+                content: orgs,
+                url: "/org/org-page"
             },
             projects :{
                  title: "Project/s",
-                content: projects
+                content: projects,
+                url: "/project/project-page"
             }
         }
         const responseObj = new ResponseObj(true,

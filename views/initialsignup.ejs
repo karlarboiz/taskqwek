@@ -1,69 +1,69 @@
 <%- include('includes/header', {title: "Signup Page",navItemsPresent: true}); %>
 <div><%=signupInputs.hasError ? signupInputs?.message : ''%></div>
 <main class="container mt-5">
-    <form action="/signup?_csrf=<%= locals.csrf %>"
-        method="post">
-        <section class="form-register">
-            <div class="form-group">
-                <label for="first-name">First Name:</label>
-                <input type="text" value="<%=signupInputs.firstName%>" name="first-name">
-    
-                <span class="error-text
-                text-danger"><%=signupInputs.hasError ? signupInputs?.errorMessage?.firstName : ''%></span>
-            </div>
-        
-            <div class="form-group">
-                <label for="last-name">Last Name:</label>
-                <input type="text" name="last-name" value="<%=signupInputs.lastName%>" >
-                <span class="error-text text-danger"><%=signupInputs?.errorMessage?.lastName%></span>
-            </div>
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" name="username" value="<%=signupInputs.username%>" > 
-                <span class="error-text
-                text-danger"><%=signupInputs?.errorMessage?.username%></span>
-            </div>
-        
-            <div class="form-group">
-                <label for="email">Email Address:</label>
-                <input type="email" name="email" value="<%=signupInputs.emailAddress%>">
-                <span class="error-text
-                text-danger"><%=signupInputs?.errorMessage?.emailAddress%></span>
-            </div>
-        
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" value="<%=signupInputs.password%>">
-                <span class="error-text
-                text-danger"><%=signupInputs?.errorMessage?.password%></span>
-            </div>
-        
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password:</label>
-                <input type="password" name="confirm-password">
-            </div>
-        
-            <div class="form-group">
-                <label for="role">Role</label>
-                <select name="role">
-                    <% ["","LEADER","MEMBER"].forEach((value,i)=>{%>
-                        <% if(i===signupInputs.role) {%>
-                            <option value="<%=i%>" selected="true"><%=value%></option>
-                        <% } else{%>
-                            <option value="<%=i%>" ><%=value%></option>
-                        <% }%>
-                    <%}) %>
-                
-                </select>
-                <span class="error-msg"><%=signupInputs?.errorMessage?.role%></span>
-            </div>
-        </section>
-    
-        <div class="form-group mt-4 text-center mx-auto">
-            <button type="submit" class="btn btn-primary">
-                Signup
-            </button>
-        </div>
-    </form>
+  <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
+    <section class="form-register mx-auto" style="max-width: 600px;">
+      <div class="mb-3">
+        <label for="first-name" class="form-label">First Name</label>
+        <input type="text" id="first-name" name="first-name" class="form-control"
+               value="<%= signupInputs.firstName %>">
+        <small class="text-danger">
+          <%= signupInputs.hasError ? signupInputs?.errorMessage?.firstName : '' %>
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label for="last-name" class="form-label">Last Name</label>
+        <input type="text" id="last-name" name="last-name" class="form-control"
+               value="<%= signupInputs.lastName %>">
+        <small class="text-danger"><%= signupInputs?.errorMessage?.lastName %></small>
+      </div>
+
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" class="form-control"
+               value="<%= signupInputs.username %>">
+        <small class="text-danger"><%= signupInputs?.errorMessage?.username %></small>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" id="email" name="email" class="form-control"
+               value="<%= signupInputs.emailAddress %>">
+        <small class="text-danger"><%= signupInputs?.errorMessage?.emailAddress %></small>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control"
+               value="<%= signupInputs.password %>">
+        <small class="text-danger"><%= signupInputs?.errorMessage?.password %></small>
+      </div>
+
+      <div class="mb-3">
+        <label for="confirm-password" class="form-label">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label for="role" class="form-label">Role</label>
+        <select id="role" name="role" class="form-select">
+          <% ["", "LEADER", "MEMBER"].forEach((value, i) => { %>
+            <% if (i === signupInputs.role) { %>
+              <option value="<%= i %>" selected><%= value %></option>
+            <% } else { %>
+              <option value="<%= i %>"><%= value %></option>
+            <% } %>
+          <% }) %>
+        </select>
+        <small class="text-danger"><%= signupInputs?.errorMessage?.role %></small>
+      </div>
+
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </div>
+    </section>
+  </form>
 </main>
+
 <%- include('includes/footer'); %>
