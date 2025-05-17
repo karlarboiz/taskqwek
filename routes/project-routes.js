@@ -9,6 +9,6 @@ router.get("/project-page",projectPage);
 router.post("/create-project",createProject)
 
 router.get("/project-list",fetchProjectListFunctionHandler);
-
+ 
 router.get("/project-details/:projectId",projectDetailsPageHandler)
 module.exports = router;
