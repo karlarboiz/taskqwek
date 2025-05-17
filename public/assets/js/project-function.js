@@ -74,7 +74,6 @@ $(document).ready(function(){
           complete: function(){
             $("#project-creation--loader-container").hide();
 
-           
           }
         });
       });
@@ -99,11 +98,11 @@ $(document).ready(function(){
                 
               </a>
           </div>`)
-         }
-
-
-          $("#loader-container").hide();
+            }
         },
+         complete: function(){
+            $("#loader-container").hide();
+          }
       })
     
 })

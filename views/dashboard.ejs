@@ -7,8 +7,9 @@
     <%- include("section-template/top-section__template"); %>
 
     <% if(role === "leader") {%>
-      <%- include("dashboard-page/admin-dashboard") %>
+      <%- include("dashboard-page--content/admin-dashboard") %>
     <%}else {%>
+      <%- include("dashboard-page--content/user-dashboard") %>
     <%}%>
   </div>
 </main>

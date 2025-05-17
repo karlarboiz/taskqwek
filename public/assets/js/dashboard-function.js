@@ -4,23 +4,32 @@ $(document).ready(function(){
         type: "GET",
         contentType: 'application/json',
         success: function (response) {
-        //   $("#loader-container").show();
-        //   const {leaderOrgs} = response;
-            console.log(response)
-        //   for (let element of leaderOrgs) {
-        //      $("#org-tbody").append(`
-        //        <tr>
-        //       <th scope="row">${element.name}</th>
-        //       <td>${element.description}</td>
-        //       <td>${element.population}</td>
-        //       <td>${element.population}</td>
-        //       <td><a href="org-page/details/${element._id}" class="btn btn-secondary">Edit</a>
-        //      </td>
-        //     </tr>`)
-        //   }
-  
-          $("#loader-container").hide();
-        },
-      })
+            $("#loader-container").show();
+            const { data, isSuccess } = response;
 
-})
+            if (isSuccess) {
+                let $row = $("<div class='row justify-content-start mt-3'></div>");
+                $("#admin-dashboard").append($row);
+
+                for (const key in data) {
+                    const count = data[key]["content"].length;
+                    const title = data[key]["title"];
+                    
+                    const $col = $(`
+                        <div class="col-md-4 mb-4">
+                            <div class="border rounded p-3 shadow-sm h-100 bg-light text-center">
+                                <h5>${title}</h5>
+                                <p class="display-6">${count}</p>
+                            </div>
+                        </div>
+                    `);
+                    
+                    $row.append($col);
+                }
+            }
+        },
+        complete: function(){
+            $("#loader-container").hide();
+        }
+    });
+});

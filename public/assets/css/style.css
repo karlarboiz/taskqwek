@@ -11915,6 +11915,10 @@ textarea.form-control-lg {
   min-height: 35rem;
 }
 
+.admin-dashboard {
+  text-align: left;
+}
+
 main {
   text-align: center;
 }
@@ -12077,7 +12081,7 @@ This section here is for components classes
   font-family: sans-serif;
   font-size: 30px;
   padding-bottom: 8px;
-  background: linear-gradient(currentColor 0 0) 0 100%/0% 3px no-repeat;
+  background: linear-gradient(black 0 0) 0 100%/0% 3px no-repeat;
   animation: l2 2s linear infinite;
   margin: 0;
 }

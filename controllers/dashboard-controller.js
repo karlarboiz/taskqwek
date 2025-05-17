@@ -28,8 +28,14 @@ const fetchDashboardPageData = async(req,res)=>{
         const projects = await projectControls.getLeaderProjects();
         
         const data = {
-            orgs,
-            projects
+            orgs: {
+                title: "Organization/s",
+                content: orgs
+            },
+            projects :{
+                 title: "Project/s",
+                content: projects
+            }
         }
         const responseObj = new ResponseObj(true,
             Messages.FETCH_LIST_SUCCESS + "initial data",null,data)
