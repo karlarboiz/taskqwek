@@ -11,6 +11,10 @@ class Messages {
     static FETCH_LIST_SUCCESS = "Successfully fetch list of ";
 
     static EMAIL_FIELD_EMPTY = "Email Field is Empty";
+
+    static CODE_VERIFICATION_FAILED = "An error occured: ";
+
+    
 }
 
 module.exports = Messages

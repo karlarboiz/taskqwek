@@ -106,9 +106,6 @@ const signupFunc = async (req,res,next)=>{
                 if(err){
                     next(err);
                 }
-
-             
-
                 req.session.user={
                     id:result._id,
                     email:result.emailAddress,
@@ -142,7 +139,6 @@ const completeSetupPage= (req,res,next)=>{
     try{
         const signUpValue = req.params['role'];
 
-        console.log(signUpValue)
         res.render("complete-setup",{
             orgCreationInputs:orgCreationInputs,
             membershipJoinInputs:{},

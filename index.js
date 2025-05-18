@@ -16,7 +16,7 @@ const port = 5000;
 const mysqlDb = require("./data/database1");
 const mysql = require('mysql2/promise');
 const sequelize = require("./data/database1");
-
+const { checkActiveUser } = require('./middlewares/checkActiveUsers');
 // const WebSocketServer = require('websocket').server;
 // const WebSocketClient = require('websocket').client;
 // const WebSocketFrame  = require('websocket').frame;
@@ -83,7 +83,6 @@ const projectRoutes = require("./routes/project-routes");
 const profileRoutes = require("./routes/profile-routes");
 const reminderRoutes = require("./routes/reminder-routes")
 const notifRoutes = require("./routes/notification-routes");
-const { checkActiveUser } = require('./middlewares/checkActiveUsers');
 const inviteRoutes = require("./routes/invite-routes");
 
 
@@ -100,7 +99,7 @@ app.use("/reminder",checkActiveUser,reminderRoutes);
 app.use("/notification",checkActiveUser,notifRoutes);
 app.use("/invite",checkActiveUser,inviteRoutes);
 app.use((error,req,res,next)=>{
-    console.log(error)
+  
     res.status(404).render('404');
 });
 

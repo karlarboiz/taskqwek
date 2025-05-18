@@ -3,7 +3,7 @@
 <main class="container mt-5">
   <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
     <section class="form-register mx-auto" style="max-width: 600px;">
-      <div class="mb-3">
+      <div class="mb-3 mx-2">
         <label for="first-name" class="form-label">First Name</label>
         <input type="text" id="first-name" name="first-name" class="form-control"
                value="<%= signupInputs.firstName %>">
@@ -12,40 +12,40 @@
         </small>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 mx-2">
         <label for="last-name" class="form-label">Last Name</label>
         <input type="text" id="last-name" name="last-name" class="form-control"
                value="<%= signupInputs.lastName %>">
         <small class="text-danger"><%= signupInputs?.errorMessage?.lastName %></small>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 mx-2">
         <label for="username" class="form-label">Username</label>
         <input type="text" id="username" name="username" class="form-control"
                value="<%= signupInputs.username %>">
         <small class="text-danger"><%= signupInputs?.errorMessage?.username %></small>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 mx-2">
         <label for="email" class="form-label">Email Address</label>
         <input type="email" id="email" name="email" class="form-control"
                value="<%= signupInputs.emailAddress %>">
         <small class="text-danger"><%= signupInputs?.errorMessage?.emailAddress %></small>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 mx-2">
         <label for="password" class="form-label">Password</label>
         <input type="password" id="password" name="password" class="form-control"
                value="<%= signupInputs.password %>">
         <small class="text-danger"><%= signupInputs?.errorMessage?.password %></small>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 mx-2">
         <label for="confirm-password" class="form-label">Confirm Password</label>
         <input type="password" id="confirm-password" name="confirm-password" class="form-control">
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 mx-2">
         <label for="role" class="form-label">Role</label>
         <select id="role" name="role" class="form-select">
           <% ["", "LEADER", "MEMBER"].forEach((value, i) => { %>
@@ -59,7 +59,7 @@
         <small class="text-danger"><%= signupInputs?.errorMessage?.role %></small>
       </div>
 
-      <div class="d-grid mt-4">
+      <div class="d-grid mt-4 mx-2">
         <button type="submit" class="btn btn-primary">Sign Up</button>
       </div>
     </section>
