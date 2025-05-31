@@ -1,7 +1,12 @@
 <%- include('includes/header', {title: "Home Page",navItemsPresent: true}); %>
     
     <% if(isAuthenticated) {%>
-        <a href="/dashboard" class="text-decoration-none text-info">Back to your Dashboard</a>
+
+        <div class="text-center mt-4">
+
+            <a href="/dashboard" class="text-decoration-none text-info ">Back to your Dashboard</a>
+        </div>
+        
     <%}%>
 
     <main class="container mt-4">

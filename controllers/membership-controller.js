@@ -70,10 +70,13 @@ const joinOrgMember =async(req,res,next)=>{
 
 
                 await EmailGenerationForInviteSQL.update(
-                    {is_accepted: true},
+                    {is_accepted: true,
+                    update_date: new Date()
+                    },
                     {
                         where:{
-                            otp_code:otpCode
+                            otp_code:otpCode,
+                           
                         }
                     }
 

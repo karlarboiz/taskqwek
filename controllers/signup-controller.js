@@ -42,11 +42,8 @@ const signupFunc = async (req,res,next)=>{
             emailAddress:req.body.email
         })
 
-
-    
         const errors = err?.errors ? Object.entries(err?.errors):[];
-        
-        
+            
         if(errors?.length > 0){
             
             for (const [key, value] of Object.entries(err?.errors)) {
