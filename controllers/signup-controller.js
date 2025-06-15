@@ -9,7 +9,6 @@ const saltRounds = 10;
 const signupSession = require('../util/signup-session');
 // const url = require('url');
 const { orgCreationSessionPage } = require('../util/org-creation-session');
-
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
 
 const signupPage = async (req,res)=>{
@@ -25,41 +24,67 @@ const signupPage = async (req,res)=>{
         res.redirect('/');
     }
 }
-
+ 
 const signupFunc = async (req,res,next)=>{
+
+    const firstName = req.body["first-name"];
+    const lastName = req.body['last-name'];
+    const username = req.body['username'];
+    const role = Number(req.body.role);
+    const emailAddress = req.body.email;
+    const password = req.body.password;
+    const confirmPassword = req.body["confirm-password"];
     try{
         const errorMessage = {};
+
         let userGeneralInfo = new UserGeneralInfo({
-            firstName: req.body["first-name"],
-            lastName: req.body['last-name'],
-            username: req.body['username'],
-            role: Number(req.body.role)
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            role: role
         })
 
         const userAuthInfo = new UserAuthenticationInfo({
-            userTableId: null,
-            emailAddress: req.body.email,
-            password: req.body.password,
+            emailAddress: emailAddress,
+            password: password,
         })
         
         const errUserGeneralInfo = await userGeneralInfo.validateSync();  
         
         const errUserAuthInfo = await userAuthInfo.validateSync();
 
-        const hasAccountExisted=await User.findOne({
-            emailAddress:req.body.email
-        })
+        const errorsUserGeneralInfo = errUserGeneralInfo?.errors ? Object.entries(errUserGeneralInfo?.errors):[];
+        
+        const errorsUserAuthInfo = errUserAuthInfo?.errors ? Object.entries(errUserAuthInfo?.errors):[];
 
-        const errors = errUserGeneralInfo?.errors ? Object.entries(errUserGeneralInfo?.errors):[];
+        if(errorsUserGeneralInfo?.length > 0 || errorsUserAuthInfo?.length > 0){
             
-        if(errors?.length > 0){
-            
-            for (const [key, value] of Object.entries(err?.errors)) {
+            for (const [key, value] of errorsUserGeneralInfo) {
                 errorMessage[key] = value.properties.message;
             
             }
+
+            for (const [key, value] of errorsUserAuthInfo) {
+                errorMessage[key] = value.properties.message;
+            
+            }
+            
+        }
+
+
+        if(password?.trim().toLowerCase() !== confirmPassword.trim().toLowerCase()){
+            errorMessage.confirmPassword = "Password and Confirm Password don't match";     
+        }
+
+
+        
+        const hasAccountExisted=await UserAuthenticationInfo.findOne({
+            emailAddress:req.body.email
+        })
+
+        if(errorMessage){
             signupSession.signupErrorSessionPage(req,{
-                errorMessage:errorMessage,
+                  errorMessage:errorMessage,
                 firstName: req.body["first-name"],
                 lastName: req.body['last-name'],
                 username: req.body['username'],
@@ -71,7 +96,10 @@ const signupFunc = async (req,res,next)=>{
             })
     
             return;
-        }else if(hasAccountExisted) {
+        }
+
+    
+        if(hasAccountExisted) {
             
             signupSession.signupErrorSessionPage(req,{
                 message: "Account existed! Please Log in",
@@ -84,49 +112,53 @@ const signupFunc = async (req,res,next)=>{
                 res.redirect('/signup')
             })
             return;
-        }else {
-            const convert = Number(req.body.role);
+        } 
 
-            req.session.newSignup = true;
-        
-            const urlRoute = convert === 0 ?"/dashboard": (convert ==1 ? "/signup/complete-setup/leader":
-                "/signup/complete-setup/leader"
-            ) ;
 
-            const user = new User({
-                firstName: req.body["first-name"],
-                lastName: req.body['last-name'],
-                username: req.body['username'],
-                emailAddress: req.body.email,
-                password: req.body.password,
-                role: Number(req.body.role)
-            })
-
-            const encryptedPassword = await bcrypt.hash(req.body.password,10);
-               
-            await user.save().then((result,err)=>{
-                if(err){
-                    next(err);
-                }
-                req.session.user={
-                    id:result._id,
-                    email:result.emailAddress,
-                    role:result.role
-                }
-
-                req.session.isAuthenticated = false;
-                req.session.cookie.originalMaxAge = 864000;
-               
-            });
-
-            user.password = encryptedPassword;
-
-            await user.save();
-            res.redirect(urlRoute)
        
+
+
+        const convert = Number(req.body.role);
+
+        // req.session.newSignup = true;
     
-        }
+        const urlRoute = convert === 0 ?"/dashboard": (convert ==1 ? "/signup/complete-setup/leader":
+            "/signup/complete-setup/leader"
+        ) ;
+
+        const user = new userGeneralInfo({
+            firstName: req.body["first-name"],
+            lastName: req.body['last-name'],
+            username: req.body['username'],
+            role: Number(req.body.role)
+        })
+
+        const encryptedPassword = await bcrypt.hash(req.body.password,10);
+            
+        await user.save().then((result,err)=>{
+            if(err){
+                next(err);
+            }
+            req.session.user={
+                id:result._id,
+                email:result.emailAddress,
+                role:result.role
+            }
+
+            req.session.isAuthenticated = false;
+            req.session.cookie.originalMaxAge = 864000;
+            
+        });
+
+        user.password = encryptedPassword;
+
+        await user.save();
+        res.redirect(urlRoute)
+       
+            res.redirect("/signup");
+        
     }catch(e){
+        console.log(e.message);
         next(e)
     }
 }

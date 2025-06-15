@@ -1,11 +1,12 @@
 <%- include('includes/header', {title: "Signup Page",navItemsPresent: true}); %>
-<div><%=signupInputs.hasError ? signupInputs?.message : ''%></div>
+<div class="text-center mx-auto mt-5"><%=signupInputs.hasError ? signupInputs?.message : ''%></div>
 <main class="container mt-5">
   <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
     <section class="form-register mx-auto" style="max-width: 600px;">
       <div class="mb-3 mx-2">
         <label for="first-name" class="form-label">First Name</label>
-        <input type="text" id="first-name" name="first-name" class="form-control"
+        <input type="text" id="first-name" name="first-name" 
+        class="form-control <%= signupInputs?.errorMessage?.firstName ? 'border-danger' : '' %>"
                value="<%= signupInputs.firstName %>">
         <small class="text-danger">
           <%= signupInputs.hasError ? signupInputs?.errorMessage?.firstName : '' %>
@@ -14,35 +15,41 @@
 
       <div class="mb-3 mx-2">
         <label for="last-name" class="form-label">Last Name</label>
-        <input type="text" id="last-name" name="last-name" class="form-control"
+        <input type="text" id="last-name" name="last-name" 
+         class="form-control <%= signupInputs?.errorMessage?.lastName ? 'border-danger' : '' %>"
                value="<%= signupInputs.lastName %>">
         <small class="text-danger"><%= signupInputs?.errorMessage?.lastName %></small>
-      </div>
+      </div> 
 
       <div class="mb-3 mx-2">
         <label for="username" class="form-label">Username</label>
-        <input type="text" id="username" name="username" class="form-control"
+        <input type="text" id="username" name="username" 
+         class="form-control <%= signupInputs?.errorMessage?.username ? 'border-danger' : '' %>"
                value="<%= signupInputs.username %>">
         <small class="text-danger"><%= signupInputs?.errorMessage?.username %></small>
       </div>
 
       <div class="mb-3 mx-2">
         <label for="email" class="form-label">Email Address</label>
-        <input type="email" id="email" name="email" class="form-control"
+        <input type="email" id="email" name="email" 
+        class="form-control <%= signupInputs?.errorMessage?.emailAddress ? 'border-danger' : '' %>"
                value="<%= signupInputs.emailAddress %>">
         <small class="text-danger"><%= signupInputs?.errorMessage?.emailAddress %></small>
       </div>
 
       <div class="mb-3 mx-2">
         <label for="password" class="form-label">Password</label>
-        <input type="password" id="password" name="password" class="form-control"
+        <input type="password" id="password" name="password" 
+         class="form-control <%= signupInputs?.errorMessage?.password ? 'border-danger' : '' %>"
                value="<%= signupInputs.password %>">
         <small class="text-danger"><%= signupInputs?.errorMessage?.password %></small>
       </div>
 
       <div class="mb-3 mx-2">
         <label for="confirm-password" class="form-label">Confirm Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" class="form-control">
+        <input type="password" id="confirm-password" name="confirm-password" 
+         class="form-control <%= signupInputs?.errorMessage?.confirmPassword ? 'border-danger' : '' %>">
+         <small class="text-danger"><%= signupInputs?.errorMessage?.confirmPassword %></small>
       </div>
 
       <div class="mb-3 mx-2">
