@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const user_schema = new mongoose.Schema({
+const user_general_info_schema = new mongoose.Schema({
     firstName: {
         type: String,
         trim: true,
@@ -22,31 +22,6 @@ const user_schema = new mongoose.Schema({
         maxLength: [30, "Username must be a maximum of 30 characters"],
         required: [true,"Username is required!"]
     },
-    emailAddress: {
-        type: String,
-        trim: true,
-        validate:{
-            validator: function(v){
-                const emailCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-                return v.match(emailCheck);
-            },
-            message: "Invalid Email input value"
-        },
-        required: [true,"Email Address is required."]
-    },  
-    password: {
-        type: String,  
-        trim: true,
-        minLength: [10, "Password must have a minimum of 10 characters"],
-        validate:{
-            validator: function(v){
-                const passwordCheck = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,60}$/;
-                return v.match(passwordCheck);
-            },
-            message: "Invalid Password pattern"
-        },       
-        required: [true, "User's Password is required"],
-    },
     activeOrg: {
         type: String
     },
@@ -67,4 +42,4 @@ const user_schema = new mongoose.Schema({
     }   
 })
 
-module.exports = mongoose.model("User", user_schema);
+module.exports = mongoose.model("UserGeneralInfo", user_general_info_schema);

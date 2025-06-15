@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 //
-const User = require('../model/User');
+const UserGeneralInfo = require('../model/UserGeneralInfo');
 
 //getting data from util for session page
 const loginSession = require('../util/login-session');
@@ -39,7 +39,7 @@ const loginFunc = async (req,res)=>{
     const isParsedErrorsEmpty = parsedErrors !== null ? Object.keys(parsedErrors)?.length === 0 : true;
 
   
-    let hasEmailExisted = await User.findOne({emailAddress: req.body?.email});
+    let hasEmailExisted = await UserGeneralInfo.findOne({emailAddress: req.body?.email});
   
     if(!isParsedErrorsEmpty){
         loginSession.loginErrorSessionPage(req,{
@@ -58,9 +58,7 @@ const loginFunc = async (req,res)=>{
         const isPasswordMatch = await bcrypt.compare(req.body.password, hasEmailExisted.password);
         if(isPasswordMatch){
 
-            // if(Object.entries(req.session.user).length > 0) {
-            //     req.session.user = null
-            // }
+
             req.session.user = {id: hasEmailExisted._id, 
                 email: hasEmailExisted.emailAddress,
                 role: hasEmailExisted.role};

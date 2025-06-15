@@ -1,7 +1,7 @@
 // const { encryptValue, decryptValue } = require("../util/encrypt-code");
 const Messages = require("../common/Messages");
 const EmailGenerationForInviteSQL = require("../model-1/EmailGenerationForInviteSQL");
-const User = require("../model/User");
+const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
 const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
 
 const joinOrgMember =async(req,res,next)=>{
@@ -10,11 +10,7 @@ const joinOrgMember =async(req,res,next)=>{
     
     try{
         if(req.body.skip){
-
-            // req.session.newSignup = false;
-
             return res.redirect("dashboard");
-
             
         }else {
             const checkActiveLink = await EmailGenerationForInviteSQL.findOne({
@@ -38,7 +34,7 @@ const joinOrgMember =async(req,res,next)=>{
             else {
 
                 const emailAddress = checkActiveLink.dataValues.receiver_emamil
-                const emailMatch = await User.findOne({
+                const emailMatch = await UserAuthenticationInfo.findOne({
                     emailAddress
                 }) 
 

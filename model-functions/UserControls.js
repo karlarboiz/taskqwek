@@ -1,5 +1,5 @@
 
-const User = require("../model/User");
+const UserGeneralInfo = require("../model/UserGeneralInfo");
 
 
 class UserControls{
@@ -7,9 +7,8 @@ class UserControls{
         this.userId = userId
     }
 
-
     async getUserInfoByUserId(){
-        const user = await User.findOne({
+        const user = await UserGeneralInfo.findOne({
             _id: this.userId
         })
 
