@@ -11881,6 +11881,11 @@ textarea.form-control-lg {
   }
 }
 
+.navbar-brand {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
 .login-section {
   margin-top: 5.5rem;
 }
@@ -12068,7 +12073,7 @@ This section here is for components classes
 .btn {
   border-radius: 1.5rem;
   padding: 0.725rem 1.05rem;
-  font-size: 1.05rem;
+  font-size: 1.25rem;
 }
 
 .btn-primary {
@@ -12115,13 +12120,13 @@ a {
 }
 
 .main-message--success {
-  font-size: 1.025rem;
+  font-size: 1.05rem;
   animation: bounce 1s linear;
   color: green;
 }
 
 .main-message--failure {
-  font-size: 1.025rem;
+  font-size: 1.05rem;
   animation: bounce 1s linear;
   color: red;
 }

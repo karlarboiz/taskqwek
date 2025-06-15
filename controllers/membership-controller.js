@@ -10,7 +10,7 @@ const joinOrgMember =async(req,res,next)=>{
          req.session.newSignup = false;
     try{
         if(req.body.skip){
-            return res.redirect("/member/dashboard");
+            return res.redirect("/dashboard");
             
         }else {
             const checkActiveLink = await EmailGenerationForInviteSQL.findOne({

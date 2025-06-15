@@ -1,8 +1,5 @@
-//setting part 4 colors
+@use './abstracts/' as *;
 
-// .btn-primary {
-//     color: black;
-// }
 
 
 
@@ -31,6 +28,11 @@
         width: 100%;
         left: 0;
     }
+}
+
+.navbar-brand {
+    font-size: $font-size--sub-header;
+    font-weight: $font-weight--highlight;
 }
 
 
