@@ -4,9 +4,11 @@
     border-radius: 1.5rem;
     padding: .725rem 1.05rem;
     font-size: $font-size--button-font;
+    border: none;
 }
 
 .btn-primary {
     background-color: $color-primary;
+    color: $color-calltoaction;
 }
 

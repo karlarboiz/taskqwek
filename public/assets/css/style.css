@@ -11884,6 +11884,12 @@ textarea.form-control-lg {
 .navbar-brand {
   font-size: 1.75rem;
   font-weight: 700;
+  color: #164863;
+}
+
+.navbar {
+  background: #DDF2FD;
+  background: linear-gradient(203deg, #9BBEC8 0%, #DDF2FD 60%);
 }
 
 .login-section {
@@ -12074,10 +12080,12 @@ This section here is for components classes
   border-radius: 1.5rem;
   padding: 0.725rem 1.05rem;
   font-size: 1.25rem;
+  border: none;
 }
 
 .btn-primary {
   background-color: #164863;
+  color: #DDF2FD;
 }
 
 .loader {
@@ -12115,8 +12123,8 @@ a {
   text-decoration: none;
 }
 
-.navbar {
-  background-color: #427D9D;
+.logo {
+  height: 3.5rem;
 }
 
 .main-message--success {

@@ -1,5 +1,6 @@
 @use '../abstracts/' as *;
 
-.navbar {
-    background-color: $color-secondary;
+.logo {
+    height: calc($font-size--sub-header * 2);
+
 }

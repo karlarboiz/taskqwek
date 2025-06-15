@@ -1,9 +1,5 @@
 @use './abstracts/' as *;
-
-
-
-
-
+@use "./components/mixin" as *;
 
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
@@ -33,6 +29,12 @@
 .navbar-brand {
     font-size: $font-size--sub-header;
     font-weight: $font-weight--highlight;
+    color: $color-primary;
+}
+
+
+.navbar {
+    @include linearColor;
 }
 
 

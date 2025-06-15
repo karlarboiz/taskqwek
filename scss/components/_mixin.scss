@@ -7,3 +7,8 @@
     border: 1px solid blue;
   }
 
+@mixin linearColor {
+   background: #DDF2FD;
+    background: linear-gradient(203deg, 
+    $color-extra 0%, $color-calltoaction 60%);
+}
