@@ -59,7 +59,7 @@ const loginFunc = async (req,res)=>{
                 role: hasEmailExisted.role};
             
             req.session.isAuthenticated = true;
-
+            req.session.newSignup = false;
             
             req.session.save(()=>{
                 

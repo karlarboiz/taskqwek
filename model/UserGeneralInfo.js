@@ -40,6 +40,6 @@ const user_general_info_schema = new mongoose.Schema({
         type: Boolean,
         default: false
     }   
-})
+})  
 
 module.exports = mongoose.model("UserGeneralInfo", user_general_info_schema);

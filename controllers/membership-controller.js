@@ -7,10 +7,10 @@ const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
 const joinOrgMember =async(req,res,next)=>{
     
         const otpCode = req.body["org-code"].trim();
-    
+         req.session.newSignup = false;
     try{
         if(req.body.skip){
-            return res.redirect("dashboard");
+            return res.redirect("/member/dashboard");
             
         }else {
             const checkActiveLink = await EmailGenerationForInviteSQL.findOne({

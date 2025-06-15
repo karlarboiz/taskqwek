@@ -10,6 +10,7 @@ const signupSession = require('../util/signup-session');
 // const url = require('url');
 const { orgCreationSessionPage } = require('../util/org-creation-session');
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
+const { generalRouteGeneratorHandler } = require('../util/route-generator');
 
 const signupPage = async (req,res)=>{
     
@@ -71,14 +72,10 @@ const signupFunc = async (req,res,next)=>{
             
         }
 
-        console.log(password);
-        console.log(confirmPassword)
         if(password?.trim().toLowerCase() !== confirmPassword.trim().toLowerCase()){
             errorMessage.confirmPassword = "Password and Confirm Password don't match";     
         }
 
-
-        
         const hasAccountExisted=await UserAuthenticationInfo.findOne({
             emailAddress:req.body.email
         })
@@ -117,12 +114,8 @@ const signupFunc = async (req,res,next)=>{
 
         const convert = Number(req.body.role);
 
-        // req.session.newSignup = true;
-    
-        const urlRoute = convert === 0 ? "/dashboard": (convert ==1 ? "/signup/complete-setup/leader":
-            "/signup/complete-setup/member"
-        ) ;
-
+        const urlRoute = generalRouteGeneratorHandler(convert,"/signup/complete-setup",true)   
+        
         const userGeneralInfoSave = new UserGeneralInfo({
             firstName: req.body["first-name"],
             lastName: req.body['last-name'],
@@ -151,15 +144,21 @@ const signupFunc = async (req,res,next)=>{
         })
 
 
-        await userAuthInfoSave.save();
+        await userAuthInfoSave.save().then((result,err)=>{
+            if(err){
+                next(err);
+            }
+            
+            req.session.isAuthenticated = false;
+            req.session.cookie.originalMaxAge = 864000;
+            req.session.newSignup = true;
+        });
 
-        req.session.isAuthenticated = false;
-        req.session.cookie.originalMaxAge = 864000;
+        
         
 
-        res.redirect(urlRoute)
-   
-        
+        return res.redirect(urlRoute)
+       
     }catch(e){
         console.log(e.message);
         next(e)
