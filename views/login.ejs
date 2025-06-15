@@ -2,9 +2,7 @@
 
 <% if(loginInputs?.errorMessage?.credentials) {%>
     <div class="bg-warning text-center py-2">
-
         <p class="text-danger "><%= loginInputs?.errorMessage?.credentials %></p> 
-
     </div>
 
 <% }%>
@@ -14,7 +12,7 @@
     class="mx-auto">
     <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
         <div class="form-floating mb-3">
-            <input type="email" class="form-control"
+            <input type="email" class="form-control <%= loginInputs?.errorMessage?.email ? 'border-danger' : '' %>"
              id="email" name="email" 
              placeholder="name@example.com"
              value="<%= loginInputs.email %>">
@@ -24,7 +22,7 @@
 
           
         <div class="form-floating">
-            <input type="password" class="form-control"
+            <input type="password" class="form-control <%= loginInputs?.errorMessage?.password ? 'border-danger' : '' %>"
              id="password" 
              name="password" 
              placeholder="Password"

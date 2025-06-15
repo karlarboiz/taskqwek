@@ -71,7 +71,8 @@ const signupFunc = async (req,res,next)=>{
             
         }
 
-
+        console.log(password);
+        console.log(confirmPassword)
         if(password?.trim().toLowerCase() !== confirmPassword.trim().toLowerCase()){
             errorMessage.confirmPassword = "Password and Confirm Password don't match";     
         }
@@ -82,7 +83,7 @@ const signupFunc = async (req,res,next)=>{
             emailAddress:req.body.email
         })
 
-        if(errorMessage){
+        if(Object.entries(errorMessage).length> 0){
             signupSession.signupErrorSessionPage(req,{
                   errorMessage:errorMessage,
                 firstName: req.body["first-name"],
@@ -114,48 +115,50 @@ const signupFunc = async (req,res,next)=>{
             return;
         } 
 
-
-       
-
-
         const convert = Number(req.body.role);
 
         // req.session.newSignup = true;
     
-        const urlRoute = convert === 0 ?"/dashboard": (convert ==1 ? "/signup/complete-setup/leader":
-            "/signup/complete-setup/leader"
+        const urlRoute = convert === 0 ? "/dashboard": (convert ==1 ? "/signup/complete-setup/leader":
+            "/signup/complete-setup/member"
         ) ;
 
-        const user = new userGeneralInfo({
+        const userGeneralInfoSave = new UserGeneralInfo({
             firstName: req.body["first-name"],
             lastName: req.body['last-name'],
             username: req.body['username'],
             role: Number(req.body.role)
         })
 
-        const encryptedPassword = await bcrypt.hash(req.body.password,10);
+        const encryptedPassword = await bcrypt.hash(password,saltRounds);
             
-        await user.save().then((result,err)=>{
+        await userGeneralInfo.save().then((result,err)=>{
             if(err){
                 next(err);
             }
             req.session.user={
                 id:result._id,
-                email:result.emailAddress,
+                email:emailAddress,
                 role:result.role
             }
 
-            req.session.isAuthenticated = false;
-            req.session.cookie.originalMaxAge = 864000;
-            
         });
 
-        user.password = encryptedPassword;
+        const userAuthInfoSave = new UserAuthenticationInfo({
+            userTableId: await userGeneralInfoSave._id,
+            emailAddress:emailAddress,
+            password:encryptedPassword
+        })
 
-        await user.save();
+
+        await userAuthInfoSave.save();
+
+        req.session.isAuthenticated = false;
+        req.session.cookie.originalMaxAge = 864000;
+        
+
         res.redirect(urlRoute)
-       
-            res.redirect("/signup");
+   
         
     }catch(e){
         console.log(e.message);

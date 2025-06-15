@@ -1,12 +1,11 @@
 const bcrypt = require('bcrypt');
 //
-const UserGeneralInfo = require('../model/UserGeneralInfo');
+const UserAuthenticationInfo = require('../model/UserAuthenticationInfo');
 
 //getting data from util for session page
 const loginSession = require('../util/login-session');
 const LoginCredentials = require('../model/LoginCredentials');
 const { errorParsingFromValidations } = require('../util/error-parsing');
-// const { error } = require('jquery');
 
 const loginPage = async( req,res)=>{
     const loginInputs = loginSession.loginSessionPage(req);
@@ -27,19 +26,15 @@ const loginFunc = async (req,res)=>{
         password: req.body.password
     })
 
-
     const err =await loginCredentials.validateSync();   
+   
     const errors = err?.errors ;
 
-
     const parsedErrors = await errorParsingFromValidations(errors);
-
-
     
     const isParsedErrorsEmpty = parsedErrors !== null ? Object.keys(parsedErrors)?.length === 0 : true;
-
   
-    let hasEmailExisted = await UserGeneralInfo.findOne({emailAddress: req.body?.email});
+    let hasEmailExisted = await UserAuthenticationInfo.findOne({emailAddress: req.body?.email});
   
     if(!isParsedErrorsEmpty){
         loginSession.loginErrorSessionPage(req,{
