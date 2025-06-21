@@ -12067,6 +12067,11 @@ main {
   margin: 1.25rem auto;
 }
 
+select[name=projects] {
+  width: 13.05rem;
+  padding: 0.25rem;
+}
+
 /*
 
 This section here is for components classes
@@ -12075,7 +12080,7 @@ This section here is for components classes
 .btn {
   border-radius: 1.5rem;
   padding: 0.725rem 1.15rem;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   border: none;
 }
 

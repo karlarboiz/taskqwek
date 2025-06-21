@@ -6,18 +6,23 @@ const { orgCreationErrorSessionPage} = require("../util/org-creation-session");
 const MONTHS = require("../util/date-value");
 const Messages = require("../common/Messages");
 const OrgDto = require("../dto/OrgDto");
+const ProjectControls = require("../model-functions/ProjectControls");
 
 
 const orgDashboardOrgPage = async (req,res,next)=>{
     
     const role = req.session.user?.role === 1  ?"leader": "member";
-
+    const id = req.session.user.id;
+    
+    const leaderProjects = new ProjectControls(id).getLeaderProjects();
+    
     try{
-
+    
         res.render("organization",
             {role:role, 
             activeLink: 'org',
-            orgPageType:"orgList"});
+            orgPageType:"orgList",
+            leaderProjects:leaderProjects});
     }catch(e){
         next(e)
     }
@@ -39,6 +44,7 @@ const orgDashboardOrgDetails = async(req,res,next)=>{
         const dateConverted = parsedDate.getDate();
         const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
         const orgDto = new OrgDto(orgDetails.name,orgDetails.description,fullDate,orgDetails.population);
+        
         res.render("organization",
             {role:role, 
             activeLink: 'org',

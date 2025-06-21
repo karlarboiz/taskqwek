@@ -6,7 +6,7 @@
 
     
     <% if(orgPageType === 'orgList') { %>
-      <%- include('org-content/org-leader__page'); %>
+      <%- include('org-content/org-leader__page',{leaderProjects:leaderProjects}); %>
     <%}else {%>
       <%- include('org-content/org-details'); %>
      <% }%> 

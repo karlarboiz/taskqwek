@@ -34,6 +34,18 @@
             <label for="org-population">Population</label>
             <input type="number" id="org-population">
         </div>
+
+        <div class="form-group mt-3 org-field">
+          <label for="projects">Project Associated</label>
+          <select name="projects" id="projects">
+          <option value=""></option>
+          <% if(leaderProjects.length > 0) {%>
+              <% for (const item of leaderProjects) { %>
+                <option><%= item.name %></option>
+              <% } %>
+          <% }%>
+        </select>
+        </div>
     
         <button type="submit" class="btn btn-primary mt-4">Submit</button>
     </form>
