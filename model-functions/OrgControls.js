@@ -38,6 +38,17 @@ class OrgControls{
             throw new Error(e.message);
         }
     }
+
+    async getOrgDetailsBasedOnMemberId(){
+        try {
+
+            const org = await Org.findOne({
+                _id:this.orgId
+            })
+        }catch(e){
+
+        }
+    }
 }
 
 module.exports = OrgControls;

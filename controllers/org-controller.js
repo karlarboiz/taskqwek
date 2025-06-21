@@ -11,17 +11,16 @@ const ProjectControls = require("../model-functions/ProjectControls");
 
 const orgDashboardOrgPage = async (req,res,next)=>{
     
-    const role = req.session.user?.role === 1  ?"leader": "member";
+    const role = req.session.user?.role === 1  ?"leader orgList": "member orgDetails";
     const id = req.session.user.id;
     
     const leaderProjects = new ProjectControls(id).getLeaderProjects();
     
     try{
-    
         res.render("organization",
-            {role:role, 
+            {role:role.substring(0,6), 
             activeLink: 'org',
-            orgPageType:"orgList",
+            orgPageType:role.substring(7),
             leaderProjects:leaderProjects});
     }catch(e){
         next(e)

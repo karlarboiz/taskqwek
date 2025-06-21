@@ -1,10 +1,8 @@
 <section class="mt-4">
 
-    <h1><%=orgDto.orgName%></h1>
-    <p><%= orgDto.orgDescription%></p>
-    
+    <h1><%=orgDto?.orgName%></h1>
+    <p><%= orgDto?.orgDescription%></p>
     <div class="org-details--sub">
-
-        <p>Creation Date:  <strong><%= orgDto.orgCreatedDate%></strong></p>
+        <p>Creation Date:  <strong><%= orgDto?.orgCreatedDate%></strong></p>
     </div>
 </section>

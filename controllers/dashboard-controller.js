@@ -5,8 +5,9 @@ const ResponseObj = require('../response-obj/ResponseObj');
 const Messages = require('../common/Messages');
 
 const dashboardPage = async(req,res)=>{
+    
     const role = req.session.user?.role === 1  ?"leader": "member";
-
+    console.log(role)
     const id = req.session.user?.id;
 
     res.render('dashboard',
