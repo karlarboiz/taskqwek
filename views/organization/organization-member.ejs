@@ -7,7 +7,7 @@
     <!--
     This is where the content
     -->
-     <section class="mt-4">
+     <section class="mt-4 ">
         <% if(orgDto?.orgName || orgDto?.orgDescription || orgDto?.orgCreatedDate ) {%>
             <h1><%=orgDto.orgName%></h1>
             <p><%= orgDto.orgDescription%></p>
@@ -16,6 +16,16 @@
             </div>
         <% }else {%>
             <h1>You are not yet part of an Organization</h1>
+
+            <form action="/join-org" class="form-org--join mx-auto">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="org-code" >
+                    <label for="org-code">Organization Code</label>
+                </div>
+                <div class="form-group text-center">
+                    <button class="btn btn-primary">Join</button>
+                </div>
+            </form>
         <% }%>
     </section>
 
