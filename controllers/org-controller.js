@@ -13,15 +13,28 @@ const orgDashboardOrgPage = async (req,res,next)=>{
     
     const role = req.session.user?.role === 1  ?"leader orgList": "member orgDetails";
     const id = req.session.user.id;
-    
-    const leaderProjects = new ProjectControls(id).getLeaderProjects();
-    
+   
     try{
+
+         
+        const leaderProjects = new ProjectControls(null,id).getLeaderProjects();
+    
+        // const orgDetails = await Org.findOne({
+        //     _id: orgId
+        // })
+
+        // const parsedDate = new Date(orgDetails["regDate"]);
+        // const monthConverted = MONTHS[parsedDate.getUTCMonth()].full;
+        // const dateConverted = parsedDate.getDate();
+        // const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
+        const orgDto = new OrgDto();
+        
         res.render("organization",
             {role:role.substring(0,6), 
             activeLink: 'org',
             orgPageType:role.substring(7),
-            leaderProjects:leaderProjects});
+            leaderProjects:leaderProjects,
+            orgDto:orgDto});
     }catch(e){
         next(e)
     }

@@ -4,12 +4,11 @@
 
     <%- include("section-template/top-section__template"); %>
 
-    
     <% if(orgPageType === 'orgList') { %>
       <%- include('org-content/org-leader__page',{leaderProjects:leaderProjects}); %>
     <%}else {%>
-      <%- include('org-content/org-details'); %>
-     <% }%> 
+      <%- include('org-content/org-member__page',{orgDto:orgDto}); %>
+    <% }%> 
 
      
     <%- include("section-template/bottom-section__template"); %>
