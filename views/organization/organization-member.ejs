@@ -1,0 +1,34 @@
+<%- include('../includes/header', {title: "Organization", navItemsPresent: false}); %>
+    <%- include('../includes/sub-header'); %>
+    <%- include('../dashboard/dashboard-sidebar',{role,activeLink}); %>
+
+    <%- include("../section-template/top-section__template"); %>
+
+    <!--
+    This is where the content
+    -->
+     <section class="mt-4">
+        <% if(orgDto?.orgName || orgDto?.orgDescription || orgDto?.orgCreatedDate ) {%>
+            <h1><%=orgDto.orgName%></h1>
+            <p><%= orgDto.orgDescription%></p>
+            <div class="org-details--sub">
+                <p>Creation Date:  <strong><%= orgDto.orgCreatedDate%></strong></p>
+            </div>
+        <% }else {%>
+            <h1>You are not yet part of an Organization</h1>
+        <% }%>
+    </section>
+
+    <!-- end -->
+
+   
+
+    <%- include("../section-template/bottom-section__template"); %>
+    
+  </div>
+</main>
+    
+<%- include('../includes/footer'); %>
+
+
+

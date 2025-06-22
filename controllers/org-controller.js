@@ -7,16 +7,15 @@ const MONTHS = require("../util/date-value");
 const Messages = require("../common/Messages");
 const OrgDto = require("../dto/OrgDto");
 const ProjectControls = require("../model-functions/ProjectControls");
+const OrganizationPage = require("../page-controller/organization/OrganizationPage");
 
 
 const orgDashboardOrgPage = async (req,res,next)=>{
     
-    const role = req.session.user?.role === 1  ?"leader orgList": "member orgDetails";
+    const role = req.session.user?.role === 1  ?"leader": "member";
     const id = req.session.user.id;
    
     try{
-
-         
         const leaderProjects = new ProjectControls(null,id).getLeaderProjects();
     
         // const orgDetails = await Org.findOne({
@@ -29,10 +28,12 @@ const orgDashboardOrgPage = async (req,res,next)=>{
         // const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
         const orgDto = new OrgDto();
         
-        res.render("organization",
-            {role:role.substring(0,6), 
+        const route = new OrganizationPage();
+        route._role = role.substring(0,6);
+
+        res.render(route.createPageRoute(),
+            {role:role, 
             activeLink: 'org',
-            orgPageType:role.substring(7),
             leaderProjects:leaderProjects,
             orgDto:orgDto});
     }catch(e){
