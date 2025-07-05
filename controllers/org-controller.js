@@ -15,7 +15,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
     const role = req.session.user?.role === 1  ?"leader": "member";
     const id = req.session.user.id;
     
-    console.log(req.session);
+  
     try{
         const leaderProjects = new ProjectControls(null,id).getLeaderProjects();
     

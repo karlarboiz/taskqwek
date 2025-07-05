@@ -17,9 +17,10 @@
         <% }else {%>
             <h1>You are not yet part of an Organization</h1>
 
-            <form action="/join-org" class="form-org--join mx-auto">
+            <form id="org-member--join" class="form-org--join mx-auto text-center">
+                <input type="hidden" value="<%=locals.csrf%>" id="_csrf" name="_csrf">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="org-code" >
+                    <input type="text" class="form-control" id="org-code" name="org-code" >
                     <label for="org-code">Organization Code</label>
                 </div>
                 <div class="form-group text-center">

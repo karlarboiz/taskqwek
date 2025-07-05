@@ -1,4 +1,8 @@
 $(document).ready(function () {
+  /**
+   * 
+   * This is the leader part of the function
+   */
     $('#org-form').on('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
 
@@ -68,4 +72,50 @@ $(document).ready(function () {
 
 
 
+    /**
+   * 
+   * This is the member part of the function
+   */
+
+    $('#org-member--join').on('submit', function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      $("#loader-container").show();
+      $(".message").remove();
+      $(".error-message").remove();
+
+      // Gather form data
+      const data = {
+        name: $('#org-code').val(),
+
+      };
+   
+      // Make an AJAX POST request
+      $.ajax({
+        url: '/member/join-org/json', // Replace with your endpoint
+        type: 'POST', 
+        headers: {
+            'X-CSRF-Token': $('#_csrf').val(), // CSRF token in header
+          },
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+          
+          const {message,isSuccess,errorMessage}=response;
+          console.log(response)
+          // $('#org-form').prepend(`<p class="message">${message}</p>`)
+          
+          // for (const [key,value] of Object.entries(errorMessage)) {
+          //   $(`.org-field--${key}`)
+          //   .append(`<p class="error-message">${value}</p>`)
+          // }
+        },
+        error: function (xhr, status, error) {     
+          console.error(error);
+        },
+        complete: function(){
+            $("#loader-container").hide();
+        }
+      });
+    });
   });

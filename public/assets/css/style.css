@@ -12073,7 +12073,8 @@ select[name=projects] {
 }
 
 .form-org--join {
-  width: 12.5rem;
+  padding: 0 5.5rem;
+  margin: 0 auto;
 }
 
 /*
