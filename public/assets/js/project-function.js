@@ -1,4 +1,5 @@
-$(document).ready(function(){
+export default function initProjectFunction(){
+    $(document).ready(function(){
     // $(".child").draggable({
     //     revert: "invalid",  // Prevent snapping back on valid drop
     //     start: function(event, ui) {
@@ -106,3 +107,4 @@ $(document).ready(function(){
       })
     
 })
+}

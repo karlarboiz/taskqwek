@@ -14,6 +14,9 @@ class Messages {
 
     static CODE_VERIFICATION_FAILED = "An error occured: ";
 
+    static EMPTY_FIELD = "Missing value for the ";
+
+    static NOT_EXISTING = "Value not Found.";
     
 }
 

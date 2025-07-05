@@ -1,4 +1,6 @@
-$(document).ready(function () {
+export default function initOrgFunction(){
+
+  $(document).ready(function () {
   /**
    * 
    * This is the leader part of the function
@@ -83,10 +85,11 @@ $(document).ready(function () {
       $("#loader-container").show();
       $(".message").remove();
       $(".error-message").remove();
-
+      $("#org-member--join_input").css("border-color", "none");
       // Gather form data
+      console.log( $('#org-member--join_input').val())
       const data = {
-        name: $('#org-code').val(),
+        otpCode: $('#org-member--join_input').val(),
 
       };
    
@@ -102,9 +105,9 @@ $(document).ready(function () {
         success: function (response) {
           
           const {message,isSuccess,errorMessage}=response;
-          console.log(response)
-          // $('#org-form').prepend(`<p class="message">${message}</p>`)
           
+          $('#org-member--join').prepend(`<p class="error-message">${message}</p>`)
+          $("#org-member--join_input").css("border-color", "red");
           // for (const [key,value] of Object.entries(errorMessage)) {
           //   $(`.org-field--${key}`)
           //   .append(`<p class="error-message">${value}</p>`)
@@ -119,3 +122,4 @@ $(document).ready(function () {
       });
     });
   });
+}
