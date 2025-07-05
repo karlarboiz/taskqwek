@@ -62,7 +62,6 @@ const sendEmail = async(req,res,next)=> {
 
     const responseObj = new ResponseObj(true,Messages.SUCCESS + " Email Sent");
     
-
     return  res.status(200).send(responseObj);
   } catch (e) {
     const errorMessage = errorParsingFromValidationsSequelize(e.errors);

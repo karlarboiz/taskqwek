@@ -16,8 +16,6 @@ router.get("/org-page/details/:orgId",orgController.orgDashboardOrgDetails);
 
 router.get("/org-list",orgController.orgFetchFuncJson);
 
-
-
 router.get("/edit-org")
 
 router.put("/update-org")

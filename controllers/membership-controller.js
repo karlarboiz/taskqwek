@@ -4,7 +4,7 @@ const EmailGenerationForInviteSQL = require("../model-1/EmailGenerationForInvite
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
 const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
 
-const joinOrgMember =async(req,res,next)=>{
+const joinOrgMemberInitialSetup =async(req,res,next)=>{
     
         const otpCode = req.body["org-code"].trim();
          req.session.newSignup = false;
@@ -29,7 +29,6 @@ const joinOrgMember =async(req,res,next)=>{
                     return res.redirect("/signup/complete-setup/member");
                 })
 
-                
             }
             else {
 
@@ -72,28 +71,25 @@ const joinOrgMember =async(req,res,next)=>{
                     {
                         where:{
                             otp_code:otpCode,
-                           
                         }
                     }
 
                 )
 
-
-
                 return res.redirect("/signup/complete-setup/member");
-                
-
+            
             }
-
-
-
         }
     }catch(e){
-        console.log(e)
         next(e);
     }
 }
 
+const joinOrgMemberCompleteSetup =()=>{
+
+}
+
 module.exports ={
-    joinOrgMember
+    joinOrgMemberCompleteSetup,
+    joinOrgMemberInitialSetup
 }
