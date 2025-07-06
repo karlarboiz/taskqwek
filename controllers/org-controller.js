@@ -16,24 +16,14 @@ const orgDashboardOrgPage = async (req,res,next)=>{
     const id = req.session.user.id;
 
     try{
-        const leaderProjects = new ProjectControls(null,id).getLeaderProjects();
-    
-        // const orgDetails = await Org.findOne({
-        //     _id: orgId
-        // })
 
-        // const parsedDate = new Date(orgDetails["regDate"]);
-        // const monthConverted = MONTHS[parsedDate.getUTCMonth()].full;    
-        // const dateConverted = parsedDate.getDate();
-        // const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
         
         const route = new OrganizationPage();
         route._role = role;
         
         res.render(route.createPageRoute(),
             {role:role, 
-            activeLink: 'org',
-            leaderProjects:leaderProjects});
+            activeLink: 'org'});
     }catch(e){
         next(e)
     }
