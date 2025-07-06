@@ -4,12 +4,14 @@
   "description": "website for forms, links, and certificates usually government",
   "main": "index.js",
   "scripts": {
-    "compile:sass": "sass scss:public/assets/css",
-    "compile:sass:watch": "sass --watch scss:public/assets/css",
-    "nodemon": "nodemon index.js",
-    "start": "npm-run-all --parallel nodemon compile:sass:watch",
-    "start:prod": "node index.js"
-  },
+  "compile:sass": "sass scss:public/assets/css",
+  "compile:sass:watch": "sass --watch scss:public/assets/css",
+  "webpack:watch": "webpack --watch",
+  "webpack:build": "webpack",
+  "nodemon": "nodemon index.js",
+  "start": "npm-run-all --parallel nodemon compile:sass:watch webpack:watch",
+  "start:prod": "npm-run-all webpack:build compile:sass && node index.js"
+},
   "keywords": [
     "advanced",
     "web",

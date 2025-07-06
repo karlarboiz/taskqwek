@@ -54,9 +54,9 @@ export default function initOrgFunction(){
       contentType: 'application/json',
       success: function(response) {
         $("#loader-container").show();
-        const {leaderOrgs} = response;
+        // const {leaderOrgs} = response;
 
-        for (let element of leaderOrgs) {
+        for (let element of []) {
            $("#org-tbody").append(`
              <tr>
             <th scope="row">${element.name}</th>
