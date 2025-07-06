@@ -6,7 +6,6 @@ const { orgCreationErrorSessionPage} = require("../util/org-creation-session");
 const MONTHS = require("../util/date-value");
 const Messages = require("../common/Messages");
 const OrgDto = require("../dto/OrgDto");
-const ProjectControls = require("../model-functions/ProjectControls");
 const OrganizationPage = require("../page-controller/organization/OrganizationPage");
 
 
@@ -17,13 +16,17 @@ const orgDashboardOrgPage = async (req,res,next)=>{
 
     try{
 
-        
         const route = new OrganizationPage();
         route._role = role;
+        route._id = id;
+
+        const routeData = await route.getPageData();
         
         res.render(route.createPageRoute(),
             {role:role, 
-            activeLink: 'org'});
+            activeLink: 'org',
+            ...routeData
+        });
     }catch(e){
         next(e)
     }

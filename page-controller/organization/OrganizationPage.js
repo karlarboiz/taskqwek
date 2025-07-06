@@ -1,6 +1,8 @@
 const CommonValues = require("../../common/CommonValues");
+const OrgDto = require("../../dto/OrgDto");
 const OrgControls = require("../../model-functions/OrgControls");
 const ProjectControls = require("../../model-functions/ProjectControls");
+const Org = require("../../model/Org");
 const Organization = require("./Organization");
 
 class OrganizationPage extends Organization{
@@ -41,22 +43,36 @@ class OrganizationPage extends Organization{
     }
 
     async getPageData(){
-        if(role === "member"){
+        if(this.role === "member"){
+            const orgDto = new OrgDto();
             const orgDetails = await Org.findOne({
-                _id: orgId
+                _id: this.orgId
             })
-
+            const kwan = {
+                kwan: "aksdfasd"
+            }
+            if(!orgDetails){
+                
+                return {
+                    orgDto:{...orgDto},
+                    kwan
+                };
+            }
+        
             const parsedDate = new Date(orgDetails["regDate"]);
             const monthConverted = MONTHS[parsedDate.getUTCMonth()].full;    
             const dateConverted = parsedDate.getDate();
             const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
-
-            
+            orgDto._orgName = orgDetails.name;
+            orgDto._orgDescription = orgDetails.description;
+            orgDto._orgCreatedDate = fullDate;
+            orgDto._population = orgDetails.population;
+            return {
+                orgDto:{...orgDto}
+            }
         }else {
             const leaderProjects = new ProjectControls(null,id).getLeaderProjects();
             const leaderOrgs = new OrgControls(this.id,false);
-
-            // OrgControls
             return {
                 leaderProjects,
                 leaderOrgs

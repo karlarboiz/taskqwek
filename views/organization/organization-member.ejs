@@ -8,11 +8,11 @@
     This is where the content
     -->
      <section class="mt-4 ">
-        <% if(orgDto?.orgName || orgDto?.orgDescription || orgDto?.orgCreatedDate ) {%>
-            <h1><%=orgDto.orgName%></h1>
-            <p><%= orgDto.orgDescription%></p>
+        <% if(orgDto?._orgName || orgDto?._orgDescription || orgDto?._orgCreatedDate ) {%>
+            <h1><%=orgDto._orgName%></h1>
+            <p><%= orgDto._orgDescription%></p>
             <div class="org-details--sub">
-                <p>Creation Date:  <strong><%= orgDto.orgCreatedDate%></strong></p>
+                <p>Creation Date:  <strong><%= orgDto?._orgCreatedDate%></strong></p>
             </div>
         <% }else {%>
             <h1 class="mb-5">You are not yet part of an Organization</h1>
