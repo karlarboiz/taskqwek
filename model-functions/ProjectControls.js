@@ -20,8 +20,6 @@ class ProjectControls{
                         $match: {createAuthorId: this.leaderId}
                     }
                 ]);
-
-
         return leaderProjects;
     }
 }

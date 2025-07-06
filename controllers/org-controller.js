@@ -14,8 +14,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
     
     const role = req.session.user?.role === 1  ?"leader": "member";
     const id = req.session.user.id;
-    console.log(req.session.user)
-    console.log(req.session.user.role)
+
     try{
         const leaderProjects = new ProjectControls(null,id).getLeaderProjects();
     
@@ -27,7 +26,6 @@ const orgDashboardOrgPage = async (req,res,next)=>{
         // const monthConverted = MONTHS[parsedDate.getUTCMonth()].full;
         // const dateConverted = parsedDate.getDate();
         // const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
-        const orgDto = new OrgDto();
         
         const route = new OrganizationPage();
         route._role = role;
@@ -35,8 +33,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
         res.render(route.createPageRoute(),
             {role:role, 
             activeLink: 'org',
-            leaderProjects:leaderProjects,
-            orgDto:orgDto});
+            leaderProjects:leaderProjects});
     }catch(e){
         next(e)
     }

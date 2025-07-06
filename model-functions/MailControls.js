@@ -17,8 +17,6 @@ class MailControls {
            rejectUnauthorized: false, // <--- ADD THIS LINE
          },
        });
-     
-       
        return transporter;
     }
 }
