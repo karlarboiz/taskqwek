@@ -1,10 +1,10 @@
 const checkActiveUser = (req,res,next)=>{
-    if(req.session?.user){
+   
+    if(req.session?.user?.id){
         next();
     }else {
         return res.redirect("/");
     }
-
     
 }
 
