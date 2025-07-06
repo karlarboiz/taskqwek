@@ -12077,6 +12077,10 @@ select[name=projects] {
   margin: 0 auto;
 }
 
+#task-accordion {
+  text-align: left;
+}
+
 /*
 
 This section here is for components classes

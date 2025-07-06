@@ -8,7 +8,7 @@ const taskPage = (req,res,next)=>{
     route._role = role;
 
     const routePage = route.createPageRoute();
-
+    
     res.render(routePage,{
         role:role,
         activeLink: "task"
