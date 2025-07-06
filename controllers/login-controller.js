@@ -6,6 +6,7 @@ const UserAuthenticationInfo = require('../model/UserAuthenticationInfo');
 const loginSession = require('../util/login-session');
 const LoginCredentials = require('../model/LoginCredentials');
 const { errorParsingFromValidations } = require('../util/error-parsing');
+const UserGeneralInfo = require('../model/UserGeneralInfo');
 
 const loginPage = async( req,res)=>{
     const loginInputs = loginSession.loginSessionPage(req);
@@ -35,7 +36,7 @@ const loginFunc = async (req,res)=>{
     const isParsedErrorsEmpty = parsedErrors !== null ? Object.keys(parsedErrors)?.length === 0 : true;
   
     let hasEmailExisted = await UserAuthenticationInfo.findOne({emailAddress: req.body?.email});
-  
+    
     if(!isParsedErrorsEmpty){
         loginSession.loginErrorSessionPage(req,{
             errorMessage: parsedErrors,
@@ -50,13 +51,15 @@ const loginFunc = async (req,res)=>{
     }
     
     if(hasEmailExisted) {
+
         const isPasswordMatch = await bcrypt.compare(req.body.password, hasEmailExisted.password);
         if(isPasswordMatch){
-
+            
+            const userGeneralInfo = await UserGeneralInfo.findById(hasEmailExisted.userTableId);
 
             req.session.user = {id: hasEmailExisted._id, 
                 email: hasEmailExisted.emailAddress,
-                role: hasEmailExisted.role};
+                role: userGeneralInfo?.role};
             
             req.session.isAuthenticated = true;
             req.session.newSignup = false;

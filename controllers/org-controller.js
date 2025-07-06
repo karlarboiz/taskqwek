@@ -14,8 +14,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
     
     const role = req.session.user?.role === 1  ?"leader": "member";
     const id = req.session.user.id;
-    
-  
+    console.log(req.session.user.role)
     try{
         const leaderProjects = new ProjectControls(null,id).getLeaderProjects();
     
@@ -32,6 +31,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
         const route = new OrganizationPage();
         route._role = role;
         
+        console.log(route.createPageRoute())
         res.render(route.createPageRoute(),
             {role:role, 
             activeLink: 'org',

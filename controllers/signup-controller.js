@@ -138,7 +138,7 @@ const signupFunc = async (req,res,next)=>{
         });
 
         const userAuthInfoSave = new UserAuthenticationInfo({
-            userTableId: await userGeneralInfoSave._id,
+            userTableId: userGeneralInfoSave._id,
             emailAddress:emailAddress,
             password:encryptedPassword
         })
