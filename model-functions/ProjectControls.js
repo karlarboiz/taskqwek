@@ -1,9 +1,10 @@
 const Project= require("../model/Project");
 
 class ProjectControls{
-    constructor(projectId,leaderId){
+    constructor(projectId,leaderId,role){
         this.projectId = projectId
         this.leaderId= leaderId
+        this.role = role
     }
 
     async getProjectDetails(){
@@ -22,6 +23,8 @@ class ProjectControls{
                 ]);
         return leaderProjects;
     }
+
+
 }
 
 module.exports = ProjectControls;

@@ -69,7 +69,6 @@ const sendEmail = async(req,res,next)=> {
     res.status(200).send(responseObj);
   }
 
- 
 }
 
 const invitePage = async(req,res,next)=>{

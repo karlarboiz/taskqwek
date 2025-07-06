@@ -52,7 +52,7 @@ export default function initOrgFunction(){
       url:"/org/org-list",
       type: "GET",
       contentType: 'application/json',
-      success: function (response) {
+      success: function(response) {
         $("#loader-container").show();
         const {leaderOrgs} = response;
 

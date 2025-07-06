@@ -23,7 +23,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
         // })
 
         // const parsedDate = new Date(orgDetails["regDate"]);
-        // const monthConverted = MONTHS[parsedDate.getUTCMonth()].full;
+        // const monthConverted = MONTHS[parsedDate.getUTCMonth()].full;    
         // const dateConverted = parsedDate.getDate();
         // const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
         
