@@ -1,7 +1,15 @@
+const TaskPage = require("../page-controller/task/TaskPage");
+
+
 const taskPage = (req,res,next)=>{
     const role = req.session.user?.role === 1  ?"leader": "member";
 
-    res.render("tasks",{
+    const route = new TaskPage();
+    route._role = role;
+
+    const routePage = route.createPageRoute();
+
+    res.render(routePage,{
         role:role,
         activeLink: "task"
     })

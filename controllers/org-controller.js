@@ -30,8 +30,8 @@ const orgDashboardOrgPage = async (req,res,next)=>{
         const orgDto = new OrgDto();
         
         const route = new OrganizationPage();
-        route._role = role.substring(0,6);
-
+        route._role = role;
+        
         res.render(route.createPageRoute(),
             {role:role, 
             activeLink: 'org',

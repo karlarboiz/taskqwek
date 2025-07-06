@@ -1,3 +1,4 @@
+const CommonValues = require("../../common/CommonValues");
 const Organization = require("./Organization");
 
 class OrganizationPage extends Organization{
@@ -15,7 +16,7 @@ class OrganizationPage extends Organization{
     }
 
     createPageRoute(){
-       return `${this.rootName}/organization-${this.role}`; 
+       return `${this.rootName}/${CommonValues.ORGANIZATION}-${this.role}`; 
     }
 
 }

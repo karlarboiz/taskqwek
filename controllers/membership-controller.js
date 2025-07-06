@@ -91,7 +91,7 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
     const otpCode = req.body.otpCode?.trim();
     
     req.session.newSignup = false;
-    console.log(req.body)
+
     try{
 
         if(!otpCode){
@@ -107,55 +107,50 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
 
         if(!checkActiveLink){
 
-            const responseObj = new ResponseObj(true,Messages.NOT_EXISTING,otpCode);
+            const responseObj = new ResponseObj(true,Messages.NOT_EXISTING + "OTP Code does not exist.",otpCode);
 
             return res.status(200).send(responseObj);
         }
         
 
-         const emailAddress = checkActiveLink.dataValues.receiver_emamil
-            const emailMatch = await UserAuthenticationInfo.findOne({
-                emailAddress
-            }) 
+        const emailAddress = checkActiveLink.dataValues.receiver_emamil
+        
+        const emailMatch = await UserAuthenticationInfo.findOne({
+            emailAddress
+        }) 
 
-            const codeRegisteredDate = new Date(checkActiveLink.dataValues.reg_date);
+        const codeRegisteredDate = new Date(checkActiveLink.dataValues.reg_date);
 
-            const nowDate = new Date();
+        const nowDate = new Date();
 
-            const diffSeconds = Math.ceil(Math.abs(nowDate.getTime() - codeRegisteredDate.getTime()) / 1000);
+        const diffSeconds = Math.ceil(Math.abs(nowDate.getTime() - codeRegisteredDate.getTime()) / 1000);
 
-            if(!emailMatch){
-                orgCreationErrorSessionPage(req,{
-                message:Messages.CODE_VERIFICATION_FAILED + " Code not associated to the Receiver's Email",
-                orgCode:req.body["org-code"],
-                
-                },()=>{
-                    return res.redirect("/signup/complete-setup/member");
-                })
-            }
+        if(!emailMatch){
+     
+            const responseObj = new ResponseObj(true,Messages.CODE_VERIFICATION_FAILED + " Code not associated to the Receiver's Email",otpCode);
 
-            if(diffSeconds > checkActiveLink.dataValues?.valid_seconds){
-                 orgCreationErrorSessionPage(req,{
-                message:Messages.CODE_VERIFICATION_FAILED + " Code has expired!",
-                orgCode:req.body["org-code"],
-                
-                },()=>{
-                    return res.redirect("/signup/complete-setup/member");
-                })
-            }
+            return res.status(200).send(responseObj);
+        }
+
+        if(diffSeconds > checkActiveLink.dataValues?.valid_seconds){
+
+            const responseObj = new ResponseObj(true,Messages.CODE_VERIFICATION_FAILED + " Code has expired!",otpCode);
+
+            return res.status(200).send(responseObj);
+        }
 
 
-            await EmailGenerationForInviteSQL.update(
-                {is_accepted: true,
-                update_date: new Date()
-                },
-                {
-                    where:{
-                        otp_code:otpCode,
-                    }
+        await EmailGenerationForInviteSQL.update(
+            {is_accepted: true,
+            update_date: new Date()
+            },
+            {
+                where:{
+                    otp_code:otpCode,
                 }
+            }
 
-            )
+        )
 
             return res.redirect("/signup/complete-setup/member");
     }catch(e){
