@@ -1,4 +1,10 @@
-    <!-- Modal -->
+<%- include('../includes/header', {title: "Project", navItemsPresent: false}); %>
+    <%- include('../includes/sub-header'); %>
+    <%- include('dashboard/dashboard-sidebar',{role,activeLink}); %>
+    
+    <%- include("../section-template/top-section__template"); %>
+
+        <!-- Modal -->
         <div class="modal fade" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" >
             <div class="modal-dialog">
             <div class="modal-content">
@@ -55,3 +61,11 @@
             </div>
       
         </main>
+
+
+    <%- include("../section-template/bottom-section__template"); %>
+    
+  </div>
+</main>
+    
+<%- include('../includes/footer'); %>
