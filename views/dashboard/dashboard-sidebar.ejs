@@ -19,12 +19,13 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center
                gap-2 <%= activeLink === 'project' ? 'text-success' : ''%>" href="/project/project-page">
-                Projects
+                	📁 Projects
               </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'org' ? 'text-success' : ''%>" href="/org/org-page">
-                  Organizations
+                  🏢 Organizations
+
                 </a>
               </li>
 
@@ -36,7 +37,8 @@
             <%}else {%>
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'org' ? 'text-success' : ''%>" href="/org/org-page">
-                      Organization
+                      🏢 Organization
+
                     </a>
                   </li>
             <% }%>
@@ -47,37 +49,36 @@
             <a class="nav-link d-flex align-items-center
              gap-2 <%= activeLink === 'task' ? 'text-success' : ''%>" href="/task/task-page">
             
-              Tasks
+              ✅ Tasks
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'reminders' ? 'text-success' : ''%>" href="/reminder/reminder-page">
-              Reminders
+            <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'reminders' ? 'text-success' : ''%>"
+               href="/reminder/reminder-page">
+              	⏰ Reminders
             </a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2 <%= activeLink === 'notifications' ? 'text-success' : ''%>" href="/notification/notification-page">
             
-              Notifications
+              🔔 Notifications
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" 
-            data-bs-toggle="collapse" href="#collapseSettings"
-             role="button" 
-            aria-expanded="false" aria-controls="collapseSettings">
-              Settings
-            </a>
-
-            <div class="collapse" id="collapseSettings">
-              <a class="nav-link d-flex align-items-center gap-2 justify-content-start" href="/profile/settings"></a>
-                Profile
+           
+            <div class="d-flex flex-column nav-link">
+              <p class="d-inline-flex "  data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseSecondaryOptions">
+               ⚙️ Settings
+              </p>
+              <a href="/adfasd" class="collapse" id="collapseExample">
+                👤 Profile
               </a>
             </div>
           </li>
+
           <li class="nav-item">
 
             <form action="/logout" method="post" class="nav-link d-flex align-items-center gap-2"> 
