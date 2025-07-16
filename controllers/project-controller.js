@@ -3,6 +3,8 @@ const ProjectDto = require("../dto/ProjectDto");
 const ProjectControls = require("../model-functions/ProjectControls");
 const UserControls = require("../model-functions/UserControls");
 const Project = require("../model/Project");
+const ProjectPage = require("../page-controller/project/ProjectPage");
+
 
 const ResponseObj = require("../response-obj/ResponseObj");
 // const { encryptValue } = require("../util/encrypt-code");
@@ -10,7 +12,12 @@ const { errorParsingFromValidations } = require("../util/error-parsing");
 const projectPage = async(req,res,next)=>{
  
     const role = req.session.user?.role === 1  ?"leader": "member";
-    res.render("project",{
+    const projectPage = new ProjectPage();
+    projectPage._id = req.session.user._id;
+    projectPage._role = role;
+
+    const route = projectPage.createPageRoute();
+    res.render(route,{
         role:role,
         activeLink: "project",
         pageType: "main"

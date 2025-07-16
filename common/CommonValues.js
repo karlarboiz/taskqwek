@@ -8,6 +8,8 @@ class CommonValues {
     static TASK = "task";
 
     static REMINDERS = "reminder";
+
+    static PROJECT = "project";
 }
 
 module.exports = CommonValues;
