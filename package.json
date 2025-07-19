@@ -1,7 +1,7 @@
 {
-  "name": "formslinks",
+  "name": "taskqwek",
   "version": "1.0.0",
-  "description": "website for forms, links, and certificates usually government",
+  "description": "light-weight task management tool",
   "main": "index.js",
   "scripts": {
     "compile:sass": "sass scss:public/assets/css",
