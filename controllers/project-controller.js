@@ -46,6 +46,8 @@ const createProject = async(req,res,next)=>{
             await project.save();
         }
 
+        console.log(success)
+
         const responseObj = new ResponseObj( success,
             success ? Messages.PROJECT_CREATION_SUCCESS : 
             Messages.PROJECT_CREATION_FAILED,
@@ -66,10 +68,10 @@ const fetchProjectListFunctionHandler = async(req,res,next)=>{
         const projectControls = new ProjectControls(null,creatorAuthorId);
         
         const leaderProjects = await projectControls.getLeaderProjects();
-
+        
         return res.status(200).send(new ResponseObj(true,Messages.FETCH_LIST_SUCCESS + "projects",{},leaderProjects))
     }catch(e){
-
+      
     }
 }
 
@@ -82,19 +84,24 @@ const projectDetailsPageHandler = async(req,res,next)=>{
         const projectControls = new ProjectControls(projectId);
 
         const projectInfo = await projectControls.getProjectDetails();
-        
+        console.log(projectInfo);
         const userControls = new UserControls(projectInfo.createAuthorId);
-        
+        // console.log(userControls)
         const userInfo = await userControls.getUserInfoByUserId();
         
-        const projectDto = new ProjectDto(projectInfo.name,projectId,userInfo.firstName+ " "+ 
-            userInfo.lastName,projectInfo.regDate)
+        console.log(userInfo);
+        // const projectDto = new ProjectDto(projectInfo.name,projectId,userInfo.firstName+ " "+ 
+        //     userInfo.lastName,projectInfo.regDate)
         
-        res.render("project",{
+        const projectPage = new ProjectPage();
+
+        const route = projectPage.createCustomizePage("project-details");
+
+        res.render(route,{
             role:role,
             activeLink: "project",
             pageType: "page-details",
-            projectDto: projectDto
+            // projectDto: projectDto
         })
     }catch(e){
         next(e);

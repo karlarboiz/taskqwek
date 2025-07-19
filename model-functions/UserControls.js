@@ -1,7 +1,6 @@
 
 const UserGeneralInfo = require("../model/UserGeneralInfo");
 
-
 class UserControls{
     constructor(userId){
         this.userId = userId

@@ -8,7 +8,7 @@ const dashboardPage = async(req,res)=>{
     
     const role = req.session.user?.role === 1  ?"leader": "member";
 
-    const id = req.session.user?.id;
+    // const id = req.session.user?.id;
 
     res.render('dashboard',
         {role:role,

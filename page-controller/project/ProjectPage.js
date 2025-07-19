@@ -38,6 +38,10 @@ class ProjectPage extends Project{
        return `${this.rootName}/${CommonValues.PROJECT}-${this.role}`; 
     }
 
+    createCustomizePage(secondPar){
+        return `${this.rootName}/${secondPar}`
+    }
+
     async getPageData(){
         if(this.role === "member"){
             const orgDto = new ProjectDto();
