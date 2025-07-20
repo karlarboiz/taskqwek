@@ -12081,6 +12081,10 @@ select[name=projects] {
   text-align: left;
 }
 
+#orgFormCollapse {
+  max-width: 20rem;
+}
+
 #task-accordion {
   text-align: left;
 }
