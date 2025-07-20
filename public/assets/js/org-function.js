@@ -54,7 +54,20 @@ export default function initOrgFunction(){
       contentType: 'application/json',
       success: function(response) {
         $("#loader-container").show();
+
+        console.log(response)
         // const {leaderOrgs} = response;
+
+        $("#org-leader--page-container").after(`<table class="table mt-4"> 
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Org Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Population</th>
+              </tr>
+            </thead>
+          </table>`)
 
         for (let element of []) {
            $("#org-tbody").append(`
