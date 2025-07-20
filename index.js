@@ -141,8 +141,12 @@ initializeConnection();
   })();
 
 app.listen(process.env.PORT || port,async()=>{
-    await mysqlDb.authenticate();
+    try {
+        await mysqlDb.authenticate();
     
-    console.log(`The backend system for TaskQwek is now running at localhost:${process.env.PORT || port}`);
+        console.log(`The backend system for TaskQwek is now running at localhost:${process.env.PORT || port}`);
+    }catch(e){
+        console.log("Something went wrong : "+ e.message);
+    }
 })
 

@@ -45,9 +45,6 @@ const createProject = async(req,res,next)=>{
         if(!errorResult){
             await project.save();
         }
-
-        console.log(success)
-
         const responseObj = new ResponseObj( success,
             success ? Messages.PROJECT_CREATION_SUCCESS : 
             Messages.PROJECT_CREATION_FAILED,
@@ -84,24 +81,27 @@ const projectDetailsPageHandler = async(req,res,next)=>{
         const projectControls = new ProjectControls(projectId);
 
         const projectInfo = await projectControls.getProjectDetails();
-        console.log(projectInfo);
+        
         const userControls = new UserControls(projectInfo.createAuthorId);
-        // console.log(userControls)
+        
         const userInfo = await userControls.getUserInfoByUserId();
         
-        console.log(userInfo);
-        // const projectDto = new ProjectDto(projectInfo.name,projectId,userInfo.firstName+ " "+ 
-        //     userInfo.lastName,projectInfo.regDate)
+        const projectDto = new ProjectDto(projectInfo.name,projectId,projectInfo.regDate)
+        projectDto._projectName = projectInfo["name"];
+        projectDto._projectId = projectId;
+        projectDto._projectCreator = userInfo.firstName+ " "+ userInfo.lastName;
+        projectDto.createdDate = projectInfo.regDate;
         
         const projectPage = new ProjectPage();
 
         const route = projectPage.createCustomizePage("project-details");
 
+        console.log(projectDto)
         res.render(route,{
             role:role,
             activeLink: "project",
             pageType: "page-details",
-            // projectDto: projectDto
+            projectDto: projectDto
         })
     }catch(e){
         next(e);

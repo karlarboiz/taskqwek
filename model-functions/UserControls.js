@@ -7,10 +7,11 @@ class UserControls{
     }
 
     async getUserInfoByUserId(){
-        const user = await UserGeneralInfo.findOne({
-            _id: this.userId
-        })
-
+        // console.log(this.userId);
+        // console.log(await UserGeneralInfo.findOne({
+        //     username: "usertesting2"
+        // }))
+        const user = await UserGeneralInfo.findById(this.userId)
         return user;
     }
 

@@ -12029,10 +12029,10 @@ main {
   cursor: grabbing;
 }
 
-.project-details--container {
+#project-details--container {
   text-align: left;
 }
-.project-details--project-name::before {
+#project-details--container .project-name::before {
   content: "";
   display: flex;
   width: 2.75rem;

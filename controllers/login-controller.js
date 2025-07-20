@@ -57,7 +57,7 @@ const loginFunc = async (req,res)=>{
             
             const userGeneralInfo = await UserGeneralInfo.findById(hasEmailExisted.userTableId);
 
-            req.session.user = {id: hasEmailExisted._id, 
+            req.session.user = {id: userGeneralInfo._id, 
                 email: hasEmailExisted.emailAddress,
                 role: userGeneralInfo?.role};
             
