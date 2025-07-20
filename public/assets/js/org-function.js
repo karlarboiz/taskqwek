@@ -108,10 +108,10 @@ export default function initOrgFunction(){
           
           $('#org-member--join').prepend(`<p class="error-message">${message}</p>`)
           $("#org-member--join_input").css("border-color", "red");
-          // for (const [key,value] of Object.entries(errorMessage)) {
-          //   $(`.org-field--${key}`)
-          //   .append(`<p class="error-message">${value}</p>`)
-          // }
+          for (const [key,value] of Object.entries(errorMessage)) {
+            $(`.org-field--${key}`)
+            .append(`<p class="error-message">${value}</p>`)
+          }
         },
         error: function (xhr, status, error) {     
           console.error(error);

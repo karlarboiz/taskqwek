@@ -21,7 +21,9 @@ const orgDashboardOrgPage = async (req,res,next)=>{
         route._id = id;
 
         const routeData = await route.getPageData();
-            
+
+        console.log(routeData)
+
         res.render(route.createPageRoute(),
             {role:role, 
             activeLink: 'org',

@@ -19,7 +19,6 @@ const dashboardPage = async(req,res)=>{
 const fetchDashboardPageData = async(req,res)=>{
     const id = req.session.user?.id;
     try{
-
         const orgControls = new OrgControls(id,false,null);
 
         const orgs = await orgControls.getOrgListBasedOnLeaderId();

@@ -1,4 +1,5 @@
-$(document).ready(function(){
+export default function initDashboardFunction(){
+    $(document).ready(function(){
     $.ajax({
         url:"/dashboard/data",
         type: "GET",
@@ -6,7 +7,7 @@ $(document).ready(function(){
         success: function (response) {
             $("#loader-container").show();
             const { data, isSuccess } = response;
-
+        
             if (isSuccess) {
                 let $row = $("<div class='row justify-content-start mt-3'></div>");
                 $("#admin-dashboard").append($row);
@@ -34,3 +35,5 @@ $(document).ready(function(){
         }
     });
 });
+
+}

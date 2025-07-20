@@ -48,14 +48,11 @@ class OrganizationPage extends Organization{
             const orgDetails = await Org.findOne({
                 _id: this.orgId
             })
-            const kwan = {
-                kwan: "aksdfasd"
-            }
+  
             if(!orgDetails){
                 
                 return {
-                    orgDto:{...orgDto},
-                    kwan
+                    orgDto:{...orgDto}
                 };
             }
         
@@ -71,8 +68,12 @@ class OrganizationPage extends Organization{
                 orgDto:{...orgDto}
             }
         }else {
-            const leaderProjects = new ProjectControls(null,this.id).getLeaderProjects();
-            const leaderOrgs = new OrgControls(this .id,false);
+            const projectControls= new ProjectControls(null,this.id);
+            const orgControls = new OrgControls(this .id,false);
+
+            const leaderProjects = await projectControls.getLeaderProjects();
+            const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
+            
             return {
                 leaderProjects,
                 leaderOrgs
