@@ -12077,6 +12077,10 @@ select[name=projects] {
   margin: 0 auto;
 }
 
+#org-leader--page-container {
+  text-align: left;
+}
+
 #task-accordion {
   text-align: left;
 }

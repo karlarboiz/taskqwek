@@ -7,7 +7,39 @@
     <!--
     This is where the content
     -->
-    
+
+    <section class="mt-4" id="org-leader--page-container" >
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#orgFormCollapse" aria-expanded="false" aria-controls="orgFormCollapse">
+        <i class="bi bi-plus"></i> Create Organization
+      </button>
+
+      <div class="collapse mt-3" id="orgFormCollapse">
+          <div class="card card-body">
+            <form>
+              <div class="mb-3">
+                <label for="orgName" class="form-label">Organization Name</label>
+                <input type="text" class="form-control" id="orgName" placeholder="Enter organization name">
+              </div>
+              <div class="mb-3">
+                <label for="orgDescription" class="form-label">Organization Description</label>
+                <textarea class="form-control" id="orgDescription" rows="3" placeholder="Enter description"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="projectSelect" class="form-label">Project Name</label>
+                <select class="form-select" id="projectSelect">
+                  <option selected disabled>Select a project</option>
+                  <option>Project Alpha</option>
+                  <option>Project Beta</option>
+                  <option>Project Gamma</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </section>
 
     <!-- end -->
 
