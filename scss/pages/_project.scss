@@ -60,12 +60,8 @@
             box-shadow: 0 0 0 0.25rem lightgreen; 
             animation: pulse 1.5s infinite ease-in-out;;
         }
-    }
 
-    
-
-
-    @keyframes pulse {
+        @keyframes pulse {
         0% {
             box-shadow: 0 0 0 0.25rem lightgreen;
             transform: scale(1);
@@ -76,9 +72,16 @@
         }
         100% {
             box-shadow: 0 0 0 0.25rem lightgreen;
+     
             transform: scale(1);
         }
     }
+    }
+
+    
+
+
+    
    
 }
 

@@ -71,8 +71,8 @@ class OrganizationPage extends Organization{
                 orgDto:{...orgDto}
             }
         }else {
-            const leaderProjects = new ProjectControls(null,id).getLeaderProjects();
-            const leaderOrgs = new OrgControls(this.id,false);
+            const leaderProjects = new ProjectControls(null,this.id).getLeaderProjects();
+            const leaderOrgs = new OrgControls(this .id,false);
             return {
                 leaderProjects,
                 leaderOrgs
