@@ -116,13 +116,6 @@ const signupFunc = async (req,res,next)=>{
 
         const urlRoute = generalRouteGeneratorHandler(convert,"/signup/complete-setup",true)   
         
-        const userGeneralInfoSave = new UserGeneralInfo({
-            firstName: req.body["first-name"],
-            lastName: req.body['last-name'],
-            username: req.body['username'],
-            role: Number(req.body.role)
-        })
-
         const encryptedPassword = await bcrypt.hash(password,saltRounds);
             
         await userGeneralInfo.save().then((result,err)=>{

@@ -54,28 +54,29 @@ export default function initOrgFunction(){
       contentType: 'application/json',
       success: function(response) {
         $("#loader-container").show();
-
-        console.log(response)
-        // const {leaderOrgs} = response;
+        const {leaderOrgs} = response;
 
         $("#org-leader--page-container").after(`<table class="table mt-4"> 
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Org Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Population</th>
               </tr>
             </thead>
+
+            <tbody id="org-tbody">
+
+            </tbody>
           </table>`)
 
-        for (let element of []) {
+        for (let element of leaderOrgs) {
            $("#org-tbody").append(`
              <tr>
             <th scope="row">${element.name}</th>
             <td>${element.description}</td>
             <td>${element.population}</td>
-            <td>${element.population}</td>
+           
             <td><a href="org-page/details/${element._id}" class="btn btn-secondary">Edit</a>
            </td>
           </tr>`)
@@ -84,8 +85,6 @@ export default function initOrgFunction(){
         $("#loader-container").hide();
       },
     })
-
-
 
     /**
    * 

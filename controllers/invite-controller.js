@@ -80,7 +80,7 @@ const invitePage = async(req,res,next)=>{
     const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
 
   
-    res.render("invite",{role:role,
+    res.render(CommonValues.INVITE,{role:role,
       activeLink:"invite",
       leaderOrgs:leaderOrgs
     });

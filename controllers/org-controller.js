@@ -33,7 +33,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
         next(e)
     }
 }
-
+ 
 const orgDashboardOrgDetails = async(req,res,next)=>{
 
     const role = req.session.user?.role === 1  ?"leader": "member";
@@ -50,8 +50,12 @@ const orgDashboardOrgDetails = async(req,res,next)=>{
         const dateConverted = parsedDate.getDate();
         const fullDate = `${monthConverted} ${dateConverted}, ${parsedDate.getFullYear()}`;
         const orgDto = new OrgDto(orgDetails.name,orgDetails.description,fullDate,orgDetails.population);
+
+        const orgPage = new OrganizationPage();
+
+        const route = orgPage.createCustomizePage("organization-details");
         
-        res.render("organization",
+        res.render(route,
             {role:role, 
             activeLink: 'org',
             orgPageType:"orgDetails",

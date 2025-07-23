@@ -42,6 +42,10 @@ class OrganizationPage extends Organization{
        return `${this.rootName}/${CommonValues.ORGANIZATION}-${this.role}`; 
     }
 
+    createCustomizePage(pageValue){
+         return `${this.rootName}/${pageValue}`; 
+    }
+
     async getPageData(){
         if(this.role === "member"){
             const orgDto = new OrgDto();
