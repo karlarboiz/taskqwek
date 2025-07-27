@@ -22,7 +22,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
 
         const routeData = await route.getPageData();
 
-        console.log(routeData)
+        
 
         res.render(route.createPageRoute(),
             {role:role, 

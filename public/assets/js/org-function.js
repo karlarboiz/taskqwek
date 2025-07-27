@@ -5,7 +5,7 @@ export default function initOrgFunction(){
    * 
    * This is the leader part of the function
    */
-    $('#org-form').on('submit', function (event) {
+    $('#create-org--form').on('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
 
       $("#loader-container").show();

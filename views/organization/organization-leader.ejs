@@ -17,23 +17,27 @@
             
             <div class="mt-3" id="collapseFormLeader">
               <div class="card card-body">
-                <form>
+                <form id="creat-org--form">
                   <div class="mb-3">
-                    <label for="orgName" class="form-label">Organization Name</label>
+                    <label for="org-name" class="form-label">Organization Name</label>
                     <input type="text" class="form-control" id="orgName" placeholder="Enter organization name">
                   </div>
                   <div class="mb-3">
-                    <label for="orgDescription" class="form-label">Organization Description</label>
+                    <label for="org-description" class="form-label">Organization Description</label>
                     <textarea class="form-control" id="orgDescription" rows="3" placeholder="Enter description"></textarea>
                   </div>
                   <div class="mb-3">
                     <label for="projectSelect" class="form-label">Project Name</label>
-                    <select class="form-select" id="projectSelect">
-                      <option selected disabled>Select a project</option>
-                      <option>Project Alpha</option>
-                      <option>Project Beta</option>
-                      <option>Project Gamma</option>
+                    <select name="project-options" id="project-options">
+                        <% for (let i = 0; i < leaderProjects.length; i++) { %>
+                        <option value="<%= leaderProjects._id %>"><%= leaderProjects[i].name %></option>
+                        <% } %>
                     </select>
+                  </div>
+                  <div class="mb-3">
+                    
+                    <label for="org-population">Population</label>
+                    <input type="number" name="org-population" id="org-population">
                   </div>
                   <button type="submit" class="btn btn-success">Submit</button>
                 </form>
