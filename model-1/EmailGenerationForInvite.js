@@ -2,7 +2,7 @@ const sequelize = require("../data/database1");
 // how you would import Sequelize in CommonJS
 const DataTypes = require("sequelize");
 
-const EmailGenerationForInviteSQL = sequelize.define('EmailGenerationForInviteSQL',{
+const EmailGenerationForInvite = sequelize.define('EmailGenerationForInviteSQL',{
     token_id: {
         type: DataTypes.INTEGER,
         primaryKey:true,
@@ -56,9 +56,9 @@ const EmailGenerationForInviteSQL = sequelize.define('EmailGenerationForInviteSQ
     }   
 
 },{
-    tableName: 'email_generation_for_invite_sql',
+    tableName: 'email_generation_for_invite',
     timestamps:false
 }
 
 )
-module.exports = EmailGenerationForInviteSQL;
+module.exports = EmailGenerationForInvite;

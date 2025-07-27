@@ -1,6 +1,6 @@
 // const { encryptValue, decryptValue } = require("../util/encrypt-code");
 const Messages = require("../common/Messages");
-const EmailGenerationForInviteSQL = require("../model-1/EmailGenerationForInviteSQL");
+const EmailGenerationForInvite = require("../model-1/EmailGenerationForInvite");
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
 const ResponseObj = require("../response-obj/ResponseObj");
 const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
@@ -14,7 +14,7 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
             return res.redirect("/dashboard");
             
         }else {
-            const checkActiveLink = await EmailGenerationForInviteSQL.findOne({
+            const checkActiveLink = await EmailGenerationForInvite.findOne({
                 where:{
                     otp_code: otpCode
                 }

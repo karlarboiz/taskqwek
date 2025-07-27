@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const OrgControls = require("../model-functions/OrgControls");
 const MailTemplate = require("../common/MailTemplate");
 const ResponseObj = require("../response-obj/ResponseObj");
-const EmailGenerationForInviteSQL = require("../model-1/EmailGenerationForInviteSQL");
+const EmailGenerationForInvite = require("../model-1/EmailGenerationForInvite");
 const Messages = require("../common/Messages");
 
 const { errorParsingFromValidationsSequelize } = require("../util/error-parsing");
@@ -37,7 +37,7 @@ const sendEmail = async(req,res,next)=> {
     
     const validSeconds = CommonValues.EXPIRATION_DURATION_TOKEN * CommonValues.INVITATION_NUMBER_DAYS;
  
-    const emailInviteItem = EmailGenerationForInviteSQL.build({
+    const emailInviteItem = EmailGenerationForInvite.build({
       sender_id: leaderId,
       receiver_email:email,
       org_id: orgId,
