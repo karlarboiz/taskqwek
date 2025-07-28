@@ -7,6 +7,7 @@ const MONTHS = require("../util/date-value");
 const Messages = require("../common/Messages");
 const OrgDto = require("../dto/OrgDto");
 const OrganizationPage = require("../page-controller/organization/OrganizationPage");
+const OrgAssignedProject = require("../model-1/OrgAssignedProject");
 
 
 const orgDashboardOrgPage = async (req,res,next)=>{
@@ -21,7 +22,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
         route._id = id;
 
         const routeData = await route.getPageData();
-        
+
         res.render(route.createPageRoute(),
             {role:role, 
             activeLink: 'org',
@@ -144,7 +145,6 @@ const orgCreationFuncJson =async (req,res,next)=>{
         const newOrg = await new Org({
             name: req.body['name'],
             description: req.body.description,
-            population: req.body.population,
             creatorAuthorId: creatorAuthorId
         });
 
@@ -153,12 +153,22 @@ const orgCreationFuncJson =async (req,res,next)=>{
         const errors = !err? {}:err.errors;
         const errorSet = Object.entries(errors);
         let errorMessage = new Object();
+
         for(const [key,value] of errorSet) {
             errorMessage[key] = value.properties.message
         }
         if(errorSet.length === 0) {
             await newOrg.save();
+        }else {
+            throw new Error(Messages.FAILED)
         }
+
+         const orgAssignedProject = OrgAssignedProject.build({
+            assigned_org_mongodb_id: newOrg._id,
+            assigned_project_mongodb_id:req.body.project
+        })
+
+
 
         res.status(200).send({
             isSuccess: errorSet.length ==0,
@@ -170,7 +180,7 @@ const orgCreationFuncJson =async (req,res,next)=>{
     }catch(e){
         res.status(500).send({
             isSuccess: false,
-            message: Messages.FAILED
+            message: e.message
         })
     }
 }

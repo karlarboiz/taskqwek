@@ -16,6 +16,7 @@ export default function initOrgFunction(){
       const data = {
         name: $('#org-name').val(),
         description: $('#org-description').val(),
+        project: $('#project-options').val(),
         population: $('#org-population').val(),
       };
       

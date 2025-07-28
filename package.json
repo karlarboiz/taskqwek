@@ -21,6 +21,7 @@
   "license": "ISC",
   "dependencies": {
     "@dr.pogodin/csurf": "^1.13.0",
+    "@sequelize/core": "^7.0.0-alpha.46",
     "autoprefixer": "^10.4.16",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",

@@ -136,6 +136,7 @@ initializeConnection();
   
       console.log('All models were synchronized successfully.');
     } catch (error) {
+        console.log(error.message)
       console.error('Unable to connect to the database:', error);
     }
   })();

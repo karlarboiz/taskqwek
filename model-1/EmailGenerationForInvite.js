@@ -1,6 +1,6 @@
+
 const sequelize = require("../data/database1");
-// how you would import Sequelize in CommonJS
-const DataTypes = require("sequelize");
+const { DataTypes } = require('sequelize');
 
 const EmailGenerationForInvite = sequelize.define('EmailGenerationForInviteSQL',{
     token_id: {

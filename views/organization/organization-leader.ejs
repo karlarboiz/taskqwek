@@ -29,6 +29,7 @@
                   <div class="mb-3">
                     <label for="projectSelect" class="form-label">Project Name</label>
                     <select name="project-options" id="project-options">
+                        <option value=""></option>
                         <% for (let i = 0; i < leaderProjects.length; i++) { %>
                         <option value="<%= leaderProjects._id %>"><%= leaderProjects[i].name %></option>
                         <% } %>
