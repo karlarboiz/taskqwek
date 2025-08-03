@@ -14,6 +14,8 @@ class CommonValues {
     static DASHBOARD = "dashboard";
 
     static INVITE = "invite";
+
+    static EMPTY_STRING = "";
 }
 
 module.exports = CommonValues;

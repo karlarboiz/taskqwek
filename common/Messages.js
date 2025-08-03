@@ -18,7 +18,6 @@ class Messages {
 
     static NOT_EXISTING = "Value not Found. ";
 
-    
     static ID_INVALID = " ID not valid";
 }
 

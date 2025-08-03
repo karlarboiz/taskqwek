@@ -34,9 +34,12 @@ export default function initOrgFunction(){
         
           const {message,isSuccess,errorMessage}=response;
           
+          if(errorMessage){
+            
           for (const [key,value] of Object.entries(errorMessage)) {
             $(`#create-org--form .org-input--${key}`)
             .append(`<p class="error-message">${value}</p>`)
+          }
           }
         },
         error: function (xhr, status, error) {     
@@ -45,6 +48,7 @@ export default function initOrgFunction(){
         complete: function(){
            
             $("#loader-container").hide();
+            
         }
       });
     });

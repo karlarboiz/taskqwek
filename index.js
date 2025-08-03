@@ -99,7 +99,7 @@ app.use("/reminder",checkActiveUser,reminderRoutes);
 app.use("/notification",checkActiveUser,notifRoutes);
 app.use("/invite",checkActiveUser,inviteRoutes);
 app.use((error,req,res,next)=>{
-    console.log(error)
+ 
     res.status(404).render('404');
 });
 

@@ -1,4 +1,5 @@
 
+const { default: Sequelize } = require("@sequelize/core");
 const sequelize = require("../data/database1");
 // how you would import Sequelize in CommonJS
 const { DataTypes } = require('sequelize');
@@ -7,7 +8,7 @@ const OrgAssignedProject = sequelize.define('OrgAssignedProject',{
         type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true,
-        allowNull:false
+        allowNull:false 
     },
     assigned_org_mongodb_id: {
         type: DataTypes.STRING,
@@ -20,11 +21,13 @@ const OrgAssignedProject = sequelize.define('OrgAssignedProject',{
     },
     reg_date: {
         type: DataTypes.DATE,
-        default: new Date()
+         allowNull: false,
+         defaultValue: DataTypes.NOW
     },
     update_date: {
         type: DataTypes.DATE,
-        default: new Date()
+         allowNull: false,
+         defaultValue: DataTypes.NOW
     }
 },{
     tableName: 'org_assigned_project',

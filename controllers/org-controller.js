@@ -9,6 +9,7 @@ const OrgDto = require("../dto/OrgDto");
 const OrganizationPage = require("../page-controller/organization/OrganizationPage");
 const OrgAssignedProject = require("../model-1/OrgAssignedProject");
 const Project = require("../model/Project");
+const CommonValues = require("../common/CommonValues");
 
 
 const orgDashboardOrgPage = async (req,res,next)=>{
@@ -140,7 +141,7 @@ const orgCreationFunc = async (req,res,next) =>{
 
 const orgCreationFuncJson =async (req,res,next)=>{
     try{
-
+        let orgIdSaved = CommonValues.EMPTY_STRING;
         const creatorAuthorId = req.session.user?.id;
 
         const newOrg = await new Org({
@@ -158,19 +159,24 @@ const orgCreationFuncJson =async (req,res,next)=>{
         
         await Project.findById(req.body.project).exec()
         .then((result)=>console.log(result)).catch((err)=>errorMessage["project"] = "Project"+Messages.ID_INVALID);
-        
+       
         for(const [key,value] of errorSet) {
             errorMessage[key] = value.properties.message
         }
 
         if(errorSet.length === 0) {
-            await newOrg.save();
+            await newOrg.save().then((result)=>{
+            
+               orgIdSaved = result._id.toString();
+            }).catch(()=>{
+                 errorMessage["message"] = Messages.FAILED;
+                throw new Error(JSON.stringify(errorMessage))});
         }else {
             throw new Error(JSON.stringify(errorMessage))
         }
 
-         const orgAssignedProject = new OrgAssignedProject.create({
-            assigned_org_mongodb_id: newOrg._id,
+         const orgAssignedProject = await OrgAssignedProject.create({
+            assigned_org_mongodb_id: orgIdSaved,
             assigned_project_mongodb_id:req.body.project
         })
 
