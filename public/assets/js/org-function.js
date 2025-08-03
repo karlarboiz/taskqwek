@@ -9,9 +9,10 @@ export default function initOrgFunction(){
     $('#create-org--form').on('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
       $("#loader-container").show();
-      $(".message").remove();
+  
       $(".error-message").remove();
 
+      console.log($('#project-options').val());
       // Gather form data
       const data = {
         name: $('#org-name').val(),
@@ -30,14 +31,13 @@ export default function initOrgFunction(){
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function (response) {
-          console.log(response)  
-          // const {message,isSuccess,errorMessage}=response;
-          // $('#org-form').prepend(`<p class="message">${message}</p>`)
+        
+          const {message,isSuccess,errorMessage}=response;
           
-          // for (const [key,value] of Object.entries(errorMessage)) {
-          //   $(`.org-field--${key}`)
-          //   .append(`<p class="error-message">${value}</p>`)
-          // }
+          for (const [key,value] of Object.entries(errorMessage)) {
+            $(`#create-org--form .org-input--${key}`)
+            .append(`<p class="error-message">${value}</p>`)
+          }
         },
         error: function (xhr, status, error) {     
           console.error(error);

@@ -17,7 +17,9 @@ class Messages {
     static EMPTY_FIELD = "Missing value for the ";
 
     static NOT_EXISTING = "Value not Found. ";
+
     
+    static ID_INVALID = " ID not valid";
 }
 
 module.exports = Messages

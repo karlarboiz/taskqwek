@@ -19,24 +19,24 @@
               <div class="card card-body">
                 <form id="create-org--form">
                    <input type="hidden" id="_csrf" name="_csrf" value="<%=locals.csrf%>">
-                  <div class="mb-3">
+                  <div class="mb-3 org-input--name">
                     <label for="org-name" class="form-label">Organization Name</label>
                     <input type="text" class="form-control" id="org-name" placeholder="Enter organization name">
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 org-input--description">
                     <label for="org-description" class="form-label">Organization Description</label>
                     <textarea class="form-control" id="org-description" rows="3" placeholder="Enter description"></textarea>
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 org-input--project">
                     <label for="projectSelect" class="form-label">Project Name</label>
                     <select name="project-options" id="project-options">
                         <option value=""></option>
                         <% for (let i = 0; i < leaderProjects.length; i++) { %>
-                        <option value="<%= leaderProjects._id %>"><%= leaderProjects[i].name %></option>
+                        <option value="<%= leaderProjects[i]._id %>"><%= leaderProjects[i].name %></option>
                         <% } %>
                     </select>
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 org-input--population" >
                     
                     <label for="org-population">Population</label>
                     <input type="number" name="org-population" id="org-population">

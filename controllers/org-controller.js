@@ -8,6 +8,7 @@ const Messages = require("../common/Messages");
 const OrgDto = require("../dto/OrgDto");
 const OrganizationPage = require("../page-controller/organization/OrganizationPage");
 const OrgAssignedProject = require("../model-1/OrgAssignedProject");
+const Project = require("../model/Project");
 
 
 const orgDashboardOrgPage = async (req,res,next)=>{
@@ -154,10 +155,14 @@ const orgCreationFuncJson =async (req,res,next)=>{
         const errors = !err? {}:err.errors;
         const errorSet = Object.entries(errors);
         let errorMessage = new Object();
-
+        
+        await Project.findById(req.body.project).exec()
+        .then((result)=>console.log(result)).catch((err)=>errorMessage["project"] = "Project"+Messages.ID_INVALID);
+        
         for(const [key,value] of errorSet) {
             errorMessage[key] = value.properties.message
         }
+
         if(errorSet.length === 0) {
             await newOrg.save();
         }else {
@@ -165,17 +170,15 @@ const orgCreationFuncJson =async (req,res,next)=>{
         }
 
          const orgAssignedProject = new OrgAssignedProject.create({
-            assigned_org_mongodb_id: "asdfasd",
+            assigned_org_mongodb_id: newOrg._id,
             assigned_project_mongodb_id:req.body.project
         })
 
         await orgAssignedProject.save();
 
         res.status(200).send({
-            isSuccess: errorSet.length ==0,
-            message:errorSet.length == 0 ? "Organization is Successfully created": 
-            "Some fields are missing or invalid. Kindly check on these fields",
-            errorMessage: errorMessage
+            isSuccess: true,
+            message: errorMessage
         })
         
     }catch(e){
@@ -183,7 +186,7 @@ const orgCreationFuncJson =async (req,res,next)=>{
         const errorMessage = JSON.parse(e.message);
         res.status(200).send({
             isSuccess: false,
-            message:errorMessage
+            errorMessage:errorMessage
         })
     }
 }
