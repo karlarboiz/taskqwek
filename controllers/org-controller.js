@@ -145,7 +145,8 @@ const orgCreationFuncJson =async (req,res,next)=>{
         const newOrg = await new Org({
             name: req.body['name'],
             description: req.body.description,
-            creatorAuthorId: creatorAuthorId
+            creatorAuthorId: creatorAuthorId,
+            population:req.body.population
         });
 
         const err = await newOrg.validateSync();
@@ -160,15 +161,15 @@ const orgCreationFuncJson =async (req,res,next)=>{
         if(errorSet.length === 0) {
             await newOrg.save();
         }else {
-            throw new Error(Messages.FAILED)
+            throw new Error(JSON.stringify(errorMessage))
         }
 
-         const orgAssignedProject = OrgAssignedProject.build({
-            assigned_org_mongodb_id: newOrg._id,
+         const orgAssignedProject = new OrgAssignedProject.create({
+            assigned_org_mongodb_id: "asdfasd",
             assigned_project_mongodb_id:req.body.project
         })
 
-
+        await orgAssignedProject.save();
 
         res.status(200).send({
             isSuccess: errorSet.length ==0,
@@ -178,9 +179,11 @@ const orgCreationFuncJson =async (req,res,next)=>{
         })
         
     }catch(e){
-        res.status(500).send({
+        
+        const errorMessage = JSON.parse(e.message);
+        res.status(200).send({
             isSuccess: false,
-            message: e.message
+            message:errorMessage
         })
     }
 }

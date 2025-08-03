@@ -7,7 +7,7 @@ const OrgAssignedProject = sequelize.define('OrgAssignedProject',{
         type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true,
-        allowNull:false 
+        allowNull:false
     },
     assigned_org_mongodb_id: {
         type: DataTypes.STRING,

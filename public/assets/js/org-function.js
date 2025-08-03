@@ -1,13 +1,13 @@
 export default function initOrgFunction(){
 
   $(document).ready(function () {
+   
   /**
    * 
    * This is the leader part of the function
    */
     $('#create-org--form').on('submit', function (event) {
       event.preventDefault(); // Prevent the default form submission
-
       $("#loader-container").show();
       $(".message").remove();
       $(".error-message").remove();
@@ -30,19 +30,20 @@ export default function initOrgFunction(){
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function (response) {
+          console.log(response)  
+          // const {message,isSuccess,errorMessage}=response;
+          // $('#org-form').prepend(`<p class="message">${message}</p>`)
           
-          const {message,isSuccess,errorMessage}=response;
-          $('#org-form').prepend(`<p class="message">${message}</p>`)
-          
-          for (const [key,value] of Object.entries(errorMessage)) {
-            $(`.org-field--${key}`)
-            .append(`<p class="error-message">${value}</p>`)
-          }
+          // for (const [key,value] of Object.entries(errorMessage)) {
+          //   $(`.org-field--${key}`)
+          //   .append(`<p class="error-message">${value}</p>`)
+          // }
         },
         error: function (xhr, status, error) {     
           console.error(error);
         },
         complete: function(){
+           
             $("#loader-container").hide();
         }
       });
@@ -99,8 +100,7 @@ export default function initOrgFunction(){
       $(".message").remove();
       $(".error-message").remove();
       $("#org-member--join_input").css("border-color", "none");
-      // Gather form data
-      console.log( $('#org-member--join_input').val())
+   
       const data = {
         otpCode: $('#org-member--join_input').val(),
 
