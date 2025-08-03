@@ -1,3 +1,4 @@
+
 export default function initOrgFunction(){
 
   $(document).ready(function () {
@@ -32,14 +33,13 @@ export default function initOrgFunction(){
         data: JSON.stringify(data),
         success: function (response) {
         
-          const {message,isSuccess,errorMessage}=response;
+          const {isSuccess,errorMessage}=response;
           
-          if(errorMessage){
-            
-          for (const [key,value] of Object.entries(errorMessage)) {
-            $(`#create-org--form .org-input--${key}`)
-            .append(`<p class="error-message">${value}</p>`)
-          }
+          if(!isSuccess){
+            for (const [key,value] of Object.entries(errorMessage)) {
+              $(`#create-org--form .org-input--${key}`)
+              .append(`<p class="error-message">${value}</p>`)
+            }
           }
         },
         error: function (xhr, status, error) {     
@@ -48,7 +48,9 @@ export default function initOrgFunction(){
         complete: function(){
            
             $("#loader-container").hide();
-            
+           setTimeout(()=>{
+            location.reload();
+           },2000) 
         }
       });
     });
@@ -84,7 +86,10 @@ export default function initOrgFunction(){
             <td>${element.population}</td>
            
             <td><a href="org-page/details/${element._id}" class="btn btn-secondary">Edit</a>
-           </td>
+            <td><form id="">
+                               <input type="hidden" id="_csrf" name="_csrf" value="<%=locals.csrf%>">
+            <a href="org-page/details/${element._id}" class="btn btn-danger">🗑️</a>
+            </form></td>
           </tr>`)
         }
 

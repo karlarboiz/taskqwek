@@ -10,6 +10,7 @@ const OrganizationPage = require("../page-controller/organization/OrganizationPa
 const OrgAssignedProject = require("../model-1/OrgAssignedProject");
 const Project = require("../model/Project");
 const CommonValues = require("../common/CommonValues");
+const ResponseObj = require("../response-obj/ResponseObj");
 
 
 const orgDashboardOrgPage = async (req,res,next)=>{
@@ -160,13 +161,13 @@ const orgCreationFuncJson =async (req,res,next)=>{
         await Project.findById(req.body.project).exec()
         .then((result)=>console.log(result)).catch((err)=>errorMessage["project"] = "Project"+Messages.ID_INVALID);
        
+        
         for(const [key,value] of errorSet) {
             errorMessage[key] = value.properties.message
         }
 
-        if(errorSet.length === 0) {
+        if(Object.entries(errorMessage).length === 0) {
             await newOrg.save().then((result)=>{
-            
                orgIdSaved = result._id.toString();
             }).catch(()=>{
                  errorMessage["message"] = Messages.FAILED;
@@ -188,7 +189,8 @@ const orgCreationFuncJson =async (req,res,next)=>{
         })
         
     }catch(e){
-        
+        responseObj = new ResponseObj();
+
         const errorMessage = JSON.parse(e.message);
         res.status(200).send({
             isSuccess: false,
@@ -216,6 +218,10 @@ const orgFetchFuncJson = async (req,res,next) =>{
             message:"Something went wrong. Try again!"
         })
     }
+}
+
+const deleteOrgJson = async(req,res,next)=>{
+    
 }
 
 module.exports = {
