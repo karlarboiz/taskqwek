@@ -48,13 +48,10 @@ export default function initOrgFunction(){
         complete: function(){
            
             $("#loader-container").hide();
-           setTimeout(()=>{
-            location.reload();
-           },2000) 
+         
         }
       });
     });
-
 
     $.ajax({
       url:"/org/org-list",
@@ -70,6 +67,8 @@ export default function initOrgFunction(){
                 <th scope="col">Org Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Population</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
               </tr>
             </thead>
 
@@ -86,10 +85,35 @@ export default function initOrgFunction(){
             <td>${element.population}</td>
            
             <td><a href="org-page/details/${element._id}" class="btn btn-secondary">Edit</a>
-            <td><form id="">
-                               <input type="hidden" id="_csrf" name="_csrf" value="<%=locals.csrf%>">
-            <a href="org-page/details/${element._id}" class="btn btn-danger">🗑️</a>
-            </form></td>
+            <td>
+            <button class="btn-org--${element._id} btn btn-danger"
+            data-bs-toggle="modal" data-bs-target="#modal-org--item-${element._id}">🗑️</button>
+              
+
+            <div class="modal fade" id="modal-org--item-${element._id}" tabindex="-1" aria-labelledby="modal-org--item-${element._id}">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                     <h5 class="modal-title text-danger font-weight-bold" id="modal-org--item-${element._id}">Do you want to delete this Project?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div id="project-creation--loader-container" style="display: none;">
+                          <div class="loader"></div>
+                      </div>
+                      <div class="modal-body">
+                        <p class="text-dark">${element.name}</p>
+                          
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" id="form-project--button-reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="org/org-page/details/${element._id}/delete" class="btn btn-primary">Save </a>
+                      </div>
+
+                  </div>
+              </div>
+        
+            </td>
           </tr>`)
         }
 

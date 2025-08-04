@@ -189,8 +189,8 @@ const orgCreationFuncJson =async (req,res,next)=>{
         })
         
     }catch(e){
-        responseObj = new ResponseObj();
-
+        const responseObj = new ResponseObj();
+        
         const errorMessage = JSON.parse(e.message);
         res.status(200).send({
             isSuccess: false,
@@ -220,6 +220,22 @@ const orgFetchFuncJson = async (req,res,next) =>{
     }
 }
 
+const deleteOrgHandler=async(req,res,next)=>{
+    try{
+
+        const orgId = req.params.orgId;
+
+        await Org.findById(orgId).exec()
+        .then((result)=>console.log(result)).catch((err)=>next(e));
+        
+        await Org.findByIdAndUpdate(orgId,{deleteFlg: true}).exec()
+        .then((result)=>console.log(result)).catch((err)=>next(e));
+        
+    }catch(e){
+        next(e);
+    }
+}
+
 const deleteOrgJson = async(req,res,next)=>{
     
 }
@@ -229,5 +245,6 @@ module.exports = {
     orgDashboardOrgPage,
     orgCreationFuncJson,
     orgFetchFuncJson,
-    orgDashboardOrgDetails
+    orgDashboardOrgDetails,
+    deleteOrgHandler
 }

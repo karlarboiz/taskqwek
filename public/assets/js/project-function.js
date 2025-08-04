@@ -87,7 +87,7 @@ export default function initProjectFunction(){
           
           $("#loader-container").show();
   
-          const{data} = response;
+          const{_data:data} = response;
 
           for (let element of data) {
             $("#project-list__container").append( `

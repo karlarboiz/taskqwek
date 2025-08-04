@@ -28,6 +28,11 @@ const OrgAssignedProject = sequelize.define('OrgAssignedProject',{
         type: DataTypes.DATE,
          allowNull: false,
          defaultValue: DataTypes.NOW
+    },
+    deleteFlg:{
+        type: DataTypes.BOOLEAN,
+         allowNull: false,
+         defaultValue: false
     }
 },{
     tableName: 'org_assigned_project',
