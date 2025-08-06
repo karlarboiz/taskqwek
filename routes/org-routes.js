@@ -14,7 +14,8 @@ router.get(`/org-page`,orgController.orgDashboardOrgPage);
 
 router.get("/org-page/details/:orgId",orgController.orgDashboardOrgDetails);
 
-router.put("/org-page/details/:orgId/delete");
+router.put("/org-page/:orgOperation/:orgId",orgController.orgOperationHandlerJson);
+
 router.get("/org-list",orgController.orgFetchFuncJson);
 
 router.get("/edit-org")

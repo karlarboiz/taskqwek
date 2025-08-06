@@ -78,6 +78,7 @@ export default function initOrgFunction(){
           </table>`)
 
         for (let element of leaderOrgs) {
+       
            $("#org-tbody").append(`
              <tr>
             <th scope="row">${element.name}</th>
@@ -101,13 +102,14 @@ export default function initOrgFunction(){
                           <div class="loader"></div>
                       </div>
                       <div class="modal-body">
-                        <p class="text-dark">${element.name}</p>
+                        <span class="text-info"> Status: ${!element.deleteFlg ? "Active" : "Inactive"}</span>
+                        <p  class="text-dark">${element.name}</p>
                           
                       </div>
 
                       <div class="modal-footer">
                         <button type="button" id="form-project--button-reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <a href="org/org-page/details/${element._id}/delete" class="btn btn-primary">Save </a>
+                        <button id="form-project--button-save--${element._id}" class="btn btn-primary" value="${element._id}">Save </button>
                       </div>
 
                   </div>
@@ -115,57 +117,51 @@ export default function initOrgFunction(){
         
             </td>
           </tr>`)
+
+             /**
+               * 
+               * This is the part when deleting 
+               * org by clicking save button
+               */
+
+            $(`#form-project--button-save--${element._id}`).on("click",function(e){
+               // Make an AJAX POST request
+                $.ajax({
+                  url: `/org/org-page/delete/${e.target.value}`, // Replace with your endpoint
+                  type: 'PUT', 
+                  headers: {
+                      'X-CSRF-Token': $('#_csrf').val(), // CSRF token in header
+                    },
+                  contentType: 'application/json',
+                  success: function (response) {
+                   console.log(response);
+                  },
+                  error: function (xhr, status, error) {     
+                    console.error(error);
+                  },
+                  complete: function(){
+                    
+
+                  }
+                });
+            });
+
         }
+
+        
+
+        
 
         $("#loader-container").hide();
       },
     })
 
-    /**
-   * 
-   * This is the member part of the function
-   */
+    
 
-    $('#org-member--join').on('submit', function (event) {
-      event.preventDefault(); // Prevent the default form submission
+ 
 
-      $("#loader-container").show();
-      $(".message").remove();
-      $(".error-message").remove();
-      $("#org-member--join_input").css("border-color", "none");
-   
-      const data = {
-        otpCode: $('#org-member--join_input').val(),
 
-      };
-   
-      // Make an AJAX POST request
-      $.ajax({
-        url: '/member/join-org/json', // Replace with your endpoint
-        type: 'POST', 
-        headers: {
-            'X-CSRF-Token': $('#_csrf').val(), // CSRF token in header
-          },
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        success: function (response) {
-          
-          const {message,isSuccess,errorMessage}=response;
-          
-          $('#org-member--join').prepend(`<p class="error-message">${message}</p>`)
-          $("#org-member--join_input").css("border-color", "red");
-          for (const [key,value] of Object.entries(errorMessage)) {
-            $(`.org-field--${key}`)
-            .append(`<p class="error-message">${value}</p>`)
-          }
-        },
-        error: function (xhr, status, error) {     
-          console.error(error);
-        },
-        complete: function(){
-            $("#loader-container").hide();
-        }
-      });
-    });
   });
+
+
 }

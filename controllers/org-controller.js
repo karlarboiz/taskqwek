@@ -220,24 +220,25 @@ const orgFetchFuncJson = async (req,res,next) =>{
     }
 }
 
-const deleteOrgHandler=async(req,res,next)=>{
-    try{
 
+const orgOperationHandlerJson = async(req,res,next)=>{
+    try{
+        const operation = req.params.orgOperation;
         const orgId = req.params.orgId;
 
-        await Org.findById(orgId).exec()
-        .then((result)=>console.log(result)).catch((err)=>next(e));
+        // await Org.findById(orgId).exec()
+        // .then((result)=>console.log(result)).catch((err)=>next(e));
         
-        await Org.findByIdAndUpdate(orgId,{deleteFlg: true}).exec()
-        .then((result)=>console.log(result)).catch((err)=>next(e));
+        // await Org.findByIdAndUpdate(orgId,{deleteFlg: true}).exec()
+        // .then((result)=>console.log(result)).catch((err)=>next(e));
         
+        const responseObj = new ResponseObj();
+        responseObj._isSuccess = true;
+
+        return res.status(200).send(responseObj);
     }catch(e){
         next(e);
-    }
-}
-
-const deleteOrgJson = async(req,res,next)=>{
-    
+    }    
 }
 
 module.exports = {
@@ -246,5 +247,5 @@ module.exports = {
     orgCreationFuncJson,
     orgFetchFuncJson,
     orgDashboardOrgDetails,
-    deleteOrgHandler
+    orgOperationHandlerJson
 }
