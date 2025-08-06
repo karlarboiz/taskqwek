@@ -1,7 +1,7 @@
 // const url = require('url');
 const OrgControls = require('../model-functions/OrgControls');
 const ProjectControls = require('../model-functions/ProjectControls');
-const ResponseObj = require('../response-obj/ResponseObj');
+const ResponseObj = require('../common-obj/ResponseObj');
 const Messages = require('../common/Messages');
 
 const dashboardPage = async(req,res)=>{

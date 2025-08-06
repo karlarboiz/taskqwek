@@ -2,7 +2,7 @@
 const Messages = require("../common/Messages");
 const EmailGenerationForInvite = require("../model-1/EmailGenerationForInvite");
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
-const ResponseObj = require("../response-obj/ResponseObj");
+const ResponseObj = require("../common-obj/ResponseObj");
 const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
 
 const joinOrgMemberInitialSetup =async(req,res,next)=>{

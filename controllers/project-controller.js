@@ -6,7 +6,7 @@ const Project = require("../model/Project");
 const ProjectPage = require("../page-controller/project/ProjectPage");
 
 
-const ResponseObj = require("../response-obj/ResponseObj");
+const ResponseObj = require("../common-obj/ResponseObj");
 // const { encryptValue } = require("../util/encrypt-code");
 const { errorParsingFromValidations } = require("../util/error-parsing");
 const projectPage = async(req,res,next)=>{

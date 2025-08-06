@@ -2,7 +2,7 @@
 const nodemailer = require("nodemailer");
 const OrgControls = require("../model-functions/OrgControls");
 const MailTemplate = require("../common/MailTemplate");
-const ResponseObj = require("../response-obj/ResponseObj");
+const ResponseObj = require("../common-obj/ResponseObj");
 const EmailGenerationForInvite = require("../model-1/EmailGenerationForInvite");
 const Messages = require("../common/Messages");
 

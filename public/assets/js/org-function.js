@@ -33,7 +33,7 @@ export default function initOrgFunction(){
         data: JSON.stringify(data),
         success: function (response) {
         
-          const {isSuccess,errorMessage}=response;
+          const {_isSuccess:isSuccess,_errorResult:errorMessage}=response;
           
           if(!isSuccess){
             for (const [key,value] of Object.entries(errorMessage)) {
@@ -95,7 +95,7 @@ export default function initOrgFunction(){
               <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                   <div class="modal-content">
                       <div class="modal-header">
-                     <h5 class="modal-title text-danger font-weight-bold" id="modal-org--item-${element._id}">Do you want to delete this Project?</h5>
+                     <h5 class="modal-title text-danger font-weight-bold" id="modal-org--item-${element._id}">DO YOU WANT TO DELETE THIS ORGANIZATION?</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div id="project-creation--loader-container" style="display: none;">
@@ -109,7 +109,7 @@ export default function initOrgFunction(){
 
                       <div class="modal-footer">
                         <button type="button" id="form-project--button-reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="form-project--button-save--${element._id}" class="btn btn-primary" value="${element._id}">Save </button>
+                        <button id="form-project--button-save--${element._id}" class="btn btn-danger text-white" value="${element._id}">Delete </button>
                       </div>
 
                   </div>
@@ -134,7 +134,8 @@ export default function initOrgFunction(){
                     },
                   contentType: 'application/json',
                   success: function (response) {
-                   console.log(response);
+                    const {_isSuccess,_errorResult} = response;
+                    
                   },
                   error: function (xhr, status, error) {     
                     console.error(error);

@@ -10,7 +10,8 @@ const OrganizationPage = require("../page-controller/organization/OrganizationPa
 const OrgAssignedProject = require("../model-1/OrgAssignedProject");
 const Project = require("../model/Project");
 const CommonValues = require("../common/CommonValues");
-const ResponseObj = require("../response-obj/ResponseObj");
+const ResponseObj = require("../common-obj/ResponseObj");
+const OrgControls = require("../model-functions/OrgControls");
 
 
 const orgDashboardOrgPage = async (req,res,next)=>{
@@ -141,6 +142,9 @@ const orgCreationFunc = async (req,res,next) =>{
 }
 
 const orgCreationFuncJson =async (req,res,next)=>{
+
+    const responseObj = new ResponseObj();
+    
     try{
         let orgIdSaved = CommonValues.EMPTY_STRING;
         const creatorAuthorId = req.session.user?.id;
@@ -189,13 +193,11 @@ const orgCreationFuncJson =async (req,res,next)=>{
         })
         
     }catch(e){
-        const responseObj = new ResponseObj();
+    
+        responseObj._isSuccess = false;
+        responseObj._errorResult =JSON.parse(e.message);
         
-        const errorMessage = JSON.parse(e.message);
-        res.status(200).send({
-            isSuccess: false,
-            errorMessage:errorMessage
-        })
+        res.status(200).send(responseObj)
     }
 }
 
@@ -222,22 +224,34 @@ const orgFetchFuncJson = async (req,res,next) =>{
 
 
 const orgOperationHandlerJson = async(req,res,next)=>{
+
+    const responseObj = new ResponseObj();
+        
     try{
         const operation = req.params.orgOperation;
         const orgId = req.params.orgId;
+        
+         const orgControls = new OrgControls();
 
-        // await Org.findById(orgId).exec()
-        // .then((result)=>console.log(result)).catch((err)=>next(e));
+        orgControls._orgId = orgId;
+
+           
+
+        const result =await orgControls.deleteOrgByLeader({
+            deleteFlg: true,
+            updateDate: new Date()
+        },operation);
+
+
+        console.log(result);
         
-        // await Org.findByIdAndUpdate(orgId,{deleteFlg: true}).exec()
-        // .then((result)=>console.log(result)).catch((err)=>next(e));
-        
-        const responseObj = new ResponseObj();
         responseObj._isSuccess = true;
 
         return res.status(200).send(responseObj);
     }catch(e){
-        next(e);
+        responseObj._isSuccess = false;
+        responseObj._errorResult = JSON.parse(e.message);
+        return res.status(200).send(responseObj);
     }    
 }
 
