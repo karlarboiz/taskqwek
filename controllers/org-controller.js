@@ -188,13 +188,15 @@ const orgCreationFuncJson =async (req,res,next)=>{
 
         await orgAssignedProject.save();
 
+        debugger;
+
         res.status(200).send({
             isSuccess: true,
             message: errorMessage
         })
         
     }catch(e){
-    
+        
         responseObj._isSuccess = false;
         responseObj._errorResult =JSON.parse(e.message);
         

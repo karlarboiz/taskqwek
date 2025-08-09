@@ -33,8 +33,9 @@ export default function initOrgFunction(){
         success: function (response) {
         
           const {_isSuccess:isSuccess,_errorResult:errorMessage}=response;
-          
-          if(!isSuccess){
+          console.log(isSuccess)
+          console.log(errorMessage)
+          if(!isSuccess && errorMessage){
             for (const [key,value] of Object.entries(errorMessage)) {
               $(`#create-org--form .org-input--${key}`)
               .append(`<p class="error-message">${value}</p>`)
