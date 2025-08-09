@@ -13,10 +13,9 @@ const MailControls = require("../model-functions/MailControls");
 const Org = require("../model/Org");
 
 
-  
 const sendEmail = async(req,res,next)=> {
   const leaderId = req.session.user?.id;
-
+  const responseObj = new ResponseObj();
   try {
     const otpCode = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });    
     const transporter = await MailControls.generateTransporterMail();
@@ -60,12 +59,16 @@ const sendEmail = async(req,res,next)=> {
 
     const info = await transporter.sendMail(mailOptions);
 
-    const responseObj = new ResponseObj(true,Messages.SUCCESS + " Email Sent");
     
+    responseObj._isSuccess = true;
+    responseObj._message = Messages.SUCCESS + " Email Sent";
+
     return  res.status(200).send(responseObj);
   } catch (e) {
     const errorMessage = errorParsingFromValidationsSequelize(e.errors);
-    const responseObj = new ResponseObj(false,e.message,errorMessage);
+    responseObj._isSuccess = false;
+    responseObj._message = e.message;
+    responseObj._errorResult = errorMessage;
     res.status(200).send(responseObj);
   }
 
@@ -77,9 +80,10 @@ const invitePage = async(req,res,next)=>{
     const leaderId = req.session.user?.id;
     
     const orgControls = new OrgControls(leaderId,false);
+
     const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
 
-  
+
     res.render(CommonValues.INVITE,{role:role,
       activeLink:"invite",
       leaderOrgs:leaderOrgs

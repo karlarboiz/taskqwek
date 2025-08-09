@@ -1,5 +1,6 @@
 const QueryObj = require("../common-obj/QueryObj");
 const Messages = require("../common/Messages");
+const OrgAssignedProject = require("../model-1/OrgAssignedProject");
 const Org = require("../model/Org")
 
 
@@ -38,6 +39,7 @@ class OrgControls {
     }
 
     async getOrgListBasedOnLeaderId() {
+    
         try {
             const leaderOrgs = await Org.aggregate([
                 {
@@ -47,6 +49,7 @@ class OrgControls {
                     }
                 }
             ]);
+          
             return leaderOrgs;
         } catch (e) {
             throw new Error(e.message);
@@ -75,18 +78,47 @@ class OrgControls {
         }
     }
 
-    async deleteOrgByLeader(dataUpdates,operation) {
+    async deleteOrgByLeader() {
         let errorMessage = {};
         const queryObj = new QueryObj();
         try{
-            
-            
 
-            if(operation === "delete"){
-                await Org.findByIdAndUpdate(this.orgId, {deleteFlg: true}).exec();
-            }else {
-                await Org.findByIdAndUpdate(this.orgId, dataUpdates).exec();
-            }
+            await Org.findByIdAndUpdate(this.orgId, {deleteFlg: true,
+              updateDate: new Date()  
+            }).exec();
+            await OrgAssignedProject.update({deleteFlg: true,updateDate: new Date()},
+                {
+                    where:{
+                        assigned_org_mongodb_id: this.orgId
+                    }
+                }
+            )
+            
+            queryObj._isSuccess = true;
+            queryObj._errorResult = null;
+            return queryObj
+        }catch(e){
+             errorMessage["org"] = Messages.FAILED;
+
+             queryObj._isSuccess = false;
+             queryObj._errorResult = errorMessage;
+            return queryObj;
+        }  
+    }
+
+     async updateOrgByLeader(MDBDataUpdates,SQLDataUpdates) {
+        let errorMessage = {};
+        const queryObj = new QueryObj();
+        try{
+            await Org.findByIdAndUpdate(this.orgId, MDBDataUpdates).exec();
+            await OrgAssignedProject.update(SQLDataUpdates,
+                {
+                    where:{
+                        assigned_org_mongodb_id: this.orgId
+                    }
+                }
+            )
+            
 
             queryObj._isSuccess = true;
             queryObj._errorResult = null;
@@ -95,7 +127,7 @@ class OrgControls {
              errorMessage["org"] = Messages.FAILED;
 
              queryObj._isSuccess = false;
-            queryObj._errorResult = errorMessage;
+             queryObj._errorResult = errorMessage;
             return queryObj;
         }  
     }

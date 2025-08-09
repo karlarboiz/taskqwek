@@ -60,7 +60,7 @@ export default function initProjectFunction(){
           success: function (response) {
 
             const {isSuccess,message,errorResult}=response;
-            console.log(response);
+         
             // $('#org-form').prepend(`<p class="message">${message}</p>`)
             $("#project-form").prepend(`<div class="message
               main-message--${isSuccess ? "success": "failure"} ">${message}</div>`);

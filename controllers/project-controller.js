@@ -96,7 +96,6 @@ const projectDetailsPageHandler = async(req,res,next)=>{
 
         const route = projectPage.createCustomizePage("project-details");
 
-        console.log(projectDto)
         res.render(route,{
             role:role,
             activeLink: "project",

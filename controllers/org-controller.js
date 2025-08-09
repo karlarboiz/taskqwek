@@ -208,7 +208,9 @@ const orgFetchFuncJson = async (req,res,next) =>{
         
         const leaderOrgs = await Org.aggregate([
             {
-                $match: {creatorAuthorId: creatorAuthorId}
+                $match: {creatorAuthorId: creatorAuthorId,
+                    deleteFlg: false
+                }
             }
         ]);
 
@@ -235,12 +237,13 @@ const orgOperationHandlerJson = async(req,res,next)=>{
          const orgControls = new OrgControls();
 
         orgControls._orgId = orgId;
-
-        const result =await orgControls.deleteOrgByLeader({
-            deleteFlg: true,
-            updateDate: new Date()
-        },operation);
-
+        let result;
+        if(operation === "delete"){
+            result =await orgControls.deleteOrgByLeader();
+        }else if(operation === "update"){
+            result = await orgControls.updateOrgByLeader(null,null)
+        }
+        
         if(!result.isSuccess){
             throw new Error(JSON.stringify(result._errorResult));
         }
