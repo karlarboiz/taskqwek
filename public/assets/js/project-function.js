@@ -88,18 +88,17 @@ export default function initProjectFunction(){
           $("#loader-container").show();
   
           const{_data:data} = response;
-
           for (let element of data) {
-            $("#project-list__container").append( `
+      
+            $("#project-list--container").append( `
               
-          <div class="col-md-3">
-              <a href="project-details/${element._id}">   
-                <div class="card project-card">
-                    <div class="card-body">${element.name}</div>
-                </div>
-                
-              </a>
-          </div>`)
+              <div class="col-md-3">
+                    <a href="project/project-details/${element._id}" >
+                    <div class="card project-card">
+                        <div class="card-body">${element.name}</div>
+                    </div>
+                    </a>
+              </div>`)
             }
         },
          complete: function(){

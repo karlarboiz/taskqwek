@@ -144,7 +144,7 @@ const orgCreationFunc = async (req,res,next) =>{
 const orgCreationFuncJson =async (req,res,next)=>{
 
     const responseObj = new ResponseObj();
-    
+    const project = req.body.project
     try{
         let orgIdSaved = CommonValues.EMPTY_STRING;
         const creatorAuthorId = req.session.user?.id;
@@ -162,7 +162,7 @@ const orgCreationFuncJson =async (req,res,next)=>{
         const errorSet = Object.entries(errors);
         let errorMessage = new Object();
         
-        await Project.findById(req.body.project).exec()
+        await Project.findById(project).exec()
         .then((result)=>console.log(result)).catch((err)=>errorMessage["project"] = "Project"+Messages.ID_INVALID);
        
         
@@ -180,10 +180,11 @@ const orgCreationFuncJson =async (req,res,next)=>{
             throw new Error(JSON.stringify(errorMessage))
         }
 
-         const orgAssignedProject = await OrgAssignedProject.create({
+        const orgAssignedProject = await OrgAssignedProject.create({
             assigned_org_mongodb_id: orgIdSaved,
             assigned_project_mongodb_id:req.body.project
         })
+
 
         await orgAssignedProject.save();
 
@@ -235,15 +236,14 @@ const orgOperationHandlerJson = async(req,res,next)=>{
 
         orgControls._orgId = orgId;
 
-           
-
         const result =await orgControls.deleteOrgByLeader({
             deleteFlg: true,
             updateDate: new Date()
         },operation);
 
-
-        console.log(result);
+        if(!result.isSuccess){
+            throw new Error(JSON.stringify(result._errorResult));
+        }
         
         responseObj._isSuccess = true;
 

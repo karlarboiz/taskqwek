@@ -7,8 +7,8 @@ export default function initDashboardFunction(){
                 contentType: 'application/json',
                 success: function (response) {
                 
-                    const { data, isSuccess } = response;
-                
+                    const { _data:data, _isSuccess:isSuccess } = response;
+                    
                     if (isSuccess) {
                         let $row = $("<div class='row justify-content-start mt-3'></div>");
                         $("#admin-dashboard").append($row);

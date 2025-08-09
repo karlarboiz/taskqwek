@@ -18,6 +18,8 @@ const dashboardPage = async(req,res)=>{
 
 const fetchDashboardPageData = async(req,res)=>{
     const id = req.session.user?.id;
+    const responseObj = new ResponseObj();
+    
     try{
         const orgControls = new OrgControls(id,false,null);
 
@@ -39,12 +41,17 @@ const fetchDashboardPageData = async(req,res)=>{
                 url: "/project/project-page"
             }
         }
-        const responseObj = new ResponseObj(true,
-            Messages.FETCH_LIST_SUCCESS + "initial data",null,data)
+       
+        responseObj._isSuccess = true;    
+        responseObj._message = Messages.FETCH_LIST_SUCCESS + "initial data";
+        responseObj._data = data;
         return res.status(200).send(responseObj)
     }catch(e){
-        const responseObj = new ResponseObj(false,
-            Messages.FAILED,e.message,null)
+    
+        
+        responseObj._isSuccess = false;    
+        responseObj._message = Messages.FETCH_LIST_SUCCESS + "initial data";
+
         res.status(200).send(responseObj)
     }
 }
