@@ -32,14 +32,19 @@ export default function initOrgFunction(){
         data: JSON.stringify(data),
         success: function (response) {
         
-          const {_isSuccess:isSuccess,_errorResult:errorMessage}=response;
-          console.log(isSuccess)
-          console.log(errorMessage)
+          const {_isSuccess:isSuccess,_errorResult:errorMessage,_message:message}=response;
+      
           if(!isSuccess && errorMessage){
             for (const [key,value] of Object.entries(errorMessage)) {
               $(`#create-org--form .org-input--${key}`)
               .append(`<p class="error-message">${value}</p>`)
             }
+          }else {
+              $(`#create-org--form`).before(`
+                <div class="alert alert-success success-message d-flex align-items-center" role="alert">
+                  <i class="bi bi-check-circle-fill me-2"></i>
+                  <div>${message}</div>
+                </div>`)
           }
         },
         error: function (xhr, status, error) {     

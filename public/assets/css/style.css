@@ -12374,6 +12374,33 @@ This section here is for components classes
   min-height: 100vh;
 }
 
+/* Sass-compiled styles for the success message */
+.success-message {
+  border: 1px solid #b1dfbb;
+  background-color: #d4edda;
+  color: #155724;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.15);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.success-message i {
+  font-size: 1.25rem;
+  color: #28a745;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /*
 
 General css configuration
