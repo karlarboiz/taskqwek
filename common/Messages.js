@@ -19,6 +19,8 @@ class Messages {
     static NOT_EXISTING = "Value not Found. ";
 
     static ID_INVALID = " ID not valid";
+
+    static SUCCESSFUL_JOIN_ORG = "You have been admitted to the Org.";
 }
 
 module.exports = Messages

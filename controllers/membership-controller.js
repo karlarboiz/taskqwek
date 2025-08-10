@@ -134,14 +134,16 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
                     otp_code:otpCode,
                 }
             }
-
         )
 
-        
+
+        responseObj._isSuccess = true;
+        responseObj._message = Messages.SUCCESSFUL_JOIN_ORG;
+        res.status(200).send(responseObj);
     }catch(e){
         
         responseObj._isSuccess = false;
-        responseObj._message = e.message
+        responseObj._message = e.message;
         res.status(200).send(responseObj);
     }
 }

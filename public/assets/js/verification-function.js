@@ -19,7 +19,7 @@ export default function initVerificationFunction(){
         $(".code-box").first().on("paste", function(e) {
             e.preventDefault();
             let pasteData = (e.originalEvent || e).clipboardData.getData("text").trim();
-            let chars = pasteData.replace(/[^A-Za-z0-9]/g, '').toUpperCase().split("").slice(0, 6); // Keep letters + numbers
+            let chars = pasteData.replace(/[^A-Za-z0-9]/g, '').split("").slice(0, 6); // Keep letters + numbers
 
             $(".code-box").each(function(i) {
             $(this).val(chars[i] || "");
@@ -48,12 +48,14 @@ export default function initVerificationFunction(){
             code += $(this).val();
             });
 
-           
-
             $("#org-member--join .alert--placeholder").empty();
 
-            const alertTemplatePartOne = `
+            const alertTemplatePartOneError = `
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">               
+            `;
+
+            const alertTemplatePartOneSuccess = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">               
             `;
 
             const alertTemplatePartTwo = `
@@ -61,7 +63,7 @@ export default function initVerificationFunction(){
                 </div>
             `;
             if (!allFilled) {
-                const combinedTemplate = alertTemplatePartOne + "Please enter all 6 characters of the code." + alertTemplatePartTwo;
+                const combinedTemplate = alertTemplatePartOneError + "Please enter all 6 characters of the code." + alertTemplatePartTwo;
 
                 $("#org-member--join .alert--placeholder").append(
                         combinedTemplate
@@ -81,16 +83,16 @@ export default function initVerificationFunction(){
             success: function (response) {
                 const {_isSuccess:isSuccess,_message:message} = response;
 
-                console.log(isSuccess)
-                if(isSuccess){
-                    const combinedTemplate = alertTemplatePartOne + message + alertTemplatePartTwo;
+                const template = isSuccess ?  alertTemplatePartOneSuccess :alertTemplatePartOneError;
+                const combinedTemplate = template + message + alertTemplatePartTwo;
 
+                if(isSuccess){
+                    
                     $("#org-member--join .alert--placeholder").append(
                             combinedTemplate
                     );
                 }else {
-                    const combinedTemplate = alertTemplatePartOne + message + alertTemplatePartTwo;
-
+                    
                     $("#org-member--join .alert--placeholder").append(
                             combinedTemplate
                     );
