@@ -15,18 +15,27 @@
                 <p>Creation Date:  <strong><%= orgDto?._orgCreatedDate%></strong></p>
             </div>
         <% }else {%>
-            <h1 class="mb-5">You are not yet part of an Organization</h1>
+            <h5 class="mb-5">You are not yet part of an Organization</h5>
 
             <form id="org-member--join" class="form-org--join mx-auto text-center">
 
                 <input type="hidden" value="<%=locals.csrf%>" id="_csrf" name="_csrf">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="org-member--join_input" name="org-code" >
-                    <label for="org-code">Organization Code</label>
+                <div class="container mt-5">
+                    <h4 class="text-center mb-4">Enter your 6-digit code</h4>
+
+                    <!-- Alert placeholder -->
+                    <div class="alert--placeholder"></div>
+
+                    <div class="code-input">
+                         <input type="text" maxlength="1" class="form-control code-box" autofocus>
+                        <input type="text" maxlength="1" class="form-control code-box">
+                        <input type="text" maxlength="1" class="form-control code-box">
+                        <input type="text" maxlength="1" class="form-control code-box">
+                        <input type="text" maxlength="1" class="form-control code-box">
+                        <input type="text" maxlength="1" class="form-control code-box">
+                    </div>
                 </div>
-                <div class="form-group text-center">
-                    <button class="btn btn-primary">Join</button>
-                </div>
+                <button class="btn btn-primary mt-4">Join</button>
             </form>
         <% }%>
     </section>

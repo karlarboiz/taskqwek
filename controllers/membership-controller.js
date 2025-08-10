@@ -65,7 +65,7 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                 }
 
 
-                await EmailGenerationForInviteSQL.update(
+                await EmailGenerationForInvite.update(
                     {is_accepted: true,
                     update_date: new Date()
                     },
@@ -87,29 +87,22 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
 }
 
 const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
-   
+    
     const otpCode = req.body.otpCode?.trim();
     
-    req.session.newSignup = false;
+     const responseObj = new ResponseObj();
 
     try{
 
-        if(!otpCode){
-             const responseObj = new ResponseObj(true,Messages.EMPTY_FIELD + "Organization Code");
-
-            return res.status(200).send(responseObj);
-        }
-        const checkActiveLink = await EmailGenerationForInviteSQL.findOne({
-        where:{
-                otp_code: otpCode
-            }
-        })
-
+    
+        const checkActiveLink = await EmailGenerationForInvite.findOne({
+            where:{
+                    otp_code: otpCode
+                }
+            })
+        
         if(!checkActiveLink){
-
-            const responseObj = new ResponseObj(true,Messages.NOT_EXISTING + "OTP Code does not exist.",otpCode);
-
-            return res.status(200).send(responseObj);
+            throw new Error(Messages.NOT_EXISTING + "OTP Code does not exist.");
         }
         
 
@@ -140,7 +133,7 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
         }
 
 
-        await EmailGenerationForInviteSQL.update(
+        await EmailGenerationForInvite.update(
             {is_accepted: true,
             update_date: new Date()
             },
@@ -152,18 +145,17 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
 
         )
 
-            return res.redirect("/signup/complete-setup/member");
+        
     }catch(e){
-        next(e);
+        
+        responseObj._isSuccess = true;
+        res.status(200).send(responseObj);
     }
 }
 
-const joinOrgMemberCompleteSetup =()=>{
-
-}
 
 module.exports ={
-    joinOrgMemberCompleteSetup,
+   
     joinOrgMemberInitialSetup,
     joinOrgMemberInitialSetupJson
 }

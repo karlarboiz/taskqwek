@@ -12401,6 +12401,29 @@ This section here is for components classes
     transform: translateY(0);
   }
 }
+/* Sass-compiled styles for code input */
+.code-input {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.code-input input {
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 1.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.code-input input:focus {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
 /*
 
 General css configuration

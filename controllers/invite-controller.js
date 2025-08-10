@@ -1,5 +1,4 @@
-// mailer.js
-const nodemailer = require("nodemailer");
+
 const OrgControls = require("../model-functions/OrgControls");
 const MailTemplate = require("../common/MailTemplate");
 const ResponseObj = require("../common-obj/ResponseObj");
@@ -10,7 +9,6 @@ const { errorParsingFromValidationsSequelize } = require("../util/error-parsing"
 const otpGenerator = require('otp-generator');
 const CommonValues = require("../common/CommonValues");
 const MailControls = require("../model-functions/MailControls");
-const Org = require("../model/Org");
 
 
 const sendEmail = async(req,res,next)=> {
@@ -20,7 +18,7 @@ const sendEmail = async(req,res,next)=> {
     const otpCode = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });    
     const transporter = await MailControls.generateTransporterMail();
     const {email,orgId } = req.body;
-
+  
     if(!email){
       throw new Error(Messages.EMAIL_FIELD_EMPTY);
     }
@@ -44,11 +42,9 @@ const sendEmail = async(req,res,next)=> {
       valid_seconds: validSeconds
     })
 
-
     await emailInviteItem.validate()
 
     await emailInviteItem.save();
-
     
     const mailOptions = {
       from: '"Your App Name" <your.email@gmail.com>',

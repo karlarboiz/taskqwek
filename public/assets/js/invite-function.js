@@ -28,7 +28,7 @@
           data: JSON.stringify(data),
           success: function (response) {
             
-            const {message,isSuccess,errorResult}=response;
+            const {_message:message,_isSuccess:isSuccess,_errorResult:errorResult}=response;
             $('#invite-form').prepend(`<p class="${isSuccess ? "success-message": "error-message"}">${message}</p>`);
 
             for (const [key,value] of Object.entries(errorResult)) {
