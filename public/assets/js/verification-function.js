@@ -52,12 +52,8 @@ export default function initVerificationFunction(){
 
             $("#org-member--join .alert--placeholder").empty();
 
-        
-
             const alertTemplatePartOne = `
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-               
-               
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">               
             `;
 
             const alertTemplatePartTwo = `
@@ -83,8 +79,22 @@ export default function initVerificationFunction(){
             contentType: 'application/json',
             data: JSON.stringify({otpCode:code}),
             success: function (response) {
-                
-                console.log(response)
+                const {_isSuccess:isSuccess,_message:message} = response;
+
+                console.log(isSuccess)
+                if(isSuccess){
+                    const combinedTemplate = alertTemplatePartOne + message + alertTemplatePartTwo;
+
+                    $("#org-member--join .alert--placeholder").append(
+                            combinedTemplate
+                    );
+                }else {
+                    const combinedTemplate = alertTemplatePartOne + message + alertTemplatePartTwo;
+
+                    $("#org-member--join .alert--placeholder").append(
+                            combinedTemplate
+                    );
+                }
             },
             error: function (xhr, status, error) {     
                 console.error(error);

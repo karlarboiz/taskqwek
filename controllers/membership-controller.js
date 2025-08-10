@@ -93,8 +93,6 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
      const responseObj = new ResponseObj();
 
     try{
-
-    
         const checkActiveLink = await EmailGenerationForInvite.findOne({
             where:{
                     otp_code: otpCode
@@ -119,17 +117,11 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
         const diffSeconds = Math.ceil(Math.abs(nowDate.getTime() - codeRegisteredDate.getTime()) / 1000);
 
         if(!emailMatch){
-     
-            const responseObj = new ResponseObj(true,Messages.CODE_VERIFICATION_FAILED + " Code not associated to the Receiver's Email",otpCode);
-
-            return res.status(200).send(responseObj);
+            throw new Error(Messages.CODE_VERIFICATION_FAILED + " Code not associated to the Receiver's Email");
         }
 
         if(diffSeconds > checkActiveLink.dataValues?.valid_seconds){
-
-            const responseObj = new ResponseObj(true,Messages.CODE_VERIFICATION_FAILED + " Code has expired!",otpCode);
-
-            return res.status(200).send(responseObj);
+            throw new Error(Messages.CODE_VERIFICATION_FAILED + " Code has expired!");
         }
 
 
@@ -148,7 +140,8 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
         
     }catch(e){
         
-        responseObj._isSuccess = true;
+        responseObj._isSuccess = false;
+        responseObj._message = e.message
         res.status(200).send(responseObj);
     }
 }
