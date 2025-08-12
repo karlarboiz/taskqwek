@@ -2,7 +2,7 @@
 const sequelize = require("../data/database1");
 const { DataTypes } = require('sequelize');
 
-const EmailGenerationForInvite = sequelize.define('EmailGenerationForInviteSQL',{
+const EmailGenerationForInvite = sequelize.define('EmailGenerationForInvite',{
     token_id: {
         type: DataTypes.INTEGER,
         primaryKey:true,

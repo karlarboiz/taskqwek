@@ -64,7 +64,6 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                     })
                 }
 
-
                 await EmailGenerationForInvite.update(
                     {is_accepted: true,
                     update_date: new Date()
@@ -74,7 +73,6 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                             otp_code:otpCode,
                         }
                     }
-
                 )
 
                 return res.redirect("/signup/complete-setup/member");
@@ -82,6 +80,7 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
             }
         }
     }catch(e){
+        console.log(e.message)
         next(e);
     }
 }
@@ -103,12 +102,16 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
             throw new Error(Messages.NOT_EXISTING + "OTP Code does not exist.");
         }
         
-
-        const emailAddress = checkActiveLink.dataValues.receiver_emamil
+  
+        const emailAddress = checkActiveLink.dataValues.receiver_email
         
         const emailMatch = await UserAuthenticationInfo.findOne({
-            emailAddress
-        }) 
+            emailAddress:emailAddress
+        }).exec();
+        
+        console.log(emailAddress);
+
+        
 
         const codeRegisteredDate = new Date(checkActiveLink.dataValues.reg_date);
 
@@ -117,7 +120,7 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
         const diffSeconds = Math.ceil(Math.abs(nowDate.getTime() - codeRegisteredDate.getTime()) / 1000);
 
         if(!emailMatch){
-            throw new Error(Messages.CODE_VERIFICATION_FAILED + " Code not associated to the Receiver's Email");
+            throw new Error(Messages.CODE_VERIFICATION_FAILED + " OTP Code not associated to the Receiver's Email");
         }
 
         if(diffSeconds > checkActiveLink.dataValues?.valid_seconds){
@@ -135,7 +138,6 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
                 }
             }
         )
-
 
         responseObj._isSuccess = true;
         responseObj._message = Messages.SUCCESSFUL_JOIN_ORG;
