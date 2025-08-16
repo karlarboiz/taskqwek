@@ -1,19 +1,62 @@
-FROM node:20
+# Multi-stage build for production
+FROM node:20-alpine AS builder
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy dependencies definitions
+# Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install all dependencies (including dev dependencies for build)
+RUN npm ci --only=production && npm cache clean --force
 
-# Copy application files
+# Copy source code
 COPY . .
 
-# Expose the application port
+# Build assets for production
+RUN npm run webpack:build
+RUN npm run compile:sass
+
+# Production stage
+FROM node:20-alpine AS production
+
+# Create non-root user for security
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nodejs -u 1001
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install only production dependencies
+RUN npm ci --only=production && npm cache clean --force
+
+# Copy built application from builder stage
+COPY --from=builder --chown=nodejs:nodejs /app/public ./public
+COPY --from=builder --chown=nodejs:nodejs /app/index.js ./
+COPY --from=builder --chown=nodejs:nodejs /app/routes ./routes
+COPY --from=builder --chown=nodejs:nodejs /app/controllers ./controllers
+COPY --from=builder --chown=nodejs:nodejs /app/middlewares ./middlewares
+COPY --from=builder --chown=nodejs:nodejs /app/model ./model
+COPY --from=builder --chown=nodejs:nodejs /app/model-functions ./model-functions
+COPY --from=builder --chown=nodejs:nodejs /app/data ./data
+COPY --from=builder --chown=nodejs:nodejs /app/dto ./dto
+COPY --from=builder --chown=nodejs:nodejs /app/common ./common
+COPY --from=builder --chown=nodejs:nodejs /app/util ./util
+COPY --from=builder --chown=nodejs:nodejs /app/views ./views
+COPY --from=builder --chown=nodejs:nodejs /app/common-obj ./common-obj
+
+# Switch to non-root user
+USER nodejs
+
+# Expose port
 EXPOSE 5000
 
-# Use the development start script
-CMD ["npm", "start"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:5000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
+
+# Use production start script
+CMD ["npm", "run", "start:prod"]

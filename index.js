@@ -71,6 +71,16 @@ app.use((req,res,next)=>{
 
 
 app.use(addCsrfToken);
+
+// Health check endpoint for Docker
+app.get('/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'healthy', 
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime()
+    });
+});
+
 const commonRoutes = require('./routes/common-routes');
 const loginRoutes = require('./routes/login-routes');
 const signupRoutes = require('./routes/signup-routes');
