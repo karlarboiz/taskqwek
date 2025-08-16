@@ -8,14 +8,26 @@
     "compile:sass:watch": "sass --watch scss:public/assets/css",
     "webpack:watch": "webpack --watch",
     "webpack:build": "webpack",
+    "webpack:build:prod": "webpack --config config/webpack.prod.js",
     "nodemon": "nodemon index.js",
     "start": "npm-run-all --parallel nodemon compile:sass:watch webpack:watch",
-    "start:prod": "npm-run-all webpack:build compile:sass && node index.js"
+    "start:prod": "npm-run-all webpack:build:prod compile:sass && node index.js",
+    "test": "mocha tests/**/*.test.js --timeout 10000",
+    "test:watch": "mocha tests/**/*.test.js --watch --timeout 10000",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "npm run webpack:build:prod && npm run compile:sass",
+    "clean": "rimraf public/assets/dist",
+    "docker:build": "docker build -t taskqwek:latest .",
+    "docker:run": "docker run -d -p 5000:5000 --env-file .env --name taskqwek-app taskqwek:latest",
+    "docker:stop": "docker stop taskqwek-app && docker rm taskqwek-app"
   },
   "keywords": [
     "advanced",
     "web",
-    "development"
+    "development",
+    "task-management",
+    "project-management"
   ],
   "author": "Karl James Arboiz",
   "license": "ISC",
@@ -35,6 +47,7 @@
     "express-session": "^1.17.3",
     "jquery": "^3.7.1",
     "jsdom": "^26.0.0",
+    "joi": "^17.11.0",
     "method-override": "^3.0.0",
     "mongoose": "^8.0.1",
     "multer": "^1.4.5-lts.1",
@@ -53,6 +66,17 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1",
-    "sass": "^1.69.5"
+    "sass": "^1.69.5",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "eslint": "^8.57.0",
+    "rimraf": "^5.0.5",
+    "terser-webpack-plugin": "^5.3.10",
+    "mini-css-extract-plugin": "^2.8.0",
+    "css-minimizer-webpack-plugin": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }
