@@ -1,0 +1,289 @@
+// Custom Date Picker Component
+.custom-date-picker {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    .date-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        padding: 12px 16px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            border-color: #007bff;
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.15);
+        }
+
+        &.focused {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+    }
+
+    .date-input {
+        border: none;
+        outline: none;
+        background: transparent;
+        flex: 1;
+        font-size: 16px;
+        color: #333;
+        cursor: pointer;
+
+        &::placeholder {
+            color: #6c757d;
+        }
+    }
+
+    .date-icon {
+        color: #007bff;
+        font-size: 18px;
+        margin-left: 12px;
+        cursor: pointer;
+    }
+
+    .date-picker-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        display: none;
+        margin-top: 4px;
+
+        &.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+    }
+
+    .date-picker-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        border-bottom: 1px solid #e1e5e9;
+        background: #f8f9fa;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .date-picker-nav {
+        background: none;
+        border: none;
+        font-size: 18px;
+        color: #007bff;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: rgba(0, 123, 255, 0.1);
+        }
+    }
+
+    .date-picker-title {
+        font-weight: 600;
+        color: #333;
+        font-size: 16px;
+    }
+
+    .date-picker-body {
+        padding: 16px;
+    }
+
+    .date-picker-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .weekday {
+        text-align: center;
+        font-weight: 600;
+        color: #6c757d;
+        font-size: 14px;
+        padding: 8px 0;
+    }
+
+    .date-picker-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+    }
+
+    .date-day {
+        text-align: center;
+        padding: 12px 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 14px;
+        color: #333;
+
+        &:hover {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+        }
+
+        &.selected {
+            background: #007bff;
+            color: #fff;
+        }
+
+        &.today {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+            font-weight: 600;
+        }
+
+        &.other-month {
+            color: #ccc;
+        }
+
+        &.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+    }
+
+    .date-picker-footer {
+        padding: 16px;
+        border-top: 1px solid #e1e5e9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .date-picker-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s ease;
+
+        &.primary {
+            background: #007bff;
+            color: #fff;
+
+            &:hover {
+                background: #0056b3;
+            }
+        }
+
+        &.secondary {
+            background: #6c757d;
+            color: #fff;
+
+            &:hover {
+                background: #545b62;
+            }
+        }
+    }
+}
+
+// Calendar animations
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .custom-date-picker {
+        .date-picker-dropdown {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            max-width: 350px;
+            margin-top: 0;
+        }
+
+        .date-day {
+            padding: 10px 6px;
+            font-size: 13px;
+        }
+
+        .date-picker-header,
+        .date-picker-body,
+        .date-picker-footer {
+            padding: 12px;
+        }
+    }
+}
+
+// Dark mode support (optional)
+@media (prefers-color-scheme: dark) {
+    .custom-date-picker {
+        .date-input-wrapper {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: #e2e8f0;
+        }
+
+        .date-input {
+            color: #e2e8f0;
+
+            &::placeholder {
+                color: #a0aec0;
+            }
+        }
+
+        .date-picker-dropdown {
+            background: #2d3748;
+            border-color: #4a5568;
+        }
+
+        .date-picker-header {
+            background: #1a202c;
+            border-color: #4a5568;
+        }
+
+        .date-picker-title {
+            color: #e2e8f0;
+        }
+
+        .weekday {
+            color: #a0aec0;
+        }
+
+        .date-day {
+            color: #e2e8f0;
+
+            &:hover {
+                background: rgba(0, 123, 255, 0.2);
+            }
+
+            &.other-month {
+                color: #4a5568;
+            }
+
+            &.disabled {
+                color: #4a5568;
+            }
+        }
+
+        .date-picker-footer {
+            border-color: #4a5568;
+        }
+    }
+}

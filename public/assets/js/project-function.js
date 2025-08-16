@@ -59,11 +59,8 @@ export default function initProjectFunction(){
           data: JSON.stringify(data),
           success: function (response) {
 
-            const {isSuccess,message,errorResult}=response;
-         
-            // $('#org-form').prepend(`<p class="message">${message}</p>`)
-            $("#project-form").prepend(`<div class="message
-              main-message--${isSuccess ? "success": "failure"} ">${message}</div>`);
+            const {_isSuccess:isSuccess,_message:message,_errorResult:errorResult}=response;
+        
             for (const [key,value] of Object.entries(errorResult)) {
                $(`.project-field--${key}`)
               .append(`<p class="message error-message">${value}</p>`)

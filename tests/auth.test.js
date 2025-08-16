@@ -36,7 +36,7 @@ describe('Authentication Validation', () => {
         it('should reject weak password', () => {
             const invalidData = {
                 email: 'test@example.com',
-                password: 'weak',
+                password: 'Testing123',
                 firstName: 'John',
                 lastName: 'Doe'
             };

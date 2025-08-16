@@ -2,7 +2,7 @@
   
   export default function initInviteFunction(){
      $(document).ready(function(){
-
+   
     $('#invite-form').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
   

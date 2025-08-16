@@ -9,6 +9,7 @@ const ProjectPage = require("../page-controller/project/ProjectPage");
 const ResponseObj = require("../common-obj/ResponseObj");
 // const { encryptValue } = require("../util/encrypt-code");
 const { errorParsingFromValidations } = require("../util/error-parsing");
+const { Json } = require("sequelize/lib/utils");
 const projectPage = async(req,res,next)=>{
  
     const role = req.session.user?.role === 1  ?"leader": "member";
@@ -25,6 +26,9 @@ const projectPage = async(req,res,next)=>{
 }
 
 const createProject = async(req,res,next)=>{
+
+    const responseObj = new ResponseObj();
+
     try{
         const {name,description,deadline}= req.body;
         const leaderId = req.session.user?.id
@@ -39,21 +43,24 @@ const createProject = async(req,res,next)=>{
         const validate = await project.validateSync();
      
         const errorResult = errorParsingFromValidations(validate?.errors);
-   
-        const success = !errorResult;
         
-        if(!errorResult){
+        if(errorResult){
+            throw new Error(JSON.stringify(errorResult));
+        }else {
             await project.save();
         }
-        const responseObj = new ResponseObj( success,
-            success ? Messages.PROJECT_CREATION_SUCCESS : 
-            Messages.PROJECT_CREATION_FAILED,
-            errorResult   
-        )
+        
+
+        responseObj._isSuccess = true;
+        responseObj._message = Messages.PROJECT_CREATION_SUCCESS;
 
         return res.status(200).send(responseObj)
     }catch(e){
-        console.log(e.message)
+
+        responseObj._isSuccess = false;
+        responseObj._message = Messages.PROJECT_CREATION_FAILED;
+        responseObj._errorResult = JSON.parse(e.message);
+        res.status(200).send(responseObj)
     }
 }
 
