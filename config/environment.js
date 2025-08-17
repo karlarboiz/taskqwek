@@ -11,10 +11,10 @@ const environment = {
     MONGODB_URI: process.env.MONGODB_URI || `mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@b303-arboiz.p20uafb.mongodb.net/taskqwek?retryWrites=true&w=majority`,
     
     // MySQL Configuration
-    DB_NAME: process.env.DB_NAME || 'taskqwek_db',
-    DB_USER: process.env.DB_USER || process.env.USER,
-    DB_PASSWORD: process.env.DB_PASSWORD || process.env.PASSWORD,
-    DB_HOST: process.env.DB_HOST || process.env.HOST || 'localhost',
+    DB_NAME: process.env.DB_NAME,
+    DB_USER: process.env.DB_USER,
+    DB_PASSWORD: process.env.DB_PASSWORD,
+    DB_HOST: process.env.DB_HOST,
     DB_PORT: parseInt(process.env.DB_PORT) || 3306,
     
     // Session Configuration

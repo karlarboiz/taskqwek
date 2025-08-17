@@ -1,0 +1,5 @@
+[33m862fa0d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m feat: restructure project for better organization and maintainability
+[33mc7c565a[m feat: optimize Docker setup for production deployment
+[33mb537cfa[m fix issues as to why the acceptance of the invite fails all the time
+[33m8f520bc[m Invite page - refactor some issues
+[33m29fd341[m Invite page - test functionality and works great

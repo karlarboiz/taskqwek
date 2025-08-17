@@ -83,20 +83,25 @@ export default function initProjectFunction(){
         success: function (response) {
           
           $("#loader-container").show();
-  
+         
           const{_data:data} = response;
-          for (let element of data) {
+
+          if(!data)return;
+
+          if(data || data?.length !== 0){
+            for (let element of data) {
       
-            $("#project-list--container").append( `
-              
-              <div class="col-md-3">
-                    <a href="project/project-details/${element._id}" >
-                    <div class="card project-card">
-                        <div class="card-body">${element.name}</div>
-                    </div>
-                    </a>
-              </div>`)
-            }
+              $("#project-list--container").append( `
+                
+                <div class="col-md-3">
+                      <a href="project-details/${element._id}" >
+                      <div class="card project-card">
+                          <div class="card-body">${element.name}</div>
+                      </div>
+                      </a>
+                </div>`)
+              }
+          }
         },
          complete: function(){
             $("#loader-container").hide();

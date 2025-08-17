@@ -1,8 +1,18 @@
 
-const sequelize = require("../data/database1");
+
 const { DataTypes } = require('sequelize');
 
-const EmailGenerationForInvite = sequelize.define('EmailGenerationForInvite',{
+let EmailGenerationForInvite = null;
+
+// Function to initialize the model when needed
+const initializeModel = () => {
+    if (!EmailGenerationForInvite) {
+        const databaseManager = require('../config/database');
+        if (!databaseManager.mysqlConnection) {
+            throw new Error('MySQL connection not initialized. Make sure databaseManager.initialize() has been called.');
+        }
+        
+        EmailGenerationForInvite = databaseManager.mysqlConnection.define('EmailGenerationForInvite', {
     token_id: {
         type: DataTypes.INTEGER,
         primaryKey:true,
@@ -55,10 +65,14 @@ const EmailGenerationForInvite = sequelize.define('EmailGenerationForInvite',{
         allowNull:false,
     }   
 
-},{
-    tableName: 'email_generation_for_invite',
-    timestamps:false
-}
+        }, {
+            tableName: 'email_generation_for_invite',
+            timestamps: false
+        });
+    }
+    
+    return EmailGenerationForInvite;
+};
 
-)
-module.exports = EmailGenerationForInvite;
+// Export the function that will return the initialized model
+module.exports = initializeModel;

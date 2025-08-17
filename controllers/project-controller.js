@@ -56,7 +56,7 @@ const createProject = async(req,res,next)=>{
 
         return res.status(200).send(responseObj)
     }catch(e){
-
+        
         responseObj._isSuccess = false;
         responseObj._message = Messages.PROJECT_CREATION_FAILED;
         responseObj._errorResult = JSON.parse(e.message);

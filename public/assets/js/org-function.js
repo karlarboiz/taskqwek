@@ -66,6 +66,8 @@ export default function initOrgFunction(){
         $("#loader-container").show();
         const {leaderOrgs} = response;
 
+        if(!leaderOrgs) return;
+   
         if(leaderOrgs.length !==0){
           $("#org-leader--page-container").after(`<table class="table mt-4"> 
             <thead>

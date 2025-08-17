@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Sequelize } = require('sequelize');
+const environment = require('./environment');
 
 class DatabaseManager {
     constructor() {
@@ -47,13 +48,13 @@ class DatabaseManager {
     async connectMySQL() {
         try {
             this.mysqlConnection = new Sequelize(
-                process.env.DB_NAME || 'taskqwek_db',
-                process.env.DB_USER || process.env.USER,
-                process.env.DB_PASSWORD || process.env.PASSWORD,
+                environment.DB_NAME,
+                "root",
+                environment.DB_PASSWORD,
                 {
-                    host: process.env.DB_HOST || process.env.HOST || 'localhost',
+                    host: environment.DB_HOST,
                     dialect: 'mysql',
-                    port: process.env.DB_PORT || 3306,
+                    port: environment.DB_PORT,
                     logging: process.env.NODE_ENV === 'development' ? console.log : false,
                     pool: {
                         max: 10,
@@ -70,12 +71,21 @@ class DatabaseManager {
 
             // Test the connection
             await this.mysqlConnection.authenticate();
+
             console.log('✅ MySQL connected successfully!');
 
             // Sync models (create tables if they don't exist)
             await this.mysqlConnection.sync({ alter: true });
             console.log('✅ MySQL models synchronized!');
+            console.log('MySQL Config:', {
+                DB_NAME: environment.DB_NAME,
+                DB_USER: environment.DB_USER,
+                DB_HOST: environment.DB_HOST,
+                DB_PORT: environment.DB_PORT,
+                DB_PORT: environment.DB_PASSWORD
+                
 
+            });
             return this.mysqlConnection;
         } catch (error) {
             console.error('Failed to connect to MySQL:', error);

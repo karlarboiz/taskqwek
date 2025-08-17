@@ -2,7 +2,7 @@
 const OrgControls = require("../model-functions/OrgControls");
 const MailTemplate = require("../common/MailTemplate");
 const ResponseObj = require("../common-obj/ResponseObj");
-const EmailGenerationForInvite = require("../model-1/EmailGenerationForInvite");
+const getEmailGenerationForInvite = require("../model-1/EmailGenerationForInvite");
 const Messages = require("../common/Messages");
 
 const { errorParsingFromValidationsSequelize } = require("../util/error-parsing");
@@ -34,6 +34,7 @@ const sendEmail = async(req,res,next)=> {
     
     const validSeconds = CommonValues.EXPIRATION_DURATION_TOKEN * CommonValues.INVITATION_NUMBER_DAYS;
  
+    const EmailGenerationForInvite = getEmailGenerationForInvite();
     const emailInviteItem = EmailGenerationForInvite.build({
       sender_id: leaderId,
       receiver_email:email,

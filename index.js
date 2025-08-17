@@ -152,6 +152,10 @@ async function startServer() {
 
     } catch (error) {
         logger.error('Failed to start server', error);
+        app.use((error,req,res,next)=>{
+            logger.error('500 Error', error);
+            res.status(500).render('500');
+        })
         process.exit(1);
     }
 }
