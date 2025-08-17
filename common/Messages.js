@@ -21,6 +21,8 @@ class Messages {
     static ID_INVALID = " ID not valid";
 
     static SUCCESSFUL_JOIN_ORG = "You have been admitted to the Org.";
+
+    static SERVER_ERROR = "Server Failed. Try again later!";
 }
 
 module.exports = Messages

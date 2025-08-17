@@ -147,9 +147,6 @@ const signupFunc = async (req,res,next)=>{
             req.session.newSignup = true;
         });
 
-        
-        
-
         return res.redirect(urlRoute)
        
     }catch(e){

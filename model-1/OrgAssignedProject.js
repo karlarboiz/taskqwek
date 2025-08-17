@@ -11,7 +11,7 @@ const initializeModel = () => {
         if (!databaseManager.mysqlConnection) {
             throw new Error('MySQL connection not initialized. Make sure databaseManager.initialize() has been called.');
         }
-        
+        databaseManager.connectMySQL().then(db=> db.sync());
         OrgAssignedProject = databaseManager.mysqlConnection.define('OrgAssignedProject', {
             org_assigned_project_id: {
                 type: DataTypes.INTEGER,
@@ -41,11 +41,10 @@ const initializeModel = () => {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
                 defaultValue: false
-            }
-        }, {
-            tableName: 'org_assigned_project',
-            timestamps: false
-        });
+            }}, { 
+                tableName: 'org_assigned_project',
+                timestamps: false
+            });
     }
     
     return OrgAssignedProject;

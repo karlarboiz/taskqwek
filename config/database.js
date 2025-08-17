@@ -75,17 +75,9 @@ class DatabaseManager {
             console.log('✅ MySQL connected successfully!');
 
             // Sync models (create tables if they don't exist)
-            await this.mysqlConnection.sync({ alter: true });
+            await this.mysqlConnection.sync({ alter: true,force:true });
             console.log('✅ MySQL models synchronized!');
-            console.log('MySQL Config:', {
-                DB_NAME: environment.DB_NAME,
-                DB_USER: environment.DB_USER,
-                DB_HOST: environment.DB_HOST,
-                DB_PORT: environment.DB_PORT,
-                DB_PORT: environment.DB_PASSWORD
-                
-
-            });
+        
             return this.mysqlConnection;
         } catch (error) {
             console.error('Failed to connect to MySQL:', error);
@@ -97,13 +89,13 @@ class DatabaseManager {
     async initialize() {
         try {
             console.log('🚀 Initializing database connections...');
-            
+           
             // Connect to both databases
             await Promise.all([
                 this.connectMongoDB(),
                 this.connectMySQL()
             ]);
-
+    
             console.log('✅ All database connections established!');
             return true;
         } catch (error) {

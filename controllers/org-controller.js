@@ -7,7 +7,7 @@ const MONTHS = require("../util/date-value");
 const Messages = require("../common/Messages");
 const OrgDto = require("../dto/OrgDto");
 const OrganizationPage = require("../page-controller/organization/OrganizationPage");
-const OrgAssignedProject = require("../model-1/OrgAssignedProject");
+const getOrgAssignedProject = require("../model-1/OrgAssignedProject");
 const Project = require("../model/Project");
 const CommonValues = require("../common/CommonValues");
 const ResponseObj = require("../common-obj/ResponseObj");
@@ -127,10 +127,11 @@ const orgCreationFunc = async (req,res,next) =>{
                 })
             }else {
                 
-                await newOrg.save().then((err,result)=>{
+                await newOrg.save().then(async (err,result)=>{
                     if(err) {
                         return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
                     }
+
                     req.session.isAuthenticated = true;
                     return res.redirect(`/dashboard?role=${role}`)
                 });
@@ -179,6 +180,9 @@ const orgCreationFuncJson =async (req,res,next)=>{
         }else {
             throw new Error(JSON.stringify(errorMessage))
         }
+
+        
+        const OrgAssignedProject = getOrgAssignedProject();
 
         const orgAssignedProject = await OrgAssignedProject.create({
             assigned_org_mongodb_id: orgIdSaved,

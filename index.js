@@ -92,6 +92,7 @@ const profileRoutes = require("./routes/profile-routes");
 const reminderRoutes = require("./routes/reminder-routes")
 const notifRoutes = require("./routes/notification-routes");
 const inviteRoutes = require("./routes/invite-routes");
+const Messages = require('./common/Messages');
 
 app.use(commonRoutes);
 app.use(loginRoutes);
@@ -109,7 +110,10 @@ app.use("/invite",checkActiveUser,inviteRoutes);
 // Error handling middleware
 app.use((error,req,res,next)=>{
     logger.error('404 Error', error);
-    res.status(404).render('404');
+    console.log(error)
+    res.status(404).render('404',{
+        message:Messages.SERVER_ERROR
+    });
 });
 
 app.use((error,req,res,next)=>{
@@ -122,7 +126,7 @@ async function startServer() {
     try {
         // Initialize database connections
         await databaseManager.initialize();
-        
+     
         // Start the server
         const server = app.listen(environment.PORT, () => {
             logger.info(`🚀 TaskQwek server started successfully!`);

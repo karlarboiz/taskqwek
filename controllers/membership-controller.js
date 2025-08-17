@@ -79,10 +79,11 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                 )
 
                 // Find a project based on the organization ID
-                const OrgAssignedProject = getOrgAssignedProject();
-                const orgProject = await OrgAssignedProject.findOne({
+                const EmailGenerationForInvite = getEmailGenerationForInvite();
+
+                const emailGenerationForInviteValue = await EmailGenerationForInvite.findOne({
                     where: {
-                        assigned_org_mongodb_id: checkActiveLink.dataValues.org_id,
+                        org_id: checkActiveLink.dataValues.org_id,
                         deleteFlg: false
                     }
                 });
@@ -106,6 +107,7 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
             }
         }
     }catch(e){
+        console.log("Pagka dghan sa error")
         console.log(e.message)
         next(e);
     }
