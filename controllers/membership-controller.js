@@ -2,6 +2,8 @@
 const Messages = require("../common/Messages");
 const EmailGenerationForInvite = require("../model-1/EmailGenerationForInvite");
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
+const UserAssignedOrg = require("../model-1/UserAssignedOrg");
+const OrgAssignedProject = require("../model-1/OrgAssignedProject");
 const ResponseObj = require("../common-obj/ResponseObj");
 const { orgCreationErrorSessionPage } = require("../util/org-creation-session");
 
@@ -75,6 +77,27 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                     }
                 )
 
+                // Find a project based on the organization ID
+                const orgProject = await OrgAssignedProject.findOne({
+                    where: {
+                        assigned_org_mongodb_id: checkActiveLink.dataValues.org_id,
+                        deleteFlg: false
+                    }
+                });
+
+                // Create UserAssignedOrg record
+                const userAssignedOrg = UserAssignedOrg.build({
+                    org_assigned_org_id: checkActiveLink.dataValues.org_id,
+                    project_assigned_project_id: orgProject ? orgProject.assigned_project_mongodb_id : null,
+                    is_assigned: true,
+                    reg_date: new Date(),
+                    update_date: new Date(),
+                    delete_flg: false
+                });
+
+                await userAssignedOrg.validate();
+                await userAssignedOrg.save();
+
                 return res.redirect("/signup/complete-setup/member");
             
             }
@@ -109,10 +132,6 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
             emailAddress:emailAddress
         }).exec();
         
-        console.log(emailAddress);
-
-        
-
         const codeRegisteredDate = new Date(checkActiveLink.dataValues.reg_date);
 
         const nowDate = new Date();
@@ -127,7 +146,6 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
             throw new Error(Messages.CODE_VERIFICATION_FAILED + " Code has expired!");
         }
 
-
         await EmailGenerationForInvite.update(
             {is_accepted: true,
             update_date: new Date()
@@ -139,6 +157,28 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
             }
         )
 
+        // Find a project based on the organization ID
+        const orgProject = await OrgAssignedProject.findOne({
+            where: {
+                assigned_org_mongodb_id: checkActiveLink.dataValues.org_id,
+                deleteFlg: false
+            }
+        });
+
+        // Create UserAssignedOrg record
+        const userAssignedOrg = UserAssignedOrg.build({
+            org_assigned_org_id: checkActiveLink.dataValues.org_id,
+            project_assigned_project_id: orgProject ? orgProject.assigned_project_mongodb_id : null,
+            is_assigned: true,
+            reg_date: new Date(),
+            update_date: new Date(),
+            delete_flg: false
+        });
+
+
+        await userAssignedOrg.validate();
+        await userAssignedOrg.save();
+
         responseObj._isSuccess = true;
         responseObj._message = Messages.SUCCESSFUL_JOIN_ORG;
         res.status(200).send(responseObj);
@@ -149,7 +189,6 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
         res.status(200).send(responseObj);
     }
 }
-
 
 module.exports ={
    
