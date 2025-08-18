@@ -11,6 +11,7 @@ const signupSession = require('../util/signup-session');
 const { orgCreationSessionPage } = require('../util/org-creation-session');
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
 const { generalRouteGeneratorHandler } = require('../util/route-generator');
+const { projectCreationSessionPage } = require('../util/project-creation-session');
 
 const signupPage = async (req,res)=>{
     
@@ -118,36 +119,36 @@ const signupFunc = async (req,res,next)=>{
         
         const encryptedPassword = await bcrypt.hash(password,saltRounds);
             
-        await userGeneralInfo.save().then((result,err)=>{
-            if(err){
-                next(err);
-            }
-            req.session.user={
-                id:result._id,
-                email:emailAddress,
-                role:result.role
-            }
+        // await userGeneralInfo.save().then((result,err)=>{
+        //     if(err){
+        //         next(err);
+        //     }
+        //     req.session.user={
+        //         id:result._id,
+        //         email:emailAddress,
+        //         role:result.role
+        //     }
 
-        });
+        // });
 
-        const userAuthInfoSave = new UserAuthenticationInfo({
-            userTableId: userGeneralInfo._id,
-            emailAddress:emailAddress,
-            password:encryptedPassword
-        })
+        // const userAuthInfoSave = new UserAuthenticationInfo({
+        //     userTableId: userGeneralInfo._id,
+        //     emailAddress:emailAddress,
+        //     password:encryptedPassword
+        // })
 
 
-        await userAuthInfoSave.save().then((result,err)=>{
-            if(err){
-                next(err);
-            }
+        // await userAuthInfoSave.save().then((result,err)=>{
+        //     if(err){
+        //         next(err);
+        //     }
             
-            req.session.isAuthenticated = false;
-            req.session.cookie.originalMaxAge = 864000;
-            req.session.newSignup = true;
-        });
-
-        return res.redirect(urlRoute)
+        //     req.session.isAuthenticated = false;
+        //     req.session.cookie.originalMaxAge = 864000;
+        //     req.session.newSignup = true;
+        // });
+     
+        return res.redirect("/signup/project-creation/complete-setup");
        
     }catch(e){
         console.log(e.message);
@@ -176,9 +177,30 @@ const completeSetupPage= (req,res,next)=>{
     }
 }
 
+const completeSetupPageLeaderProject = (req,res,next)=>{
+    const projectCreationInputs = projectCreationSessionPage(req);
+    // try{
+        
+    // }catch(e){
+    //     res.render("setup-includes/project-creation",{
+    //         projectCreationInputs:projectCreationInputs,
+    //         role:signUpValue,
+    //         pageLoc: "out"
+    //     });
+    // }
+
+    res.render("setup-includes/project-creation",{
+        projectCreationInputs:projectCreationInputs,
+        role:"leader",
+        activeLink:"project",
+        pageLoc: "out"
+    });
+}
+
 
 module.exports = {
     signupPage,
     signupFunc,
-    completeSetupPage
+    completeSetupPage,
+    completeSetupPageLeaderProject
 }   

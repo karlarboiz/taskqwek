@@ -1,0 +1,59 @@
+<%- include('../includes/header', {title: "Complete Setup",navItemsPresent: true}); %>
+
+<main class="container mx-auto my-3 mt-5">
+    <form id="project-form" >
+        <input type="hidden" id="_csrf" name="_csrf" value="<%=locals.csrf%>">
+        <div class="mb-3 project-field--name project-field--group">
+            <label for="project-name" class="form-label text-info">Project Name</label>
+            <input type="text" class="form-control" id="project-name" placeholder="Enter project name">
+        </div>
+        <div class="mb-3 project-field--description  project-field--group">
+            <label for="project-description" class="form-label text-info">Description</label>
+            <textarea class="form-control" id="project-description" rows="3" placeholder="Enter project description"></textarea>
+        </div>
+        <div class="mb-3 project-field--deadline project-field--group">
+            <label for="project-deadline" class="form-label text-info">Deadline</label>
+            <div class="custom-date-picker">
+                <div class="date-input-wrapper" id="date-input-wrapper">
+                    <input type="text" class="date-input" id="project-deadline" placeholder="Select deadline" readonly>
+                    <i class="fas fa-calendar-alt date-icon" id="date-icon"></i>
+                </div>
+                <div class="date-picker-dropdown" id="date-picker-dropdown" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 2px solid #e1e5e9; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); z-index: 9999; display: none; margin-top: 4px;">
+                    <div class="date-picker-header">
+                        <button type="button" class="date-picker-nav" id="prev-month">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="date-picker-title" id="current-month-year"></div>
+                        <button type="button" class="date-picker-nav" id="next-month">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="date-picker-body">
+                        <div class="date-picker-weekdays">
+                            <div class="weekday">Sun</div>
+                            <div class="weekday">Mon</div>
+                            <div class="weekday">Tue</div>
+                            <div class="weekday">Wed</div>
+                            <div class="weekday">Thu</div>
+                            <div class="weekday">Fri</div>
+                            <div class="weekday">Sat</div>
+                        </div>
+                        <div class="date-picker-days" id="date-picker-days"></div>
+                    </div>
+                    <div class="date-picker-footer">
+                        <button type="button" class="date-picker-btn secondary" id="clear-date">Clear</button>
+                        <button type="button" class="date-picker-btn primary" id="today-date">Today</button>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <div class="modal-footer">
+            <button type="reset" id="form-project--button-reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="save-changes">Save </button>
+        </div>
+    </form>
+</main>
+
+
+<%- include('../includes/footer'); %>

@@ -101,7 +101,7 @@ app.use("/member",memberRoutes);
 app.use("/org",checkActiveUser,orgRoutes);
 app.use("/dashboard",checkActiveUser,dashboardRoutes);
 app.use("/task",checkActiveUser,taskRoutes);
-app.use("/project",checkActiveUser,projectRoutes);
+app.use("/project",projectRoutes);
 app.use("/profile",checkActiveUser,profileRoutes);
 app.use("/reminder",checkActiveUser,reminderRoutes);
 app.use("/notification",checkActiveUser,notifRoutes);

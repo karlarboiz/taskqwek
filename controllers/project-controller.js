@@ -5,11 +5,11 @@ const UserControls = require("../model-functions/UserControls");
 const Project = require("../model/Project");
 const ProjectPage = require("../page-controller/project/ProjectPage");
 
-
 const ResponseObj = require("../common-obj/ResponseObj");
 // const { encryptValue } = require("../util/encrypt-code");
 const { errorParsingFromValidations } = require("../util/error-parsing");
 const { Json } = require("sequelize/lib/utils");
+const { projectCreationSessionPage,projectCreationErrorSessionPage } = require("../util/project-creation-session");
 const projectPage = async(req,res,next)=>{
  
     const role = req.session.user?.role === 1  ?"leader": "member";
@@ -112,13 +112,180 @@ const projectDetailsPageHandler = async(req,res,next)=>{
     }catch(e){
         next(e);
     }
-   
+}
+
+
+const createProjectAfterInitialSetup = async(req,res,next)=>{
+    try{
+        // const errorMessage = {};
+        // const pageLoc = req.body.pageLoc;
+        // const creatorAuthorId = req.session.user?.id;
     
+
+        // const newOrg = await new Org({
+        //     name: req.body['org-name'],
+        //     description: req.body.description,
+        //     population: req.body.population,
+        //     creatorAuthorId: creatorAuthorId
+        // })
+
+        // const role = req.session?.user?.role === 1 ? 'leader' : 'member';
+
+        // const err = await newOrg.validateSync();
+
+        // const errors = !err? {}:err.errors;
+        // const errorSet = Object.entries(errors);
+
+        // if(req.body.skip) {
+        //     req.session.isAuthenticated = true;
+        //     return res.redirect(`/dashboard`)
+        // }else {
+        //     const orgExisted = await Org.findOne({
+        //         name: req.body["orgName"]
+        //     })
+
+        //     const isLoggedIn = req.session?.isAuthenticated;
+        //     const roleConversion = req.session?.user?.role === 1 ? "leader"
+        //     : "member";
+            
+        //     const returnUrl = isLoggedIn ? "/org/org-page":`/signup/complete-setup/${roleConversion}`
+
+        //     if(errorSet.length >0){
+        //         for(const [key,value] of errorSet) {
+        //             errorMessage[key] = value.properties.message;
+        //         }
+        //         orgCreationErrorSessionPage(req,{
+        //             errorMessage:errorMessage,
+        //             orgName:req.body["org-name"],
+        //             description:req.body.description,
+        //             population:req.body.population
+        //         },()=>{
+        //             res.redirect(returnUrl)
+        //         })
+        //     }else if(orgExisted){
+        //         orgCreationErrorSessionPage(req,{
+        //             message:"Organization already existed!",
+        //             orgName:req.body["org-name"],
+        //             description:req.body.description,
+        //             population:req.body.population
+        //         },()=>{
+        //             res.redirect(returnUrl)
+        //         })
+        //     }else {
+                
+        //         await newOrg.save().then(async (err,result)=>{
+        //             if(err) {
+        //                 return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
+        //             }
+
+        //             req.session.isAuthenticated = true;
+        //             return res.redirect(`/dashboard?role=${role}`)
+        //         });
+        //     }
+        // }
+
+        if(req.body.skip) {
+             req.session.isAuthenticated = true;
+            return res.redirect(`/dashboard`)
+        }else {
+
+        }
+
+        return res.redirect("/project/project-creation");
+
+    }catch(e){
+        next(e);
+    }
+}
+
+const createProjectAfterInitialSetupPage = async(req,res,next)=>{
+    try{
+        // const errorMessage = {};
+        // const pageLoc = req.body.pageLoc;
+        // const creatorAuthorId = req.session.user?.id;
+    
+
+        // const newOrg = await new Org({
+        //     name: req.body['org-name'],
+        //     description: req.body.description,
+        //     population: req.body.population,
+        //     creatorAuthorId: creatorAuthorId
+        // })
+
+        // const role = req.session?.user?.role === 1 ? 'leader' : 'member';
+
+        // const err = await newOrg.validateSync();
+
+        // const errors = !err? {}:err.errors;
+        // const errorSet = Object.entries(errors);
+
+        // if(req.body.skip) {
+        //     req.session.isAuthenticated = true;
+        //     return res.redirect(`/dashboard`)
+        // }else {
+        //     const orgExisted = await Org.findOne({
+        //         name: req.body["orgName"]
+        //     })
+
+        //     const isLoggedIn = req.session?.isAuthenticated;
+        //     const roleConversion = req.session?.user?.role === 1 ? "leader"
+        //     : "member";
+            
+        //     const returnUrl = isLoggedIn ? "/org/org-page":`/signup/complete-setup/${roleConversion}`
+
+        //     if(errorSet.length >0){
+        //         for(const [key,value] of errorSet) {
+        //             errorMessage[key] = value.properties.message;
+        //         }
+        //         orgCreationErrorSessionPage(req,{
+        //             errorMessage:errorMessage,
+        //             orgName:req.body["org-name"],
+        //             description:req.body.description,
+        //             population:req.body.population
+        //         },()=>{
+        //             res.redirect(returnUrl)
+        //         })
+        //     }else if(orgExisted){
+        //         orgCreationErrorSessionPage(req,{
+        //             message:"Organization already existed!",
+        //             orgName:req.body["org-name"],
+        //             description:req.body.description,
+        //             population:req.body.population
+        //         },()=>{
+        //             res.redirect(returnUrl)
+        //         })
+        //     }else {
+                
+        //         await newOrg.save().then(async (err,result)=>{
+        //             if(err) {
+        //                 return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
+        //             }
+
+        //             req.session.isAuthenticated = true;
+        //             return res.redirect(`/dashboard?role=${role}`)
+        //         });
+        //     }
+        // }
+
+        if(req.body.skip) {
+             req.session.isAuthenticated = true;
+            return res.redirect(`/dashboard`)
+        }else {
+
+        }
+
+        return res.redirect("/project/project-creation");
+
+    }catch(e){
+        next(e);
+    }
 }
 
 module.exports = {
     projectPage,
     createProject,
     fetchProjectListFunctionHandler,
-    projectDetailsPageHandler
+    projectDetailsPageHandler,
+    createProjectAfterInitialSetup,
+    createProjectAfterInitialSetupPage
 }

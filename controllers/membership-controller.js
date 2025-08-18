@@ -107,7 +107,7 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
             }
         }
     }catch(e){
-        console.log("Pagka dghan sa error")
+      
         console.log(e.message)
         next(e);
     }
