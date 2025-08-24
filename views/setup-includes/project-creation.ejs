@@ -1,7 +1,7 @@
 <%- include('../includes/header', {title: "Complete Setup",navItemsPresent: true}); %>
 
 <main class="container mx-auto my-3 mt-5">
-    <form id="project-form" >
+    <form action="project/project-creation/leader" method="post" >
         <input type="hidden" id="_csrf" name="_csrf" value="<%=locals.csrf%>">
         <div class="mb-3 project-field--name project-field--group">
             <label for="project-name" class="form-label text-info">Project Name</label>

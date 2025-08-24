@@ -179,15 +179,11 @@ const completeSetupPage= (req,res,next)=>{
 
 const completeSetupPageLeaderProject = (req,res,next)=>{
     const projectCreationInputs = projectCreationSessionPage(req);
-    // try{
+    try{
         
-    // }catch(e){
-    //     res.render("setup-includes/project-creation",{
-    //         projectCreationInputs:projectCreationInputs,
-    //         role:signUpValue,
-    //         pageLoc: "out"
-    //     });
-    // }
+    }catch(e){
+        next(e)
+    }
 
     res.render("setup-includes/project-creation",{
         projectCreationInputs:projectCreationInputs,
