@@ -121,11 +121,10 @@ const createProjectAfterInitialSetup = async(req,res,next)=>{
         const pageLoc = req.body.pageLoc;
         const creatorAuthorId = req.session.user?.id;
     
-
-        const newOrg = await new Org({
-            name: req.body['org-name'],
-            description: req.body.description,
-            population: req.body.population,
+        const newOrg = await new Project({
+            name: req.body['project-name'],
+            description: req.body["project-description"],
+            deadline: req.body["project-deadline"],
             creatorAuthorId: creatorAuthorId
         })
 
@@ -137,61 +136,69 @@ const createProjectAfterInitialSetup = async(req,res,next)=>{
         const errorSet = Object.entries(errors);
 
         if(req.body.skip) {
+            console.log(errorSet);
             req.session.isAuthenticated = true;
-            return res.redirect(`/dashboard`)
+            return res.redirect("/signup/project-creation/complete-setup");
         }else {
-            const orgExisted = await Org.findOne({
-                name: req.body["orgName"]
+            console.log({
+                name: req.body['project-name'],
+                description: req.body["project-description"],
+                deadline: req.body["project-deadline"],
+                creatorAuthorId: creatorAuthorId
             })
+            return res.redirect("/signup/project-creation/complete-setup");
+            // const orgExisted = await Org.findOne({
+            //     name: req.body["orgName"]
+            // })
 
-            const isLoggedIn = req.session?.isAuthenticated;
-            const roleConversion = req.session?.user?.role === 1 ? "leader"
-            : "member";
+            // const isLoggedIn = req.session?.isAuthenticated;
+            // const roleConversion = req.session?.user?.role === 1 ? "leader"
+            // : "member";
             
-            const returnUrl = isLoggedIn ? "/org/org-page":`/signup/complete-setup/${roleConversion}`
+            // const returnUrl = isLoggedIn ? "/org/org-page":`/signup/complete-setup/${roleConversion}`
 
-            if(errorSet.length >0){
-                for(const [key,value] of errorSet) {
-                    errorMessage[key] = value.properties.message;
-                }
-                orgCreationErrorSessionPage(req,{
-                    errorMessage:errorMessage,
-                    orgName:req.body["org-name"],
-                    description:req.body.description,
-                    population:req.body.population
-                },()=>{
-                    res.redirect(returnUrl)
-                })
-            }else if(orgExisted){
-                orgCreationErrorSessionPage(req,{
-                    message:"Organization already existed!",
-                    orgName:req.body["org-name"],
-                    description:req.body.description,
-                    population:req.body.population
-                },()=>{
-                    res.redirect(returnUrl)
-                })
-            }else {
+            // if(errorSet.length >0){
+            //     for(const [key,value] of errorSet) {
+            //         errorMessage[key] = value.properties.message;
+            //     }
+            //     orgCreationErrorSessionPage(req,{
+            //         errorMessage:errorMessage,
+            //         orgName:req.body["org-name"],
+            //         description:req.body.description,
+            //         population:req.body.population
+            //     },()=>{
+            //         res.redirect(returnUrl)
+            //     })
+            // }else if(orgExisted){
+            //     orgCreationErrorSessionPage(req,{
+            //         message:"Organization already existed!",
+            //         orgName:req.body["org-name"],
+            //         description:req.body.description,
+            //         population:req.body.population
+            //     },()=>{
+            //         res.redirect(returnUrl)
+            //     })
+            // }else {
                 
-                await newOrg.save().then(async (err,result)=>{
-                    if(err) {
-                        return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
-                    }
+            //     await newOrg.save().then(async (err,result)=>{
+            //         if(err) {
+            //             return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
+            //         }
 
-                    req.session.isAuthenticated = true;
-                    return res.redirect(`/dashboard?role=${role}`)
-                });
-            }
+            //         req.session.isAuthenticated = true;
+            //         return res.redirect(`/dashboard?role=${role}`)
+            //     });
+            // }
         }
 
-        if(req.body.skip) {
-             req.session.isAuthenticated = true;
-            return res.redirect(`/dashboard`)
-        }else {
+        // if(req.body.skip) {
+        //      req.session.isAuthenticated = true;
+        //     return res.redirect(`/dashboard`)
+        // }else {
 
-        }
+        // }
 
-        return res.redirect("/project/project-creation");
+        // return res.redirect("/project/project-creation");
 
     }catch(e){
         next(e);

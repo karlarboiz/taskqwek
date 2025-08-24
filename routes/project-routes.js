@@ -13,7 +13,5 @@ router.get("/project-list",fetchProjectListFunctionHandler);
  
 router.get("/project-details/:projectId",projectDetailsPageHandler);
 
-router.post("/project-creation",createProjectAfterInitialSetup);
-
-router.post("/project-creation/leader");
+router.post("/project-creation/leader",createProjectAfterInitialSetup);
 module.exports = router;
