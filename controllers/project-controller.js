@@ -157,7 +157,7 @@ const createProjectAfterInitialSetup = async(req,res,next)=>{
                     description: req.body["project-description"],
                     deadline: req.body["project-deadline"]
                 },()=>{
-                    res.redirect("/signup/project-creation/complete-setup")
+                    res.redirect("/signup/project-creation/complete-setup/leader")
                 })
  
                 return;
@@ -168,7 +168,7 @@ const createProjectAfterInitialSetup = async(req,res,next)=>{
                     description: req.body["project-description"],
                     deadline: req.body["project-deadline"]
                 },()=>{
-                    res.redirect("/signup/project-creation/complete-setup")
+                    res.redirect("/signup/project-creation/complete-setup/leader")
                 })
 
                 return;

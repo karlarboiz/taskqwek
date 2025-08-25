@@ -1,19 +1,11 @@
 
 
-const generalRouteGeneratorHandler =(roleValue, urlPart,isSignup)=>{
-    let urlRoute;
+const generalRouteGeneratorHandler =(roleValue)=>{
+
     
-    if(isSignup){
-        urlRoute= roleValue === 0 ? "/dashboard": (roleValue == 1 ? `${urlPart}/leader`:
-            `${urlPart}/member`
-        );
-
-    }else {
-        urlRoute= roleValue === 0 ? "/dashboard": (roleValue ==1 ? `/leader/${urlPart}`:
-            `/member/${urlPart}`
-        );
-
-    }
+    const urlRoute= roleValue === 0 ? "/dashboard": (roleValue == 1 ? `/signup/project-creation/complete-setup/leader`:
+            `/signup/complete-setup/member`
+    );
 
     return urlRoute;
 }

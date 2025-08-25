@@ -115,43 +115,43 @@ const signupFunc = async (req,res,next)=>{
 
         const convert = Number(req.body.role);
 
-        const urlRoute = generalRouteGeneratorHandler(convert,"/signup/complete-setup",true)   
+        const urlRoute = generalRouteGeneratorHandler(convert)   
         
         const encryptedPassword = await bcrypt.hash(password,saltRounds);
             
-        // await userGeneralInfo.save().then((result,err)=>{
-        //     if(err){
-        //         next(err);
-        //     }
-        //     req.session.user={
-        //         id:result._id,
-        //         email:emailAddress,
-        //         role:result.role
-        //     }
+        await userGeneralInfo.save().then((result,err)=>{
+            if(err){
+                next(err);
+            }
+            req.session.user={
+                id:result._id,
+                email:emailAddress,
+                role:result.role
+            }
 
-        // });
+        });
 
-        // const userAuthInfoSave = new UserAuthenticationInfo({
-        //     userTableId: userGeneralInfo._id,
-        //     emailAddress:emailAddress,
-        //     password:encryptedPassword
-        // })
+        const userAuthInfoSave = new UserAuthenticationInfo({
+            userTableId: userGeneralInfo._id,
+            emailAddress:emailAddress,
+            password:encryptedPassword
+        })
 
 
-        // await userAuthInfoSave.save().then((result,err)=>{
-        //     if(err){
-        //         next(err);
-        //     }
+        await userAuthInfoSave.save().then((result,err)=>{
+            if(err){
+                next(err);
+            }
             
-        //     req.session.isAuthenticated = false;
-        //     req.session.cookie.originalMaxAge = 864000;
-        //     req.session.newSignup = true;
-        // });
+            req.session.isAuthenticated = false;
+            req.session.cookie.originalMaxAge = 864000;
+            req.session.newSignup = true;
+        });
      
-        return res.redirect("/signup/project-creation/complete-setup");
+        return res.redirect(urlRoute);
        
     }catch(e){
-        console.log(e.message);
+        
         next(e)
     }
 }
