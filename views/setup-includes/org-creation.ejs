@@ -1,4 +1,4 @@
-<form action="/org/org-creation" class="mt-5" method="post">
+<form action="/org/org-creation" class="mt-5" method="post" id="org-creation--initial-setup">
   <div><%=orgCreationInputs.hasError ? orgCreationInputs.message : ''%></div>  
   <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
     <div>As a Leader: Create Your Organization</div>
@@ -24,12 +24,16 @@
       </div>
 
       <div class="form-floating mb-3">
-        <select name="project-options" id="project-options">
+        
+        <select name="project-options">
           <option value=""></option>
           <% for (let i = 0; i < leaderProjects.length; i++) { %>
           <option value="<%= leaderProjects[i]._id %>"><%= leaderProjects[i].name %></option>
           <% } %>
         </select>
+
+         <span class="error-text
+        text-danger"><%=orgCreationInputs?.errorMessage?.project%></span>
       </div>
       
 

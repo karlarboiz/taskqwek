@@ -12089,6 +12089,14 @@ select[name=projects] {
   max-width: 20rem;
 }
 
+#org-creation--initial-setup [name=project-options] {
+  width: 100%;
+  line-height: 1.25rem;
+  border-color: gray;
+  border-radius: 0.25rem;
+  padding: 1.25rem 0.75rem;
+}
+
 #task-accordion {
   text-align: left;
 }

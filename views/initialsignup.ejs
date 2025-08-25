@@ -1,5 +1,12 @@
 <%- include('includes/header', {title: "Signup Page",navItemsPresent: true}); %>
-<div class="text-center mx-auto mt-5"><%=signupInputs.hasError ? signupInputs?.message : ''%></div>
+
+<% if(signupInputs?.message) {%>
+    <div class="bg-warning text-center py-2">
+        <p class="text-danger "><%= signupInputs?.message  %></p> 
+    </div>
+
+<% }%>
+
 <main class="container mt-5">
   <form action="/signup?_csrf=<%= locals.csrf %>" method="post">
     <section class="mx-auto p-4 shadow rounded bg-light" style="max-width: 600px;">

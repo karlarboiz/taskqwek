@@ -75,7 +75,7 @@ const orgCreationFunc = async (req,res,next) =>{
         const pageLoc = req.body.pageLoc;
         const creatorAuthorId = req.session.user?.id;
     
-
+        console.log(req.body["project-options"])
         const newOrg = await new Org({
             name: req.body['org-name'],
             description: req.body.description,
