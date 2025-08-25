@@ -74,8 +74,8 @@ const orgCreationFunc = async (req,res,next) =>{
         const errorMessage = {};
         const pageLoc = req.body.pageLoc;
         const creatorAuthorId = req.session.user?.id;
+        const projectOptionId = req.body["project-options"];
     
-        console.log(req.body["project-options"])
         const newOrg = await new Org({
             name: req.body['org-name'],
             description: req.body.description,
@@ -98,6 +98,11 @@ const orgCreationFunc = async (req,res,next) =>{
                 name: req.body["orgName"]
             })
 
+            await Project.findById(projectOptionId).exec().then(result=> console.log(result)).catch(e=>{
+                errorMessage["project"] = CommonValues.PROJECT_FORMAL_NAME +  Messages.ENTITY_NOT_FOUND;
+            });
+
+
             const isLoggedIn = req.session?.isAuthenticated;
             const roleConversion = req.session?.user?.role === 1 ? "leader"
             : "member";
@@ -116,6 +121,8 @@ const orgCreationFunc = async (req,res,next) =>{
                 },()=>{
                     res.redirect(returnUrl)
                 })
+
+                return;
             }else if(orgExisted){
                 orgCreationErrorSessionPage(req,{
                     message:"Organization already existed!",
@@ -125,6 +132,8 @@ const orgCreationFunc = async (req,res,next) =>{
                 },()=>{
                     res.redirect(returnUrl)
                 })
+
+                return;
             }else {
                 
                 await newOrg.save().then(async (err,result)=>{

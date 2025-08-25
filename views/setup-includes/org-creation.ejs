@@ -25,7 +25,7 @@
 
       <div class="form-floating mb-3">
         
-        <select name="project-options">
+        <select name="project-options" id="project-options">
           <option value=""></option>
           <% for (let i = 0; i < leaderProjects.length; i++) { %>
           <option value="<%= leaderProjects[i]._id %>"><%= leaderProjects[i].name %></option>

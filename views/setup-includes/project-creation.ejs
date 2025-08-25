@@ -2,7 +2,12 @@
 
 <main class="container mx-auto my-3 mt-5">
 
-    <div><%=projectCreationInputs.hasError ? projectCreationInputs.message : ''%></div>  
+    <% if(projectCreationInputs.message) {%>
+        <div class="bg-warning text-center py-2">
+            <p class="text-danger "><%=projectCreationInputs.message%></p> 
+        </div>
+
+    <% }%>
     <form action="/project/project-creation/leader" method="post" >
         <input type="hidden" id="_csrf" name="_csrf" value="<%=locals.csrf%>">
         <div class="mb-3 project-field--name project-field--group">

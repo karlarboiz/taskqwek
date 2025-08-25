@@ -172,9 +172,8 @@ const createProjectAfterInitialSetup = async(req,res,next)=>{
                 return;
             }else {
              
-                await newProject.save().then(async (err,result)=>{
-                    if(err) {
-                         projectCreationErrorSessionPage(req,{
+                await newProject.save().catch(error => {
+                    projectCreationErrorSessionPage(req,{
                             message:Messages.SERVER_ERROR,
                             name: req.body['project-name'],
                             description: req.body["project-description"],
@@ -184,13 +183,11 @@ const createProjectAfterInitialSetup = async(req,res,next)=>{
                         })
 
                         return;
-                    }
-
+                }).finally((result)=>{
                     req.session.isAuthenticated = true;
-                    return res.redirect("/dashboard")
+                    return res.redirect("/signup/complete-setup/leader")
                 });
 
-                return res.redirect("/signup/complete-setup/leader");
             }
 
         }

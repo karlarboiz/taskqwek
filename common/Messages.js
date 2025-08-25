@@ -25,6 +25,8 @@ class Messages {
     static SERVER_ERROR = "Server Failed. Try again later!";
     
     static DUPLICATE_ENTITY_ERROR = " already existed!";
+
+    static ENTITY_NOT_FOUND = " not found";
 }
 
 module.exports = Messages
