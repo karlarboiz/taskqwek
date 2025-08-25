@@ -12,6 +12,7 @@ const { orgCreationSessionPage } = require('../util/org-creation-session');
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
 const { generalRouteGeneratorHandler } = require('../util/route-generator');
 const { projectCreationSessionPage } = require('../util/project-creation-session');
+const OrganizationPage = require('../page-controller/organization/OrganizationPage');
 
 const signupPage = async (req,res)=>{
     
@@ -158,22 +159,32 @@ const signupFunc = async (req,res,next)=>{
 
 
 
-const completeSetupPageRoleOrg= (req,res,next)=>{
+const completeSetupPageRoleOrg= async(req,res,next)=>{
     
     const orgCreationInputs = orgCreationSessionPage(req);
-    
 
+    const role = req.session.user?.role === 1  ?"leader": "member";
+    const id = req.session?.user?.id;
+     
     try{
         const signUpValue = req.params['role'];
+        
+        const route = new OrganizationPage();
+        route._role = role;
+        route._id = id;
+
+        const routeData = await route.getPageData();
 
         res.render("complete-setup",{
             orgCreationInputs:orgCreationInputs,
             membershipJoinInputs:{},
             role:signUpValue,
-            pageLoc: "out"
+            pageLoc: "out",
+            ...routeData
         });
     }catch(e){
-        next()
+        console.log(e);
+        next(e)
     }
 }
 

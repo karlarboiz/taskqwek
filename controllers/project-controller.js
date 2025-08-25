@@ -120,12 +120,12 @@ const createProjectAfterInitialSetup = async(req,res,next)=>{
     try{
         const errorMessage = {};
         const creatorAuthorId = req.session.user?.id;
-    
+  
         const newProject = await new Project({
             name: req.body['project-name'],
             description: req.body["project-description"],
             deadline: req.body["project-deadline"],
-            creatorAuthorId: creatorAuthorId
+            createAuthorId: creatorAuthorId
         })
 
     
@@ -139,12 +139,10 @@ const createProjectAfterInitialSetup = async(req,res,next)=>{
             req.session.isAuthenticated = true;
             return res.redirect("/dashboard");
         }else {
-      
+
             const projectExisted = await Project.findOne({
                 name: req.body["project-name"]
             })
-
-            console.log(err.errors);
             
             if(errorSet.length >0){
                 for(const [key,value] of errorSet) {
@@ -173,24 +171,24 @@ const createProjectAfterInitialSetup = async(req,res,next)=>{
 
                 return;
             }else {
-                console.log("hello from universe 8")
-                // await Project.save().then(async (err,result)=>{
-                //     if(err) {
-                //          projectCreationErrorSessionPage(req,{
-                //             message:Messages.SERVER_ERROR,
-                //             name: req.body['project-name'],
-                //             description: req.body["project-description"],
-                //             deadline: req.body["project-deadline"]
-                //         },()=>{
-                //             res.redirect("/signup/project-creation/complete-setup")
-                //         })
+             
+                await newProject.save().then(async (err,result)=>{
+                    if(err) {
+                         projectCreationErrorSessionPage(req,{
+                            message:Messages.SERVER_ERROR,
+                            name: req.body['project-name'],
+                            description: req.body["project-description"],
+                            deadline: req.body["project-deadline"]
+                        },()=>{
+                            res.redirect("/signup/project-creation/complete-setup")
+                        })
 
-                //         return;
-                //     }
+                        return;
+                    }
 
-                //     req.session.isAuthenticated = true;
-                //     return res.redirect("/dashboard")
-                // });
+                    req.session.isAuthenticated = true;
+                    return res.redirect("/dashboard")
+                });
 
                 return res.redirect("/signup/complete-setup/leader");
             }

@@ -14,7 +14,7 @@
         text-danger"><%=orgCreationInputs?.errorMessage?.name%></span>
       </div>
 
-        <div class="form-floating mb-3">
+      <div class="form-floating mb-3">
         <textarea type="text" class="form-control"
          id="description" name="description"
          value="<%= orgCreationInputs?.description%>"> </textarea>
@@ -22,6 +22,16 @@
         <span class="error-text
         text-danger"><%=orgCreationInputs?.errorMessage?.description%></span>
       </div>
+
+      <div class="form-floating mb-3">
+        <select name="project-options" id="project-options">
+          <option value=""></option>
+          <% for (let i = 0; i < leaderProjects.length; i++) { %>
+          <option value="<%= leaderProjects[i]._id %>"><%= leaderProjects[i].name %></option>
+          <% } %>
+        </select>
+      </div>
+      
 
       <div class="form-floating mb-3">
         <input type="number" class="form-control"
