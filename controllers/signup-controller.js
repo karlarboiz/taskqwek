@@ -158,7 +158,7 @@ const signupFunc = async (req,res,next)=>{
 
 
 
-const completeSetupPage= (req,res,next)=>{
+const completeSetupPageRoleOrg= (req,res,next)=>{
     
     const orgCreationInputs = orgCreationSessionPage(req);
     
@@ -179,24 +179,27 @@ const completeSetupPage= (req,res,next)=>{
 
 const completeSetupPageLeaderProject = (req,res,next)=>{
     const projectCreationInputs = projectCreationSessionPage(req);
+
     try{
+
+         res.render("setup-includes/project-creation",{
+            projectCreationInputs:projectCreationInputs,
+            role:"leader",
+            activeLink:"project",
+            pageLoc: "out"
+        });
         
     }catch(e){
         next(e)
     }
 
-    res.render("setup-includes/project-creation",{
-        projectCreationInputs:projectCreationInputs,
-        role:"leader",
-        activeLink:"project",
-        pageLoc: "out"
-    });
+   
 }
 
 
 module.exports = {
     signupPage,
     signupFunc,
-    completeSetupPage,
+    completeSetupPageRoleOrg,
     completeSetupPageLeaderProject
 }   

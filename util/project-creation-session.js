@@ -11,7 +11,7 @@ function projectCreationSessionPage(req){
             description: '',
             population: ''
         }
-    }
+    } 
     
     req.session.projectCreationInputs = null;
   

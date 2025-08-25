@@ -23,6 +23,8 @@ class Messages {
     static SUCCESSFUL_JOIN_ORG = "You have been admitted to the Org.";
 
     static SERVER_ERROR = "Server Failed. Try again later!";
+    
+    static DUPLICATE_ENTITY_ERROR = " already existed!";
 }
 
 module.exports = Messages

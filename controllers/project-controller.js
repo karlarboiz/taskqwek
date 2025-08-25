@@ -10,6 +10,7 @@ const ResponseObj = require("../common-obj/ResponseObj");
 const { errorParsingFromValidations } = require("../util/error-parsing");
 const { Json } = require("sequelize/lib/utils");
 const { projectCreationSessionPage,projectCreationErrorSessionPage } = require("../util/project-creation-session");
+const CommonValues = require("../common/CommonValues");
 const projectPage = async(req,res,next)=>{
  
     const role = req.session.user?.role === 1  ?"leader": "member";
@@ -118,87 +119,84 @@ const projectDetailsPageHandler = async(req,res,next)=>{
 const createProjectAfterInitialSetup = async(req,res,next)=>{
     try{
         const errorMessage = {};
-        const pageLoc = req.body.pageLoc;
         const creatorAuthorId = req.session.user?.id;
     
-        const newOrg = await new Project({
+        const newProject = await new Project({
             name: req.body['project-name'],
             description: req.body["project-description"],
             deadline: req.body["project-deadline"],
             creatorAuthorId: creatorAuthorId
         })
 
-        const role = req.session?.user?.role === 1 ? 'leader' : 'member';
-
-        const err = await newOrg.validateSync();
+    
+        const err = await newProject.validateSync();
 
         const errors = !err? {}:err.errors;
         const errorSet = Object.entries(errors);
 
         if(req.body.skip) {
-            console.log(errorSet);
+          
             req.session.isAuthenticated = true;
-            return res.redirect("/signup/project-creation/complete-setup");
+            return res.redirect("/dashboard");
         }else {
-            console.log({
-                name: req.body['project-name'],
-                description: req.body["project-description"],
-                deadline: req.body["project-deadline"],
-                creatorAuthorId: creatorAuthorId
+      
+            const projectExisted = await Project.findOne({
+                name: req.body["project-name"]
             })
-            return res.redirect("/signup/project-creation/complete-setup");
-            // const orgExisted = await Org.findOne({
-            //     name: req.body["orgName"]
-            // })
 
-            // const isLoggedIn = req.session?.isAuthenticated;
-            // const roleConversion = req.session?.user?.role === 1 ? "leader"
-            // : "member";
+            console.log(err.errors);
             
-            // const returnUrl = isLoggedIn ? "/org/org-page":`/signup/complete-setup/${roleConversion}`
+            if(errorSet.length >0){
+                for(const [key,value] of errorSet) {
+                    errorMessage[key] = value.properties.message;
+                }
 
-            // if(errorSet.length >0){
-            //     for(const [key,value] of errorSet) {
-            //         errorMessage[key] = value.properties.message;
-            //     }
-            //     orgCreationErrorSessionPage(req,{
-            //         errorMessage:errorMessage,
-            //         orgName:req.body["org-name"],
-            //         description:req.body.description,
-            //         population:req.body.population
-            //     },()=>{
-            //         res.redirect(returnUrl)
-            //     })
-            // }else if(orgExisted){
-            //     orgCreationErrorSessionPage(req,{
-            //         message:"Organization already existed!",
-            //         orgName:req.body["org-name"],
-            //         description:req.body.description,
-            //         population:req.body.population
-            //     },()=>{
-            //         res.redirect(returnUrl)
-            //     })
-            // }else {
-                
-            //     await newOrg.save().then(async (err,result)=>{
-            //         if(err) {
-            //             return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
-            //         }
+                projectCreationErrorSessionPage(req,{
+                    errorMessage:errorMessage,
+                    name: req.body['project-name'],
+                    description: req.body["project-description"],
+                    deadline: req.body["project-deadline"]
+                },()=>{
+                    res.redirect("/signup/project-creation/complete-setup")
+                })
+ 
+                return;
+            }else if(projectExisted){
+                projectCreationErrorSessionPage(req,{
+                    message:CommonValues.PROJECT_FORMAL_NAME + Messages.DUPLICATE_ENTITY_ERROR,
+                    name: req.body['project-name'],
+                    description: req.body["project-description"],
+                    deadline: req.body["project-deadline"]
+                },()=>{
+                    res.redirect("/signup/project-creation/complete-setup")
+                })
 
-            //         req.session.isAuthenticated = true;
-            //         return res.redirect(`/dashboard?role=${role}`)
-            //     });
-            // }
+                return;
+            }else {
+                console.log("hello from universe 8")
+                // await Project.save().then(async (err,result)=>{
+                //     if(err) {
+                //          projectCreationErrorSessionPage(req,{
+                //             message:Messages.SERVER_ERROR,
+                //             name: req.body['project-name'],
+                //             description: req.body["project-description"],
+                //             deadline: req.body["project-deadline"]
+                //         },()=>{
+                //             res.redirect("/signup/project-creation/complete-setup")
+                //         })
+
+                //         return;
+                //     }
+
+                //     req.session.isAuthenticated = true;
+                //     return res.redirect("/dashboard")
+                // });
+
+                return res.redirect("/signup/complete-setup/leader");
+            }
+
         }
 
-        // if(req.body.skip) {
-        //      req.session.isAuthenticated = true;
-        //     return res.redirect(`/dashboard`)
-        // }else {
-
-        // }
-
-        // return res.redirect("/project/project-creation");
 
     }catch(e){
         next(e);

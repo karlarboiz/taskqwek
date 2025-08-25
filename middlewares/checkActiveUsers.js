@@ -17,6 +17,7 @@ const loginPageCheckForActiveUser = (req,res,next)=>{
 }
 
 const checkSessionRole = (req,res,next)=>{
+    console.log(">>")
     const role = req.params["role"];
     try{
         if(!role){

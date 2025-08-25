@@ -16,6 +16,8 @@ class CommonValues {
     static INVITE = "invite";
 
     static EMPTY_STRING = "";
+
+    static PROJECT_FORMAL_NAME = "Project";
 }
 
 module.exports = CommonValues;
