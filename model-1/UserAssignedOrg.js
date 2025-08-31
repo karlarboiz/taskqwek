@@ -10,7 +10,7 @@ const initializeModel = () => {
         if (!databaseManager.mysqlConnection) {
             throw new Error('MySQL connection not initialized. Make sure databaseManager.initialize() has been called.');
         }
-        databaseManager.connectMySQL().then(db=> db.sync());
+       
         UserAssignedOrg = databaseManager.mysqlConnection.define('UserAssignedOrg', {
 
     org_assigned_org_id: {

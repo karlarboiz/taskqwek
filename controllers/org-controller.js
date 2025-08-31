@@ -84,7 +84,6 @@ const orgCreationFunc = async (req,res,next) =>{
             creatorAuthorId: creatorAuthorId
         })
 
-        const role = req.session?.user?.role === 1 ? 'leader' : 'member';
 
         const err = await newOrg.validateSync();
 
@@ -142,6 +141,16 @@ const orgCreationFunc = async (req,res,next) =>{
                 }).finally(result=>{
                     return res.redirect(RouteNames.DASHBOARD)
                 })
+
+                const OrgAssignedProject = getOrgAssignedProject();
+
+                const orgAssignedProject = await OrgAssignedProject.create({
+                    assigned_org_mongodb_id: newOrg._id,
+                    assigned_project_mongodb_id:projectOptionId
+                })
+
+
+                await orgAssignedProject.save();
             }
         }
     }catch(e){
@@ -188,7 +197,6 @@ const orgCreationFuncJson =async (req,res,next)=>{
             throw new Error(JSON.stringify(errorMessage))
         }
 
-        
         const OrgAssignedProject = getOrgAssignedProject();
 
         const orgAssignedProject = await OrgAssignedProject.create({

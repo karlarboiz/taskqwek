@@ -11,7 +11,7 @@ const initializeModel = () => {
         if (!databaseManager.mysqlConnection) {
             throw new Error('MySQL connection not initialized. Make sure databaseManager.initialize() has been called.');
         }
-        databaseManager.connectMySQL().then(db=> db.sync());
+       
         EmailGenerationForInvite = databaseManager.mysqlConnection.define('EmailGenerationForInvite', {
         token_id: {
             type: DataTypes.INTEGER,

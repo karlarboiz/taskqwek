@@ -86,8 +86,7 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                         }
                     }
                 )
-
-
+     
                 // Create UserAssignedOrg record
                 const UserAssignedOrg = getUserAssignedOrg();
                 const userAssignedOrg = UserAssignedOrg.build({
