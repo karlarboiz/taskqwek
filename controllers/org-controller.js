@@ -12,6 +12,7 @@ const Project = require("../model/Project");
 const CommonValues = require("../common/CommonValues");
 const ResponseObj = require("../common-obj/ResponseObj");
 const OrgControls = require("../model-functions/OrgControls");
+const RouteNames = require("../common/RouteNames");
 
 
 const orgDashboardOrgPage = async (req,res,next)=>{
@@ -136,14 +137,11 @@ const orgCreationFunc = async (req,res,next) =>{
                 return;
             }else {
                 
-                await newOrg.save().then(async (err,result)=>{
-                    if(err) {
-                        return res.redirect(`/${pageLoc === 'out' ? 'dashboard' : 'org/org-page'}`)
-                    }
-
-                    req.session.isAuthenticated = true;
-                    return res.redirect(`/dashboard?role=${role}`)
-                });
+                await newOrg.save().catch(e=>{
+                   return res.redirect(RouteNames.DASHBOARD)
+                }).finally(result=>{
+                    return res.redirect(RouteNames.DASHBOARD)
+                })
             }
         }
     }catch(e){

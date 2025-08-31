@@ -20,7 +20,7 @@ const project_schema = new mongoose.Schema({
             validator: function(value) {
                 const currentDate = new Date();
                 const sevenDaysLater = new Date();
-                sevenDaysLater.setDate(currentDate.getDate() + 7);
+                sevenDaysLater.setDate(currentDate.getDate() + 5);
                 return value >= sevenDaysLater;
             },
             message: "The date must be at least 7 days ahead of today."
