@@ -1,7 +1,5 @@
 <form action="/member/join-org" method="post">
-    <% if(memberSetupInputs.message) {%>
-      <p class="error-message"><%= memberSetupInputs.message %></p>
-      <%}%>
+
     <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
     <div>Join Your Organization</div>
 
@@ -9,9 +7,11 @@
         <textarea type="text" class="form-control"
          id="org-code" name="org-code" value="<%= memberSetupInputs.orgCode %>"> </textarea>
         <label for="org-code">Organization Code</label>
-      </div>
+        <span class="error-text
+        text-danger"><%=memberSetupInputs.message%></span>
+    </div>
 
-      <button class="btn btn-primary" type="submit" name="skip" value="skip"> Skip </button>
-      <button class="btn btn-primary" type="submit" name="join" value="join"> Join </button>
+    <button class="btn btn-primary" type="submit" name="skip" value="skip"> Skip </button>
+    <button class="btn btn-primary" type="submit" name="join" value="join"> Join </button>
 
 </form>

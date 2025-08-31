@@ -48,7 +48,7 @@ const sendEmail = async(req,res,next)=> {
     await emailInviteItem.save();
     
     const mailOptions = {
-      from: '"Your App Name" <your.email@gmail.com>',
+      from: '"TaskQwek" <your.email@gmail.com>',
       to:email,
       subject: MailTemplate.SUBJECT_MEMBERSHIP_JOIN,
       html:concatHTMLMessage,

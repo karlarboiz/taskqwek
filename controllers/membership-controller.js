@@ -26,12 +26,14 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
             if(!checkActiveLink){
 
                 orgCreationErrorSessionPage(req,{
-                    message:Messages.CODE_VERIFICATION_FAILED +" Link not Valid or Link not active or associated anywhere in the records",
+                    message:Messages.CODE_VERIFICATION_FAILED +" Code not Valid or Code not active or associated anywhere in the records",
                     orgCode:req.body["org-code"],
                   
                 },()=>{
-                    return res.redirect("/signup/complete-setup/member");
+                    res.redirect("/signup/complete-setup/member");
                 })
+
+                return;
 
             }
             else {
@@ -53,8 +55,10 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                     orgCode:req.body["org-code"],
                     
                     },()=>{
-                        return res.redirect("/signup/complete-setup/member");
+                        res.redirect("/signup/complete-setup/member");
                     })
+
+                    return;
                 }
 
                 if(diffSeconds > checkActiveLink.dataValues?.valid_seconds){
@@ -63,9 +67,14 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                     orgCode:req.body["org-code"],
                     
                     },()=>{
-                        return res.redirect("/signup/complete-setup/member");
+                        res.redirect("/signup/complete-setup/member");
                     })
+
+                    return;
                 }
+
+                // Find a project based on the organization ID
+                const EmailGenerationForInvite = getEmailGenerationForInvite();
 
                 await EmailGenerationForInvite.update(
                     {is_accepted: true,
@@ -78,15 +87,6 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                     }
                 )
 
-                // Find a project based on the organization ID
-                const EmailGenerationForInvite = getEmailGenerationForInvite();
-
-                const emailGenerationForInviteValue = await EmailGenerationForInvite.findOne({
-                    where: {
-                        org_id: checkActiveLink.dataValues.org_id,
-                        deleteFlg: false
-                    }
-                });
 
                 // Create UserAssignedOrg record
                 const UserAssignedOrg = getUserAssignedOrg();

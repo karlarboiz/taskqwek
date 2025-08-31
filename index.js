@@ -126,7 +126,7 @@ async function startServer() {
     try {
         // Initialize database connections
         await databaseManager.initialize();
-     
+         databaseManager.connectMySQL().then(db=> db.sync());
         // Start the server
         const server = app.listen(environment.PORT, () => {
             logger.info(`🚀 TaskQwek server started successfully!`);
