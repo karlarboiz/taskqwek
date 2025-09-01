@@ -20,6 +20,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
     const role = req.session.user?.role === 1  ?"leader": "member";
     const id = req.session.user.id;
 
+
     try{
 
         const route = new OrganizationPage();
@@ -28,6 +29,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
 
         const routeData = await route.getPageData();
         
+        console.log(routeData);
         res.render(route.createPageRoute(),
             {role:role, 
             activeLink: 'org',

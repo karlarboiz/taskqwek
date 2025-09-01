@@ -11,6 +11,7 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
     
         const otpCode = req.body["org-code"].trim();
          req.session.newSignup = false;
+         const userId = req.session.user.id;
         try{
         if(req.body.skip){
             return res.redirect("/dashboard");
@@ -90,6 +91,7 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
                 // Create UserAssignedOrg record
                 const UserAssignedOrg = getUserAssignedOrg();
                 const userAssignedOrg = UserAssignedOrg.build({
+                    user_assigned_user_id:userId,
                     org_assigned_org_id: checkActiveLink.dataValues.org_id,
                     project_assigned_project_id: orgProject ? orgProject.assigned_project_mongodb_id : null,
                     is_assigned: true,
@@ -115,6 +117,7 @@ const joinOrgMemberInitialSetup =async(req,res,next)=>{
 const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
     
     const otpCode = req.body.otpCode?.trim();
+    const userId = req.session.user.id;
     
      const responseObj = new ResponseObj();
 
@@ -174,6 +177,7 @@ const joinOrgMemberInitialSetupJson = async(req,res,next)=>{
         // Create UserAssignedOrg record
         const UserAssignedOrg = getUserAssignedOrg();
         const userAssignedOrg = UserAssignedOrg.build({
+            user_assigned_user_id:userId,
             org_assigned_org_id: checkActiveLink.dataValues.org_id,
             project_assigned_project_id: orgProject ? orgProject.assigned_project_mongodb_id : null,
             is_assigned: true,

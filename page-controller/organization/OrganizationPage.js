@@ -4,6 +4,8 @@ const OrgControls = require("../../model-functions/OrgControls");
 const ProjectControls = require("../../model-functions/ProjectControls");
 const Org = require("../../model/Org");
 const Organization = require("./Organization");
+const getUserAssignedOrg = require("../../model-1/UserAssignedOrg");
+const MONTHS = require("../../util/date-value");
 
 class OrganizationPage extends Organization{
     constructor(rootName,role,id,orgId){
@@ -49,9 +51,22 @@ class OrganizationPage extends Organization{
     async getPageData(){
         if(this.role === "member"){
             const orgDto = new OrgDto();
+
+            const UserAssignedOrg = getUserAssignedOrg();
+
+            const userAssignedOrg = await UserAssignedOrg.findOne({
+                where:{
+                    user_assigned_user_id: this.id
+                }
+            });
+
+            const userAssignedOrgData = userAssignedOrg?.dataValues;
+
             const orgDetails = await Org.findOne({
-                _id: this.orgId
+                _id: userAssignedOrgData.org_assigned_org_id
             })
+
+            console.log(orgDetails)
   
             if(!orgDetails){
                 
