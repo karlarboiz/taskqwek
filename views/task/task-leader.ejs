@@ -2,7 +2,56 @@
     <%- include('../includes/sub-header'); %>
     <%- include('../dashboard/dashboard-sidebar',{role,activeLink}); %>
     <%- include("../section-template/top-section__template"); %>
+    
+    <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm rounded-3">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Create a New Task</h4>
+          </div>
+          <div class="card-body">
+            <form>
+              
+              <!-- Organization Select -->
+              <div class="mb-3">
+                <label for="organization-options" class="form-label">Organization</label>
+                <select name="organization-options" id="organization-options">
+                  <option value="" selected disabled>Choose an organization</option>
+                  <% for (let i = 0; i < pageDetails.leaderOrgs.length; i++) { %>
+                  <option value="<%=  pageDetails.leaderOrgs[i]._id %>"><%=  pageDetails.leaderOrgs[i].name %></option>
+                  <% } %>
+                </select>
+              </div>
 
+              <!-- Task Name -->
+              <div class="mb-3">
+                <label for="taskName" class="form-label">Task Name</label>
+                <input type="text" class="form-control" id="taskName" placeholder="Enter task name" required>
+              </div>
+
+              <!-- Description -->
+              <div class="mb-3">
+                <label for="description" class="form-label">Task Description</label>
+                <textarea class="form-control" id="description" rows="4" placeholder="Enter task description"></textarea>
+              </div>
+
+              <!-- Hours Required -->
+              <div class="mb-3">
+                <label for="hours" class="form-label">Hours Required</label>
+                <input type="number" class="form-control" id="hours" min="1" placeholder="Enter number of hours" required>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Create Task</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
     

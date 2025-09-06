@@ -23,7 +23,7 @@ const task_schema = new mongoose.Schema({
         type: Array,
         default: new Array()
     },
-    directOrgId: {
+    associatedOrgId: {
         type: Number,
         required: [true, "Org ID is required"]
     },
