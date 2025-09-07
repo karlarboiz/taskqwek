@@ -4,19 +4,19 @@
     <%- include("../section-template/top-section__template"); %>
     
     <div class="container py-5">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" id="task-leader--container">
       <div class="col-md-8 col-lg-6">
         <div class="card shadow-sm rounded-3">
           <div class="card-header bg-primary text-white">
             <h4 class="mb-0">Create a New Task</h4>
           </div>
           <div class="card-body">
-            <form>
+            <form id="task-form">
               
               <!-- Organization Select -->
               <div class="mb-3">
                 <label for="organization-options" class="form-label">Organization</label>
-                <select name="organization-options" id="organization-options">
+                <select name="organization-options" class="form-select" id="organization-options">
                   <option value="" selected disabled>Choose an organization</option>
                   <% for (let i = 0; i < pageDetails.leaderOrgs.length; i++) { %>
                   <option value="<%=  pageDetails.leaderOrgs[i]._id %>"><%=  pageDetails.leaderOrgs[i].name %></option>
