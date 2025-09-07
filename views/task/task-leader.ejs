@@ -12,7 +12,7 @@
           </div>
           <div class="card-body">
             <form id="task-form" method="post" action="/task/task-creation">
-              <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
+                <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
                <div class="mb-3">
 
                 <label for="project-options" class="form-label">Projects</label>
@@ -24,7 +24,7 @@
                 </select>
               </div>
               <!-- Organization Select -->
-              <!-- <div class="mb-3">
+              <div class="mb-3">
                 <label for="organization-options" class="form-label">Organization</label>
                 <select name="organization-options" class="form-select" id="organization-options">
                   <option value="" selected disabled>Choose an organization</option>
@@ -32,7 +32,7 @@
                   <option value="<%=  pageDetails.leaderOrgs[i]._id %>"><%=  pageDetails.leaderOrgs[i].name %></option>
                   <% } %>
                 </select>
-              </div> -->
+              </div>
 
               <% if(pageDetails?.orgMembers) {%>
                 <div class="mb-3">

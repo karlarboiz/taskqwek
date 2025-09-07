@@ -5,7 +5,9 @@ const ProjectControls = require("../../model-functions/ProjectControls");
 const Org = require("../../model/Org");
 const Organization = require("./Organization");
 const getUserAssignedOrg = require("../../model-1/UserAssignedOrg");
+const orgAssignedProject = require("../../model-1/OrgAssignedProject");
 const MONTHS = require("../../util/date-value");
+const { default: mongoose } = require("mongoose");
 
 class OrganizationPage extends Organization{
     constructor(rootName,role,id,orgId){
@@ -66,8 +68,6 @@ class OrganizationPage extends Organization{
                 _id: userAssignedOrgData.org_assigned_org_id
             })
 
-            console.log(orgDetails)
-  
             if(!orgDetails){
                 
                 return {
@@ -98,6 +98,29 @@ class OrganizationPage extends Organization{
                 leaderOrgs
             }
         }
+    }
+
+    async getOrgList(projectId){
+
+        if(this.role === "member"){
+ 
+        }else{
+            const OrgAssignedProject = orgAssignedProject();
+          
+            const orgItem = await OrgAssignedProject.findAll({
+                where:{
+                    assigned_project_mongodb_id: projectId
+                }
+            })
+
+             // Ensure the IDs in the array are Mongoose ObjectIds
+            const objectIds = orgItem.map(id => new mongoose.Types.ObjectId(id?.dataValues?.assigned_org_mongodb_id));
+    
+            const documents = await Org.find({ _id: { $in: objectIds },deleteFlg:false });
+            
+            return documents;
+        }
+
     }
 
 }

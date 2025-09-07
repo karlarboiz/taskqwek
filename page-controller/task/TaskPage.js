@@ -40,13 +40,12 @@ class TaskPage extends Task{
         if(this._role === "member"){
 
         }else{
-            const orgControls = new OrgControls(this.id,false);
-            const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
+            // const orgControls = new OrgControls(this.id,false);
+            // const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
 
-            
-            return {
-                leaderOrgs
-            }
+            // return {
+            //     leaderOrgs
+            // }
         }
     }
 }
