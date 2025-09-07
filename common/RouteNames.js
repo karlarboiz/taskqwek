@@ -3,6 +3,7 @@ class RouteNames{
     static SIGN_UP_COMPLETE_SETUP = "/signup/complete-setup";
     static SIGN_UP = "/signup";
     static DASHBOARD = "/dashboard";
+    static SIGN_UP_COMPLETE_SETUP_MEMBER = "/signup/complete-setup/member";
 }
 
-module.exports = RouteNames; 
+module.exports = RouteNames;  

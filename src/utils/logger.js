@@ -70,7 +70,7 @@ class Logger {
 
     database(operation, details = null) {
         this.info(`Database ${operation}`, details);
-    }
+    } 
 
     performance(operation, duration) {
         this.info(`Performance: ${operation}`, { duration: `${duration}ms` });

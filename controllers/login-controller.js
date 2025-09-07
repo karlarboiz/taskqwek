@@ -7,9 +7,12 @@ const loginSession = require('../util/login-session');
 const LoginCredentials = require('../model/LoginCredentials');
 const { errorParsingFromValidations } = require('../util/error-parsing');
 const UserGeneralInfo = require('../model/UserGeneralInfo');
+const CommonSession = require("../util/CommonSession");
 
 const loginPage = async( req,res)=>{
-    const loginInputs = loginSession.loginSessionPage(req);
+    const commonSession = new CommonSession();
+    commonSession._req = req;
+    const loginInputs = commonSession.loginSessionPage();
    
     if(req.session?.user === null ||
         req.session?.user === undefined) {
@@ -21,6 +24,7 @@ const loginPage = async( req,res)=>{
 }
 
 const loginFunc = async (req,res)=>{
+    const commonSession = new CommonSession();
 
     const loginCredentials = new LoginCredentials({
         email:req.body.email,
@@ -38,14 +42,18 @@ const loginFunc = async (req,res)=>{
     let hasEmailExisted = await UserAuthenticationInfo.findOne({emailAddress: req.body?.email});
     
     if(!isParsedErrorsEmpty){
-        loginSession.loginErrorSessionPage(req,{
+        commonSession._req = req;
+        commonSession._data = {
             errorMessage: parsedErrors,
             email: req.body.email,
             password: req.body.password
-        },()=>{
+        }
+        commonSession._action = ()=>{
             
             res.redirect('/login');
-         })
+         };
+
+         commonSession.loginErrorSessionPage();
 
         return;
     }
@@ -73,29 +81,41 @@ const loginFunc = async (req,res)=>{
             
         }
         else {
-            loginSession.loginErrorSessionPage(req,{
+
+            commonSession._req = req;
+            commonSession._data = {
                 errorMessage: {credentials:`
                 Credentials are invalid. Please try again. 
                 Or you can Sign up, if you have no account yet.`} ,
                 email: req.body.email,
                 password: req.body.password
-            },()=>{
+            }
+            commonSession._action = ()=>{
+                
                 res.redirect('/login');
-             })
-    
+            };
+
+            commonSession.loginErrorSessionPage();
+
             return;
             
         }
     }else {
-        loginSession.loginErrorSessionPage(req,{
+
+        commonSession._req = req;
+        commonSession._data = {
             errorMessage: {credentials:`
                 Credentials are invalid. Please try again. 
                 Or you can Sign up, if you have no account yet.`} ,
             email: req.body.email,
             password: req.body.password
-        },()=>{
+        }
+        commonSession._action = ()=>{
+            
             res.redirect('/login');
-         })
+        };
+
+        commonSession.loginErrorSessionPage();
 
         return;
     }

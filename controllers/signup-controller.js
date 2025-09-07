@@ -10,9 +10,10 @@ const signupSession = require('../util/signup-session');
 // const url = require('url');
 const { orgCreationSessionPage } = require('../util/org-creation-session');
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
-const { generalRouteGeneratorHandler } = require('../util/route-generator');
+
 const { projectCreationSessionPage } = require('../util/project-creation-session');
 const OrganizationPage = require('../page-controller/organization/OrganizationPage');
+const RouteGenerator = require('../util/RouteGenerator');
 
 const signupPage = async (req,res)=>{
     
@@ -115,8 +116,8 @@ const signupFunc = async (req,res,next)=>{
         } 
 
         const convert = Number(req.body.role);
-
-        const urlRoute = generalRouteGeneratorHandler(convert)   
+        
+        const urlRoute = RouteGenerator.generalRouteGeneratorHandler(convert)   
         
         const encryptedPassword = await bcrypt.hash(password,saltRounds);
             

@@ -1,6 +1,6 @@
 const environment = require('./config/environment');
 const databaseManager = require('./config/database');
-const logger = require('./src/utils/logger');
+const logger= require('./src/utils/logger');
 
 const express = require('express'); 
 const path = require('path');
