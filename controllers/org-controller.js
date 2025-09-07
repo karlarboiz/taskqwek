@@ -1,25 +1,25 @@
 
 const Org = require("../model/Org");
-
-// const url = require('url');
-const { orgCreationErrorSessionPage} = require("../util/org-creation-session");
 const MONTHS = require("../util/date-value");
 const Messages = require("../common/Messages");
 const OrgDto = require("../dto/OrgDto");
 const OrganizationPage = require("../page-controller/organization/OrganizationPage");
-const getOrgAssignedProject = require("../model-1/OrgAssignedProject");
 const Project = require("../model/Project");
 const CommonValues = require("../common/CommonValues");
 const ResponseObj = require("../common-obj/ResponseObj");
 const OrgControls = require("../model-functions/OrgControls");
 const RouteNames = require("../common/RouteNames");
 
+// const url = require('url');
+const { orgCreationErrorSessionPage} = require("../util/org-creation-session");
+const getOrgAssignedProject = require("../model-1/OrgAssignedProject");
+const sessionDetails = require("../util/session-details");
+
+
 
 const orgDashboardOrgPage = async (req,res,next)=>{
     
-    const role = req.session.user?.role === 1  ?"leader": "member";
-    const id = req.session.user.id;
-
+    const {role,id}=sessionDetails(req);
 
     try{
 

@@ -1,9 +1,11 @@
 const TaskPage = require("../page-controller/task/TaskPage");
+const sessionDetails = require("../util/session-details");
 
 
 const taskPage = async(req,res,next)=>{
-    const role = req.session.user?.role === 1  ?"leader": "member";
-    const id = req.session.user.id;
+
+    const {role,id}=sessionDetails(req);
+
     const route = new TaskPage();
     route._role = role;
     route._id =id;
@@ -15,6 +17,10 @@ const taskPage = async(req,res,next)=>{
         activeLink: "task",
         pageDetails:pageDetails
     })
+}
+
+const taskPageCustomize = async(req,res,next)=>{
+     const {role,id}=sessionDetails(req);
 }
 
 const createTask = (req,res)=>{
