@@ -59,6 +59,36 @@ class CommonSession {
         this.req.session.save(this.action);
     }
 
+    signupSessionPage(){
+    
+        let signupInputs = this.req.session?.signupInputs;
+        
+        if(!signupInputs){
+
+            signupInputs = {
+                hasError: false,
+                errorMessage:{},
+                completeName: '',
+                email: '',
+                password: ''
+            }
+        }
+        
+        thisreq.session.signupInputs = null;
+    
+        return signupInputs;
+    }
+
+    signupErrorSessionPage(){
+        this.req.session.signupInputs = {
+            hasError: true,
+            ...this.data
+        }
+
+        
+        req.session.save(this.action);
+    }
+
 }
 
 module.exports = CommonSession;

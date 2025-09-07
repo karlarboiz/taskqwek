@@ -3,11 +3,10 @@ const bcrypt = require('bcrypt');
 const UserAuthenticationInfo = require('../model/UserAuthenticationInfo');
 
 //getting data from util for session page
-const loginSession = require('../util/login-session');
 const LoginCredentials = require('../model/LoginCredentials');
 const { errorParsingFromValidations } = require('../util/error-parsing');
 const UserGeneralInfo = require('../model/UserGeneralInfo');
-const CommonSession = require("../util/CommonSession");
+const CommonSession = require("../session/CommonSession");
 
 const loginPage = async( req,res)=>{
     const commonSession = new CommonSession();
