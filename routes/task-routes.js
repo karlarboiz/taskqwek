@@ -3,9 +3,9 @@ const express = require('express');
 
 const router = express.Router();
 
-const { taskPage } = require("../controllers/task-controller");
+const { taskPage,taskCreationHandler } = require("../controllers/task-controller");
 
 router.get("/task-page",taskPage);
-router.get("/task-page/:orgId");
+router.post("/task-creation",taskCreationHandler);
 
 module.exports = router;

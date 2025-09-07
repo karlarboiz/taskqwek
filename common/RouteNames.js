@@ -4,6 +4,7 @@ class RouteNames{
     static SIGN_UP = "/signup";
     static DASHBOARD = "/dashboard";
     static SIGN_UP_COMPLETE_SETUP_MEMBER = "/signup/complete-setup/member";
+    static TASK_TASK_PAGE = "/task/task-page";
 }
 
 module.exports = RouteNames;  

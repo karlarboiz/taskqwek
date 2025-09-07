@@ -11,18 +11,28 @@
             <h4 class="mb-0">Create a New Task</h4>
           </div>
           <div class="card-body">
-            <form id="task-form">
-              
-              <!-- Organization Select -->
-              <div class="mb-3">
-                <label for="organization-options" class="form-label">Organization</label>
-                <select name="organization-options" class="form-select" id="organization-options">
-                  <option value="" selected disabled>Choose an organization</option>
-                  <% for (let i = 0; i < pageDetails.leaderOrgs.length; i++) { %>
-                  <option value="<%=  pageDetails.leaderOrgs[i]._id %>"><%=  pageDetails.leaderOrgs[i].name %></option>
+            <form id="task-form" method="post" action="/task/task-creation">
+              <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
+               <div class="mb-3">
+
+                <label for="project-options" class="form-label">Projects</label>
+                <select name="project-options" class="form-select" id="project-options">
+                  <option value="" selected disabled>Choose Project For The Task</option>
+                  <% for (let i = 0; i < pageDetails.leaderProjects?.length; i++) { %>
+                  <option value="<%=  pageDetails.leaderProjects[i]._id %>"><%=  pageDetails.leaderProjects[i].name %></option>
                   <% } %>
                 </select>
               </div>
+              <!-- Organization Select -->
+              <!-- <div class="mb-3">
+                <label for="organization-options" class="form-label">Organization</label>
+                <select name="organization-options" class="form-select" id="organization-options">
+                  <option value="" selected disabled>Choose an organization</option>
+                  <% for (let i = 0; i < pageDetails?.leaderOrgs?.length; i++) { %>
+                  <option value="<%=  pageDetails.leaderOrgs[i]._id %>"><%=  pageDetails.leaderOrgs[i].name %></option>
+                  <% } %>
+                </select>
+              </div> -->
 
               <% if(pageDetails?.orgMembers) {%>
                 <div class="mb-3">
@@ -52,6 +62,11 @@
               <div class="mb-3">
                 <label for="hours" class="form-label">Hours Required</label>
                 <input type="number" class="form-control" id="hours" min="1" placeholder="Enter number of hours" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="days" class="form-label">Hours Required</label>
+                <input type="number" class="form-control" id="days" min="1" placeholder="Enter number of days" required>
               </div>
 
               <!-- Submit Button -->
