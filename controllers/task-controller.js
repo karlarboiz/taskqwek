@@ -31,14 +31,43 @@ const taskPage = async(req,res,next)=>{
         const leaderOrgs = await orgPage.getOrgList(projectId);
         
         pageDetails.leaderOrgs = leaderOrgs;
-    }
+        const projectDetailsControl= new ProjectControls(projectId,null,null);
 
+        const projectDetails = await projectDetailsControl.getProjectDetails();
+        
+        return res.render(routePage,{
+                    role:role,
+                    activeLink: "task",
+                    pageDetails:pageDetails,
+                    projectDetails:projectDetails,
+                    
+                })
+    }
+    else if(projectId && orgId){
+       
+        const orgDetails = new OrganizationPage();
+            orgDetails._role = role;
+            orgDetails._id = id;
     
-    console.log(pageDetails);
-    res.render(routePage,{
+        const orgInfo = await orgDetails.getPageData();
+        console.log(">>>>>")
+        console.log(orgInfo);
+
+        return res.render(routePage,{
+                    role:role,
+                    activeLink: "task",
+                    pageDetails:pageDetails,
+                    projectDetails:projectDetails,
+                    
+                })
+
+    } 
+
+    return res.render(routePage,{
         role:role,
         activeLink: "task",
-        pageDetails:pageDetails
+        pageDetails:pageDetails,
+        projectDetails: null
     })
 }
 
@@ -54,8 +83,15 @@ const taskCreationHandler = async(req,res)=>{
     const orgId = req.body["organization-options"];
     
     const memberId = req.body["member-options"];
+
     if(!projectId || !orgId || !memberId){
-        return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}`);
+        if(projectId && !orgId){
+            return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}`);
+        }else if(projectId && orgId){
+            console.log(">>>> I'm here")
+                    return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}?orgId=${orgId}`);
+        }
+
     }
 
 }

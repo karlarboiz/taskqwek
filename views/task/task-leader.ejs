@@ -15,15 +15,23 @@
                 <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
                <div class="mb-3">
 
+               <%if(!projectDetails){%>
+                
                 <label for="project-options" class="form-label">Projects</label>
+
                 <select name="project-options" class="form-select" id="project-options">
                   <option value="" selected disabled>Choose Project For The Task</option>
                   <% for (let i = 0; i < pageDetails.leaderProjects?.length; i++) { %>
                   <option value="<%=  pageDetails.leaderProjects[i]._id %>"><%=  pageDetails.leaderProjects[i].name %></option>
                   <% } %>
                 </select>
+               <%} else {%>
+                  <input type="hidden" value="<%=projectDetails._id%>" name="project-options">
+                  <p><%= projectDetails.name %></p>
+                <%} %>
               </div>
               <!-- Organization Select -->
+               <% if(pageDetails?.leaderOrgs) {%>
               <div class="mb-3">
                 <label for="organization-options" class="form-label">Organization</label>
                 <select name="organization-options" class="form-select" id="organization-options">
@@ -33,7 +41,7 @@
                   <% } %>
                 </select>
               </div>
-
+              <%}%>
               <% if(pageDetails?.orgMembers) {%>
                 <div class="mb-3">
                 <label for="organization-options" class="form-label">Organization</label>
