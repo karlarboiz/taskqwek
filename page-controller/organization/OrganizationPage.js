@@ -123,6 +123,14 @@ class OrganizationPage extends Organization{
 
     }
 
+    async getOrgDetails(orgId){
+        const orgDetails = await Org.findOne({
+                _id: orgId
+            })
+
+        return orgDetails;
+    }
+
 }
 
 module.exports = OrganizationPage;

@@ -26,7 +26,8 @@ const taskPage = async(req,res,next)=>{
     const leaderProjects = await projectControls.getLeaderProjects();
     const pageDetails = {
             leaderProjects
-        }
+        } 
+
     if(projectId){
         const leaderOrgs = await orgPage.getOrgList(projectId);
         
@@ -35,39 +36,36 @@ const taskPage = async(req,res,next)=>{
 
         const projectDetails = await projectDetailsControl.getProjectDetails();
         
+        if(orgId){
+       
+            const orgDetails = await orgPage.getOrgDetails(orgId);
+        
+            return res.render(routePage,{
+                        role:role,
+                        activeLink: "task",
+                        pageDetails:pageDetails,
+                        projectDetails:projectDetails,
+                        orgDetails:orgDetails
+                    })
+
+        } 
+
         return res.render(routePage,{
                     role:role,
                     activeLink: "task",
                     pageDetails:pageDetails,
                     projectDetails:projectDetails,
+                    orgDetails:null
                     
                 })
     }
-    else if(projectId && orgId){
-       
-        const orgDetails = new OrganizationPage();
-            orgDetails._role = role;
-            orgDetails._id = id;
-    
-        const orgInfo = await orgDetails.getPageData();
-        console.log(">>>>>")
-        console.log(orgInfo);
-
-        return res.render(routePage,{
-                    role:role,
-                    activeLink: "task",
-                    pageDetails:pageDetails,
-                    projectDetails:projectDetails,
-                    
-                })
-
-    } 
 
     return res.render(routePage,{
         role:role,
         activeLink: "task",
         pageDetails:pageDetails,
-        projectDetails: null
+        projectDetails: null,
+        orgDetails:null
     })
 }
 
@@ -88,8 +86,8 @@ const taskCreationHandler = async(req,res)=>{
         if(projectId && !orgId){
             return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}`);
         }else if(projectId && orgId){
-            console.log(">>>> I'm here")
-                    return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}?orgId=${orgId}`);
+
+            return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}&orgId=${orgId}`);
         }
 
     }
