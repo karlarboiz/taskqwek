@@ -5,8 +5,6 @@ const bcrypt = require('bcrypt');
 //initiating salt rounds
 const saltRounds = 10;
 //
-//initiating functions from util for signup page
-const signupSession = require('../util/signup-session');
 // const url = require('url');
 const { orgCreationSessionPage } = require('../util/org-creation-session');
 const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
@@ -14,14 +12,15 @@ const UserAuthenticationInfo = require("../model/UserAuthenticationInfo");
 const { projectCreationSessionPage } = require('../util/project-creation-session');
 const OrganizationPage = require('../page-controller/organization/OrganizationPage');
 const RouteGenerator = require('../util/RouteGenerator');
+const CommonSession = require('../session/CommonSession');
 
 const signupPage = async (req,res)=>{
-    
-    const signupSessionInputs = signupSession.signupSessionPage(req);
+    const commonSession = new CommonSession();
+    commonSession._req = req; 
     if(req.session?.user === null ||
         req.session?.user === undefined) {
           res.render('initialsignup',{
-            signupInputs: signupSessionInputs
+            signupInputs: commonSession.signupSessionPage
           });
 
     } else {

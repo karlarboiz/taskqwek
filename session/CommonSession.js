@@ -89,6 +89,16 @@ class CommonSession {
         req.session.save(this.action);
     }
 
+    sessionDetails(){
+        const role = this.req.session.user?.role === 1  ?"leader": "member";
+        const id = this.req.session.user.id;
+
+        return{
+            role,
+            id
+        }
+    }
+
 }
 
 module.exports = CommonSession;

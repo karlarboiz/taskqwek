@@ -13,11 +13,12 @@ const RouteNames = require("../common/RouteNames");
 // const url = require('url');
 const { orgCreationErrorSessionPage} = require("../util/org-creation-session");
 const getOrgAssignedProject = require("../model-1/OrgAssignedProject");
-const sessionDetails = require("../util/session-details");
+const CommonSession = require("../session/CommonSession");
 
 const orgDashboardOrgPage = async (req,res,next)=>{
-    
-    const {role,id}=sessionDetails(req);
+    const commonSession = new CommonSession();
+    commonSession._req = req;
+    const {role,id}= commonSession.sessionDetails();
 
     try{
 
