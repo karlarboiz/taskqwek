@@ -15,6 +15,7 @@ const projectPage = async(req,res,next)=>{
  
     const role = req.session.user?.role === 1  ?"leader": "member";
     const projectPage = new ProjectPage();
+    projectPage.rootName = CommonValues.PROJECT;
     projectPage._id = req.session.user._id;
     projectPage._role = role;
 
@@ -101,7 +102,7 @@ const projectDetailsPageHandler = async(req,res,next)=>{
         projectDto.createdDate = projectInfo.regDate;
         
         const projectPage = new ProjectPage();
-
+        projectPage.rootName = CommonValues.PROJECT;
         const route = projectPage.createCustomizePage("project-details");
 
         res.render(route,{

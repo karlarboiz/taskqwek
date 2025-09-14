@@ -1,7 +1,8 @@
 const CommonValues = require("../../common/CommonValues");
 const ProjectDto = require("../../dto/ProjectDto");
-const Project = require("./Project");
-class ProjectPage extends Project{
+const BasePage = require("../base/BasePage");
+
+class ProjectPage extends BasePage{
     constructor(rootName,role,id,projectId){
         super(rootName)
         this._role = role;

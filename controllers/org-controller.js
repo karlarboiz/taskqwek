@@ -15,8 +15,6 @@ const { orgCreationErrorSessionPage} = require("../util/org-creation-session");
 const getOrgAssignedProject = require("../model-1/OrgAssignedProject");
 const sessionDetails = require("../util/session-details");
 
-
-
 const orgDashboardOrgPage = async (req,res,next)=>{
     
     const {role,id}=sessionDetails(req);
