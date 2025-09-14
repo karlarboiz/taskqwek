@@ -1,9 +1,10 @@
 
 const UserGeneralInfo = require("../model/UserGeneralInfo");
+const BaseModelControls = require("./BaseModelControls");
 
-class UserControls{
+class UserControls extends BaseModelControls{
     constructor(userId){
-        this.userId = userId
+        super(userId)
     }
 
     async getUserInfoByUserId(){

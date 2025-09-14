@@ -1,5 +1,6 @@
+const BaseModelControls = require("./BaseModelControls");
 
-class TaskControls{
+class TaskControls extends BaseModelControls{
 
 }
 

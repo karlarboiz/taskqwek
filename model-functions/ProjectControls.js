@@ -1,10 +1,12 @@
 const Project= require("../model/Project");
+const BaseModelControls = require("./BaseModelControls");
 
-class ProjectControls{
+class ProjectControls extends BaseModelControls{
     constructor(projectId,leaderId,role){
+        super(role);
         this.projectId = projectId
         this.leaderId= leaderId
-        this.role = role
+        
     }
 
     async getProjectDetails(){

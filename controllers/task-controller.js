@@ -55,15 +55,15 @@ const taskPage = async(req,res,next)=>{
                 }
             })
 
-            const userListItems = userListUnderOrg.map(val=>val.UserAssignedOrg)
+            const userListItems = userListUnderOrg.map(val=>val?.dataValues);
             
-            console.log(userListItems);
             return res.render(routePage,{
                         role:role,
                         activeLink: "task",
                         pageDetails:pageDetails,
                         projectDetails:projectDetails,
-                        orgDetails:orgDetails
+                        orgDetails:orgDetails,
+                        userListItems
                     })
 
         } 
@@ -73,7 +73,8 @@ const taskPage = async(req,res,next)=>{
                     activeLink: "task",
                     pageDetails:pageDetails,
                     projectDetails:projectDetails,
-                    orgDetails:null
+                    orgDetails:null,
+                    userListItems: null
                     
                 })
     }
@@ -83,7 +84,8 @@ const taskPage = async(req,res,next)=>{
         activeLink: "task",
         pageDetails:pageDetails,
         projectDetails: null,
-        orgDetails:null
+        orgDetails:null,
+        userListItems: null
     })
 }
 

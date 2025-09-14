@@ -1,10 +1,11 @@
 const QueryObj = require("../common-obj/QueryObj");
 const Messages = require("../common/Messages");
 const OrgAssignedProject = require("../model-1/OrgAssignedProject");
-const Org = require("../model/Org")
+const Org = require("../model/Org");
+const BaseModelControls = require("./BaseModelControls");
 
 
-class OrgControls {
+class OrgControls extends BaseModelControls{
     constructor(leaderId, isOrgActive, orgId) {
         this._leaderId = leaderId;
         this._isOrgActive = isOrgActive;
