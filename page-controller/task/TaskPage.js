@@ -1,8 +1,8 @@
 const CommonValues = require("../../common/CommonValues");
 const OrgControls = require("../../model-functions/OrgControls");
-const Task = require("./Task");
+const BasePage = require("../base/BasePage");
 
-class TaskPage extends Task{ 
+class TaskPage extends BasePage{ 
     constructor(rootName,role,id,orgId){
         super(rootName)
         this._role = role

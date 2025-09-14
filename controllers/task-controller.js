@@ -1,3 +1,4 @@
+const CommonValues = require("../common/CommonValues");
 const RouteNames = require("../common/RouteNames");
 const ProjectControls = require("../model-functions/ProjectControls");
 const OrganizationPage = require("../page-controller/organization/OrganizationPage");
@@ -15,6 +16,7 @@ const taskPage = async(req,res,next)=>{
     const {projectId,orgId,memberId} =req.query;
 
     const route = new TaskPage();
+    route._rootName = CommonValues.TASK;
     route._role = role;
     route._id =id;
 
