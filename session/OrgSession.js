@@ -1,8 +1,6 @@
-class OrgSession{
-    constructor(){
+const CommonSession = require("./CommonSession");
 
-    }
-
+class OrgSession extends CommonSession{
 
 }
 

@@ -27,7 +27,7 @@
                 </select>
                <%} else {%>
                   <input type="hidden" value="<%=projectDetails._id%>" name="project-options">
-                  <p><%= projectDetails.name %></p>
+                  <p class="text-decoration-underline"><%= projectDetails.name %></p>
                 <%} %>
               </div>
               <!-- Organization Select -->
@@ -47,7 +47,7 @@
               
               <%} else {%>
                    <input type="hidden" value="<%=orgDetails._id%>" name="project-options">
-                  <p><%= orgDetails.name %></p>
+                  <p class="text-decoration-underline"><%= orgDetails.name %></p>
               <%} %>
 
               <% if(pageDetails?.orgMembers) {%>

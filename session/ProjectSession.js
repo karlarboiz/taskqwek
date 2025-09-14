@@ -1,4 +1,6 @@
-class ProjectSession{
+const CommonSession = require("./CommonSession");
+
+class ProjectSession extends CommonSession{
 
 }
 

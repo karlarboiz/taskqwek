@@ -6,8 +6,6 @@ export async function initTaskFunction(){
                 if(projectOption || orgOption){
                     $('#task-leader--container #task-form').submit();
                 }       
-
-                
         })
     })
 }
