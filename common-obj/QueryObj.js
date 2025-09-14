@@ -1,26 +1,9 @@
-class QueryObj {
-    constructor(isSuccess, errorResult) {
-        this._isSuccess = isSuccess;
-        this._errorResult = errorResult || {};
-    }
+const BaseObj = require("./BaseObj");
 
-    // Getter and Setter for isSuccess
-    get isSuccess() {
-        return this._isSuccess;
-    }
-
-    set isSuccess(value) {
-        this._isSuccess = value;
-    }
-
-    // Getter and Setter for errorResult
-    get errorResult() {
-        return this._errorResult;
-    }
-
-    set errorResult(value) {
-        this._errorResult = value;
-    }
+class QueryObj extends BaseObj{
+   constructor(isSuccess,errorResult){
+    super(isSuccess,errorResult)
+   }
 }
 
 module.exports = QueryObj;

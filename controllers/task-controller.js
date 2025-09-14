@@ -5,6 +5,7 @@ const OrganizationPage = require("../page-controller/organization/OrganizationPa
 const TaskPage = require("../page-controller/task/TaskPage");
 const TaskSession = require("../session/TaskSession");
 const sessionDetails = require("../util/session-details");
+const userAssignedOrg = require("../model-1/UserAssignedOrg");
 
 const taskPage = async(req,res,next)=>{
 
@@ -45,8 +46,18 @@ const taskPage = async(req,res,next)=>{
        
             const orgDetails = await orgPage.getOrgDetails(orgId);
 
-            // const userAssignedOrgs = 
+            const UserAssignedOrg = userAssignedOrg();
+
+            const userListUnderOrg = await UserAssignedOrg.findAll({
+                where:{
+                    org_assigned_org_id: orgId,
+                     project_assigned_project_id: projectId
+                }
+            })
+
+            const userListItems = userListUnderOrg.map(val=>val.UserAssignedOrg)
             
+            console.log(userListItems);
             return res.render(routePage,{
                         role:role,
                         activeLink: "task",

@@ -1,18 +1,10 @@
-class ResponseObj {
-    constructor(isSuccess, message, errorResult = {}, data = []) {
-        this._isSuccess = isSuccess;
+const BaseObj = require("./BaseObj");
+
+class ResponseObj extends BaseObj{
+    constructor(isSuccess,errorResult,message,data = []) {
+        super(isSuccess,errorResult);
         this._message = message;
-        this._errorResult = errorResult;
         this._data = data;
-    }
-
-    // Getter and Setter for isSuccess
-    get isSuccess() {
-        return this._isSuccess;
-    }
-
-    set isSuccess(value) {
-        this._isSuccess = value;
     }
 
     // Getter and Setter for message
@@ -22,15 +14,6 @@ class ResponseObj {
 
     set message(value) {
         this._message = value;
-    }
-
-    // Getter and Setter for errorResult
-    get errorResult() {
-        return this._errorResult;
-    }
-
-    set errorResult(value) {
-        this._errorResult = value;
     }
 
     // Getter and Setter for data
