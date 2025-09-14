@@ -63,7 +63,7 @@ const taskPage = async(req,res,next)=>{
                         pageDetails:pageDetails,
                         projectDetails:projectDetails,
                         orgDetails:orgDetails,
-                        userListItems
+                        userListItems:userListItems
                     })
 
         } 

@@ -50,13 +50,13 @@
                   <p class="text-decoration-underline"><%= orgDetails.name %></p>
               <%} %>
 
-              <% if(pageDetails?.orgMembers) {%>
+              <% if(userListItems) {%>
                 <div class="mb-3">
-                <label for="organization-options" class="form-label">Organization</label>
+                <label for="organization-options" class="form-label">Members</label>
                 <select name="organization-options" class="form-select" id="organization-options">
-                  <option value="" selected disabled>Choose an organization</option>
-                  <% for (let i = 0; i < pageDetails.leaderOrgs.length; i++) { %>
-                  <option value="<%=  pageDetails.leaderOrgs[i]._id %>"><%=  pageDetails.leaderOrgs[i].name %></option>
+                  <option value="" selected disabled>Assign A Member</option>
+                  <% for (let i = 0; i < userListItems.length; i++) { %>
+                  <option value="<%=  userListItems[i]._id %>"></option>
                   <% } %>
                 </select>
               </div>
