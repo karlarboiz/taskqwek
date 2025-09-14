@@ -27,8 +27,8 @@ const taskPage = async(req,res,next)=>{
 
     const routePage = route.createPageRoute();
 
-    const projectControls = new ProjectControls(null,id);
-
+    const projectControls = new ProjectControls();
+    projectControls._userId = id;
     const leaderProjects = await projectControls.getLeaderProjects();
     const pageDetails = {
             leaderProjects

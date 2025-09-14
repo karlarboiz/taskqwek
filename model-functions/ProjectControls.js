@@ -2,10 +2,10 @@ const Project= require("../model/Project");
 const BaseModelControls = require("./BaseModelControls");
 
 class ProjectControls extends BaseModelControls {
-    constructor(userId, role, projectId, leaderId) {
+    constructor(userId, role, projectId) {
         super(userId, role);
         this._projectId = projectId;
-        this._leaderId = leaderId;
+
     }
 
     // Getter & Setter for projectId
@@ -15,15 +15,6 @@ class ProjectControls extends BaseModelControls {
 
     set projectId(value) {
         this._projectId = value;
-    }
-
-    // Getter & Setter for leaderId
-    get leaderId() {
-        return this._leaderId;
-    }
-
-    set leaderId(value) {
-        this._leaderId = value;
     }
 
     async getProjectDetails() {
@@ -36,7 +27,7 @@ class ProjectControls extends BaseModelControls {
 
     async getLeaderProjects() {
         const leaderProjects = await Project.aggregate([
-            { $match: { createAuthorId: this._leaderId } }
+            { $match: { createAuthorId: this.userId } }
         ]);
         return leaderProjects;
     }
