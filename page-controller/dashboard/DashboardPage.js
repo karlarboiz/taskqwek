@@ -1,4 +1,6 @@
-class DashboardPage extends Organization {
+const BasePage = require("../base/BasePage");
+
+class DashboardPage extends BasePage {
 
     constructor(rootName,role,id){
         super(rootName)

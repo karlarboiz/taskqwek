@@ -24,6 +24,7 @@ const orgDashboardOrgPage = async (req,res,next)=>{
     try{
 
         const route = new OrganizationPage();
+        route.rootName = CommonValues.ORGANIZATION;
         route._role = role;
         route._id = id;
 

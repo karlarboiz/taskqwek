@@ -3,13 +3,13 @@ const OrgDto = require("../../dto/OrgDto");
 const OrgControls = require("../../model-functions/OrgControls");
 const ProjectControls = require("../../model-functions/ProjectControls");
 const Org = require("../../model/Org");
-const Organization = require("./Organization");
 const getUserAssignedOrg = require("../../model-1/UserAssignedOrg");
 const orgAssignedProject = require("../../model-1/OrgAssignedProject");
 const MONTHS = require("../../util/date-value");
 const { default: mongoose } = require("mongoose");
+const BasePage = require("../base/BasePage");
 
-class OrganizationPage extends Organization{
+class OrganizationPage extends BasePage{
     constructor(rootName,role,id,orgId){
         super(rootName)
         this._role = role;

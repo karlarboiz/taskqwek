@@ -9,7 +9,7 @@ const taskPage = async(req,res,next)=>{
 
     const taskSession = new TaskSession();
     taskSession._req = req;
-    
+
     const {role,id}=sessionDetails(req);
 
     const {projectId,orgId,memberId} =req.query;
@@ -42,7 +42,9 @@ const taskPage = async(req,res,next)=>{
         if(orgId){
        
             const orgDetails = await orgPage.getOrgDetails(orgId);
-        
+
+            // const userAssignedOrgs = 
+            
             return res.render(routePage,{
                         role:role,
                         activeLink: "task",
@@ -81,19 +83,18 @@ const taskPageCustomize = async(req,res,next)=>{
 const taskCreationHandler = async(req,res)=>{
     
     const projectId = req.body["project-options"];
-    const orgId = req.body["organization-options"];
-    
+    const orgId = req.body["organization-options"];    
     const memberId = req.body["member-options"];
 
     if(!projectId || !orgId || !memberId){
         if(projectId && !orgId){
             return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}`);
-        }else if(projectId && orgId){
-
+        }else if(projectId && orgId && !memberId){
             return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}&orgId=${orgId}`);
         }
-
-    }
+    }else {
+            return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}&orgId=${orgId}&memberId=${memberId}`);
+        }
 
 }
 
