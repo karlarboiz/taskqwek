@@ -6,6 +6,7 @@ const TaskPage = require("../page-controller/task/TaskPage");
 const TaskSession = require("../session/TaskSession");
 const sessionDetails = require("../util/session-details");
 const userAssignedOrg = require("../model-1/UserAssignedOrg");
+const UserControls = require("../model-functions/UserControls");
 
 const taskPage = async(req,res,next)=>{
 
@@ -38,8 +39,8 @@ const taskPage = async(req,res,next)=>{
         const leaderOrgs = await orgPage.getOrgList(projectId);
         
         pageDetails.leaderOrgs = leaderOrgs;
-        const projectDetailsControl= new ProjectControls(projectId,null,null);
-
+        const projectDetailsControl= new ProjectControls();
+        projectDetailsControl._projectId = projectId;
         const projectDetails = await projectDetailsControl.getProjectDetails();
         
         if(orgId){
@@ -54,16 +55,18 @@ const taskPage = async(req,res,next)=>{
                      project_assigned_project_id: projectId
                 }
             })
-
-            const userListItems = userListUnderOrg.map(val=>val?.dataValues);
-            
+  
+            const userListItems = userListUnderOrg.map(val=>val?.dataValues?.user_assigned_user_id);
+            const userControls = new UserControls();
+            const usersDetails = await userControls.getUsersInfosByUserIds(userListItems);
+            console.log(usersDetails)
             return res.render(routePage,{
                         role:role,
                         activeLink: "task",
                         pageDetails:pageDetails,
                         projectDetails:projectDetails,
                         orgDetails:orgDetails,
-                        userListItems:userListItems
+                        usersDetails:usersDetails
                     })
 
         } 
@@ -74,7 +77,7 @@ const taskPage = async(req,res,next)=>{
                     pageDetails:pageDetails,
                     projectDetails:projectDetails,
                     orgDetails:null,
-                    userListItems: null
+                    usersDetails: null
                     
                 })
     }
@@ -85,7 +88,7 @@ const taskPage = async(req,res,next)=>{
         pageDetails:pageDetails,
         projectDetails: null,
         orgDetails:null,
-        userListItems: null
+        usersDetails: null
     })
 }
 

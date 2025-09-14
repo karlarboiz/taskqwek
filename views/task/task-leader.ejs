@@ -18,7 +18,6 @@
                <%if(!projectDetails){%>
                 
                 <label for="project-options" class="form-label">Projects</label>
-
                 <select name="project-options" class="form-select" id="project-options">
                   <option value="" selected disabled>Choose Project For The Task</option>
                   <% for (let i = 0; i < pageDetails.leaderProjects?.length; i++) { %>
@@ -50,13 +49,13 @@
                   <p class="text-decoration-underline"><%= orgDetails.name %></p>
               <%} %>
 
-              <% if(userListItems) {%>
+              <% if(usersDetails) {%>
                 <div class="mb-3">
-                <label for="organization-options" class="form-label">Organization</label>
-                <select name="organization-options" class="form-select" id="organization-options">
-                  <option value="" selected disabled>Choose an organization</option>
-                  <% for (let i = 0; i < pageDetails.leaderOrgs.length; i++) { %>
-                  <option value="<%=  userLi[i]._id %>"><%=  pageDetails.leaderOrgs[i].name %></option>
+                <label for="organization-options" class="form-label">Members</label>
+                <select name="member-options" class="form-select" id="organization-options">
+                  <option value="" selected disabled>Choose Member</option>
+                  <% for (let i = 0; i < usersDetails.length; i++) { %>
+                  <option value="<%= usersDetails[i]._id %>"> <%=usersDetails[i].firstName + " " + usersDetails[i].lastName %></option>
                   <% } %>
                 </select>
               </div>
