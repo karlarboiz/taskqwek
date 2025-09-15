@@ -23,8 +23,8 @@ const sendEmail = async(req,res,next)=> {
       throw new Error(Messages.EMAIL_FIELD_EMPTY);
     }
 
-    const orgControls = new OrgControls(null,null,orgId);
-
+    const orgControls = new OrgControls();
+    orgControls._orgId = orgId
     await orgControls.getOrgDetailsBasedOnOrgId();
 
     const mailTemplate = new MailTemplate("TaskQwek",otpCode)
@@ -76,8 +76,9 @@ const invitePage = async(req,res,next)=>{
 
     const leaderId = req.session.user?.id;
     
-    const orgControls = new OrgControls(leaderId,false);
-
+    const orgControls = new OrgControls();
+    orgControls._userId = leaderId;
+    orgControls._isOrgActive = false;
     const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
 
 

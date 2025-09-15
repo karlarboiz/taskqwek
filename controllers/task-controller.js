@@ -4,16 +4,19 @@ const ProjectControls = require("../model-functions/ProjectControls");
 const OrganizationPage = require("../page-controller/organization/OrganizationPage");
 const TaskPage = require("../page-controller/task/TaskPage");
 const TaskSession = require("../session/TaskSession");
-const sessionDetails = require("../util/session-details");
+
 const userAssignedOrg = require("../model-1/UserAssignedOrg");
 const UserControls = require("../model-functions/UserControls");
+const CommonSession = require("../session/CommonSession");
 
 const taskPage = async(req,res,next)=>{
 
     const taskSession = new TaskSession();
     taskSession._req = req;
 
-    const {role,id}=sessionDetails(req);
+    const commonSession = new CommonSession();
+    commonSession._req = req
+    const {role,id}=commonSession.sessionDetails(req);
 
     const {projectId,orgId,memberId} =req.query;
 

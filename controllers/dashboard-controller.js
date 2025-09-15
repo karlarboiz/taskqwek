@@ -21,8 +21,9 @@ const fetchDashboardPageData = async(req,res)=>{
     const responseObj = new ResponseObj();
     
     try{
-        const orgControls = new OrgControls(id,false,null);
-
+        const orgControls = new OrgControls();
+        orgControls._isOrgActive = false;
+        orgControls._userId = id;
         const orgs = await orgControls.getOrgListBasedOnLeaderId();
     
         const projectControls = new ProjectControls(null,id);

@@ -6,19 +6,10 @@ const BaseModelControls = require("./BaseModelControls");
 
 
 class OrgControls extends BaseModelControls{
-    constructor(leaderId, isOrgActive, orgId) {
-        this._leaderId = leaderId;
+    constructor(isOrgActive, orgId,userId) {
+        super(userId)
         this._isOrgActive = isOrgActive;
         this._orgId = orgId;
-    }
-
-    // Getter and Setter for leaderId
-    get leaderId() {
-        return this._leaderId;
-    }
-
-    set leaderId(value) {
-        this._leaderId = value;
     }
 
     // Getter and Setter for isOrgActive
@@ -45,7 +36,7 @@ class OrgControls extends BaseModelControls{
             const leaderOrgs = await Org.aggregate([
                 {
                     $match: {
-                        creatorAuthorId: this.leaderId,
+                        creatorAuthorId: this.userId,
                         deleteFlg: this.isOrgActive
                     }
                 }

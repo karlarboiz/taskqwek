@@ -253,8 +253,7 @@ const orgOperationHandlerJson = async(req,res,next)=>{
         const operation = req.params.orgOperation;
         const orgId = req.params.orgId;
         
-         const orgControls = new OrgControls();
-
+        const orgControls = new OrgControls();
         orgControls._orgId = orgId;
         let result;
         if(operation === "delete"){

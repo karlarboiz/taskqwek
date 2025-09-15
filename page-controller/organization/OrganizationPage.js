@@ -88,8 +88,9 @@ class OrganizationPage extends BasePage{
             }
         }else {
             const projectControls= new ProjectControls(null,this.id);
-            const orgControls = new OrgControls(this.id,false);
-
+            const orgControls = new OrgControls();
+            orgControls._userId = this.id;
+            orgControls.isOrgActive = false;
             const leaderProjects = await projectControls.getLeaderProjects();
             const leaderOrgs = await orgControls.getOrgListBasedOnLeaderId();
             

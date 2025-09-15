@@ -1,7 +1,7 @@
 const CommonValues = require("../../common/CommonValues");
 const ProjectDto = require("../../dto/ProjectDto");
+const OrgControls = require("../../model-functions/OrgControls");
 const BasePage = require("../base/BasePage");
-
 class ProjectPage extends BasePage{
     constructor(rootName,role,id,projectId){
         super(rootName)
@@ -73,7 +73,10 @@ class ProjectPage extends BasePage{
             }
         }else {
             const leaderProjects = new ProjectControls(null,id).getLeaderProjects();
-            const leaderOrgs = new OrgControls(this.id,false);
+            const orgControls = new OrgControls();
+            orgControls._userId =  this.id;
+            orgControls._isOrgActive = false;
+            const leaderOrgs = orgControls.getOrgListBasedOnLeaderId();
             return {
                 leaderProjects,
                 leaderOrgs
