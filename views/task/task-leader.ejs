@@ -52,7 +52,7 @@
               <% if(usersDetails) {%>
                 <div class="mb-3">
                 <label for="organization-options" class="form-label">Members</label>
-                <select name="member-options" class="form-select" id="organization-options">
+                <select name="member-options" class="form-select" id="member-options">
                   <option value="" selected disabled>Choose Member</option>
                   <% for (let i = 0; i < usersDetails.length; i++) { %>
                   <option value="<%= usersDetails[i]._id %>"> <%=usersDetails[i].firstName + " " + usersDetails[i].lastName %></option>

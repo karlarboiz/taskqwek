@@ -71,8 +71,8 @@ const fetchProjectListFunctionHandler = async(req,res,next)=>{
     try{
         const creatorAuthorId = req.session.user?.id;
         
-        const projectControls = new ProjectControls(null,creatorAuthorId);
-        
+        const projectControls = new ProjectControls();
+        projectControls._userId = creatorAuthorId;
         const leaderProjects = await projectControls.getLeaderProjects();
         
         return res.status(200).send(new ResponseObj(true,Messages.FETCH_LIST_SUCCESS + "projects",{},leaderProjects))
@@ -87,8 +87,8 @@ const projectDetailsPageHandler = async(req,res,next)=>{
     try{
         const projectId = req.params["projectId"];
         
-        const projectControls = new ProjectControls(projectId);
-
+        const projectControls = new ProjectControls();
+        projectControls._projectId = projectId;
         const projectInfo = await projectControls.getProjectDetails();
         
         const userControls = new UserControls(projectInfo.createAuthorId);

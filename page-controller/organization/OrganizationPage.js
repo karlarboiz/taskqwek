@@ -74,7 +74,7 @@ class OrganizationPage extends BasePage{
                     orgDto:{...orgDto}
                 };
             }
-        
+         
             const parsedDate = new Date(orgDetails["regDate"]);
             const monthConverted = MONTHS[parsedDate.getUTCMonth()].full;    
             const dateConverted = parsedDate.getDate();
@@ -87,7 +87,8 @@ class OrganizationPage extends BasePage{
                 orgDto:{...orgDto}
             }
         }else {
-            const projectControls= new ProjectControls(null,this.id);
+            const projectControls= new ProjectControls();
+            projectControls._userId = this.id
             const orgControls = new OrgControls();
             orgControls._userId = this.id;
             orgControls.isOrgActive = false;
