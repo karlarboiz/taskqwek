@@ -192,7 +192,6 @@ const completeSetupPageLeaderProject = (req,res,next)=>{
     const projectCreationInputs = projectCreationSessionPage(req);
 
     try{
-
          res.render("setup-includes/project-creation",{
             projectCreationInputs:projectCreationInputs,
             role:"leader",

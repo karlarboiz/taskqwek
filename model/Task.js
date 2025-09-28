@@ -5,7 +5,7 @@ const task_schema = new mongoose.Schema({
         type: String,
         required: [true, "Project Id is required"]
     },
-    name : {
+    taskName : {
         type : String,
         required : [true, "Email is required"]
     },
@@ -14,14 +14,8 @@ const task_schema = new mongoose.Schema({
         required : [true, "Password is required"]
     },
     completionPercentage: {
-        type: Number
-    },
-    productivityLevel:{
-        type: String
-    },
-    assignees:{
-        type: Array,
-        default: new Array()
+        type: Number,
+        default: 0.00
     },
     associatedOrgId: {
         type: Number,

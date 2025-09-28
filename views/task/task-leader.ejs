@@ -11,7 +11,7 @@
             <h4 class="mb-0">Create a New Task</h4>
           </div>
           <div class="card-body">
-            <form id="task-form" method="post" action="/task/task-creation">
+            <form id="task-form" method="post" action="<%= projectDetails && orgDetails && usersDetails ? '/task/task-creation/completion': '/task/task-creation' %>">
                 <input type="hidden" value="<%=locals.csrf%>" name="_csrf">
                <div class="mb-3">
 
@@ -69,33 +69,35 @@
                   <p class="text-decoration-underline"><%= usersDetails.firstName + " " + usersDetails.lastName %></p>
               <% }%>
 
-              <!-- Task Name -->
-              <div class="mb-3">
-                <label for="taskName" class="form-label">Task Name</label>
-                <input type="text" class="form-control" id="taskName" placeholder="Enter task name" required>
-              </div>
+              <% if(projectDetails && orgDetails && usersDetails) {%>
+                              <!-- Task Name -->
+                <div class="mb-3">
+                  <label for="task-name" class="form-label">Task Name</label>
+                  <input type="text" class="form-control" id="task-name" placeholder="Enter task name" required>
+                </div>
 
-              <!-- Description -->
-              <div class="mb-3">
-                <label for="description" class="form-label">Task Description</label>
-                <textarea class="form-control" id="description" rows="4" placeholder="Enter task description"></textarea>
-              </div>
+                <!-- Description -->
+                <div class="mb-3">
+                  <label for="description" class="form-label">Task Description</label>
+                  <textarea class="form-control" id="description" rows="4" name="description" placeholder="Enter task description"></textarea>
+                </div>
 
-              <!-- Hours Required -->
-              <div class="mb-3">
-                <label for="hours" class="form-label">Hours Required</label>
-                <input type="number" class="form-control" id="hours" min="1" placeholder="Enter number of hours" required>
-              </div>
+                <!-- Hours Required -->
+                <div class="mb-3">
+                  <label for="hours" class="form-label">Hours Required</label>
+                  <input type="number" class="form-control" id="hours" name="hours" min="1" placeholder="Enter number of hours" required>
+                </div>
 
-              <div class="mb-3">
-                <label for="days" class="form-label">Hours Required</label>
-                <input type="number" class="form-control" id="days" min="1" placeholder="Enter number of days" required>
-              </div>
+                <div class="mb-3">
+                  <label for="days" class="form-label">Days Required</label>
+                  <input type="number" class="form-control" id="days" min="1" name="days" placeholder="Enter number of days" required>
+                </div>
 
-              <!-- Submit Button -->
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Create Task</button>
-              </div>
+                <!-- Submit Button -->
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">Create Task</button>
+                </div>
+              <%}%>
 
             </form>
           </div>
