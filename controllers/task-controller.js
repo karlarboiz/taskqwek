@@ -24,12 +24,13 @@ const taskPage = async(req,res,next)=>{
     route._rootName = CommonValues.TASK;
     route._role = role;
     route._id =id;
+    const routePage = route.createPageRoute();
 
     const orgPage = new OrganizationPage();
     orgPage._role = role;
     orgPage._id =id;
 
-    const routePage = route.createPageRoute();
+
 
     const projectControls = new ProjectControls();
     projectControls._userId = id;
@@ -38,7 +39,7 @@ const taskPage = async(req,res,next)=>{
             leaderProjects
         } 
 
-    if(projectId){
+    if(projectId){ 
         const leaderOrgs = await orgPage.getOrgList(projectId);
         
         pageDetails.leaderOrgs = leaderOrgs;
@@ -61,15 +62,30 @@ const taskPage = async(req,res,next)=>{
   
             const userListItems = userListUnderOrg.map(val=>val?.dataValues?.user_assigned_user_id);
             const userControls = new UserControls();
-            const usersDetails = await userControls.getUsersInfosByUserIds(userListItems);
-            console.log(usersDetails)
-            return res.render(routePage,{
+            const memberList = await userControls.getUsersInfosByUserIds(userListItems);
+
+            pageDetails.memberList = memberList; 
+            if(memberId){
+                userControls._userId = memberId;
+                const usersDetails = await userControls.getUserInfoByUserId();
+                return res.render(routePage,{
                         role:role,
                         activeLink: "task",
                         pageDetails:pageDetails,
                         projectDetails:projectDetails,
                         orgDetails:orgDetails,
                         usersDetails:usersDetails
+                    })
+
+            }
+      
+            return res.render(routePage,{
+                        role:role,
+                        activeLink: "task",
+                        pageDetails:pageDetails,
+                        projectDetails:projectDetails,
+                        orgDetails:orgDetails,
+                        usersDetails:null
                     })
 
         } 
@@ -100,22 +116,24 @@ const taskPageCustomize = async(req,res,next)=>{
      const {projectId,orgId} =req.query;
 
 }
-
+ 
 const taskCreationHandler = async(req,res)=>{
     
     const projectId = req.body["project-options"];
     const orgId = req.body["organization-options"];    
     const memberId = req.body["member-options"];
+    console.log(projectId);
+    console.log(orgId);
+    console.log(memberId);
+    if(projectId && !orgId && !memberId){
+        
+        return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}`);
+    }else if(projectId && orgId && !memberId){
+        return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}&orgId=${orgId}`);
+    }
 
-    if(!projectId || !orgId || !memberId){
-        if(projectId && !orgId){
-            return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}`);
-        }else if(projectId && orgId && !memberId){
-            return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}&orgId=${orgId}`);
-        }
-    }else {
-            return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}&orgId=${orgId}&memberId=${memberId}`);
-        }
+    return res.redirect(RouteNames.TASK_TASK_PAGE + `?projectId=${projectId}&orgId=${orgId}&memberId=${memberId}`);
+        
 
 }
 

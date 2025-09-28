@@ -45,21 +45,29 @@
                 <% } %>
               
               <%} else {%>
-                   <input type="hidden" value="<%=orgDetails._id%>" name="project-options">
+                   <input type="hidden" value="<%=orgDetails._id%>" name="organization-options">
                   <p class="text-decoration-underline"><%= orgDetails.name %></p>
               <%} %>
 
-              <% if(usersDetails) {%>
-                <div class="mb-3">
-                <label for="organization-options" class="form-label">Members</label>
-                <select name="member-options" class="form-select" id="member-options">
-                  <option value="" selected disabled>Choose Member</option>
-                  <% for (let i = 0; i < usersDetails.length; i++) { %>
-                  <option value="<%= usersDetails[i]._id %>"> <%=usersDetails[i].firstName + " " + usersDetails[i].lastName %></option>
-                  <% } %>
-                </select>
-              </div>
-              <%}%>
+              <% if(!usersDetails) {%>
+
+                <% if(pageDetails?.memberList) {%>
+                  <div class="mb-3">
+                  <label for="member-options" class="form-label">Members</label>
+                  <select name="member-options" class="form-select" id="member-options">
+                    <option value="" selected disabled>Choose Member</option>
+                    <% for (let i = 0; i < pageDetails?.memberList?.length; i++) { %>
+                    <option value="<%= pageDetails?.memberList[i]?._id %>"> <%=pageDetails?.memberList[i]?.firstName + " " + pageDetails?.memberList[i]?.lastName %></option>
+                    <% } %>
+                  </select>
+                </div>
+                <% } %>
+
+                
+              <%} else {%>
+                <input type="hidden" value="<%=usersDetails._id%>" name="member-options">
+                  <p class="text-decoration-underline"><%= usersDetails.firstName + " " + usersDetails.lastName %></p>
+              <% }%>
 
               <!-- Task Name -->
               <div class="mb-3">

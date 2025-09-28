@@ -19,10 +19,16 @@ class UserControls extends BaseModelControls{
     }
 
     async getUsersInfosByUserIds(userIds){
-        const objectIds = userIds.map(id => new mongoose.Types.ObjectId(id));
+
         const users = await UserGeneralInfo.find({ _id: { $in: userIds },deleteFlg:false });
 
         return users;
+    }
+
+    async getUsersInfoByUserId(){
+        const userInfo = await UserGeneralInfo.findById(userId);
+
+        return userInfo;
     }
 }
 
